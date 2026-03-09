@@ -3,18 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI/src/EmployeeListFrame.java</file>
-            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI/src/LoginFrame.java</file>
-            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI/src/MainFrame.java</file>
-            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI/src/NewEmployeeFrame.java</file>
-            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI/src/SalaryDetailsPanel.java</file>
-            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI/src/EmployeeDetailsHelper.java</file>
-            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI/src/EmployeeInfoPanel.java</file>
-            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI/src/ModifyEmployeeFrame.java</file>
-            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI/src/CSVHelper.java</file>
-            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI/src/EmployeeDetailsFrame.java</file>
-            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI/src/SalaryComputationHelper.java</file>
-            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI/src/MandatoryDeductionsHelper.java</file>
+            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI-oop/src/dao/EmployeeDAO.java</file>
+            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI-oop/src/resources/MotorPH-Employee-Data-Accounts.csv</file>
+            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI-oop/src/models/EmpStatus.java</file>
+            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI-oop/src/models/Departments.java</file>
+            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI-oop/src/models/Employee.java</file>
+            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI-oop/src/models/UserAccount.java</file>
+            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI-oop/src/dao/UserAccountsDAO.java</file>
+            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI-oop/src/CSVHelper.java</file>
+            <file>file:/C:/Users/Winter%20Melon/Documents/NetBeansProjects/MotorPHPortalGUI-oop/src/EmployeeAttendanceHelper.java</file>
         </group>
     </open-files>
 </project-private>
