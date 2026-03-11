@@ -9,14 +9,16 @@ package models;
  * @author Winter Melon
  */
 public class UserAccount {
-    private String employeeId; //USERNAME
+    private String employeeId; // USERNAME
     private String password;
-    private Departments role;
+    private String role; // FOR FUTURE IMPLEMENTATIONS WE WILL USE DEPARTMENTS INSTEAD
+    private Departments department; // FOR RBAC (DEPARTMENTALIZED)
     
-    public UserAccount(String employeeId, String password, Departments role) {
+    public UserAccount(String employeeId, String password, String role, Departments department) {
         this.employeeId = employeeId;
         this.password = password;
         this.role = role;
+        this.department = department;
     }
 
     // GETTERS
@@ -28,9 +30,12 @@ public class UserAccount {
         return password;
     }
 
-    public Departments getRole() {
+    public String getRole() {
         return role;
     }
     
+    public Departments getDepartment() {
+        return department;
+    }
     
 }
