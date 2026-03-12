@@ -23,6 +23,7 @@ public class MainDashboard extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         pnlSidebar = new javax.swing.JPanel();
         pnlLogo = new javax.swing.JPanel();
@@ -35,8 +36,8 @@ public class MainDashboard extends javax.swing.JFrame {
         btnMyPayslip = new javax.swing.JButton();
         btnReqLeave = new javax.swing.JButton();
         pnlNavHR = new javax.swing.JPanel();
-        btnManageEmp = new javax.swing.JButton();
-        btnLeaveRec = new javax.swing.JButton();
+        btnEmpManage = new javax.swing.JButton();
+        pnlLeaveRec = new javax.swing.JButton();
         btnAttendanceRec = new javax.swing.JButton();
         pnlNavFinance = new javax.swing.JPanel();
         btnPayroll = new javax.swing.JButton();
@@ -50,7 +51,7 @@ public class MainDashboard extends javax.swing.JFrame {
         pnlMain = new javax.swing.JPanel();
         pnlHeader = new javax.swing.JPanel();
         pnlHeaderWest = new javax.swing.JPanel();
-        lblBreadcrumb = new javax.swing.JLabel();
+        lblPageTitle = new javax.swing.JLabel();
         pnlHeaderEast = new javax.swing.JPanel();
         pnlNameTag = new javax.swing.JPanel();
         lblNameTag = new javax.swing.JLabel();
@@ -90,8 +91,256 @@ public class MainDashboard extends javax.swing.JFrame {
         btnContactHR = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JSeparator();
         btnContactFinance = new javax.swing.JButton();
+        pnlEmployee = new javax.swing.JPanel();
+        tabEmployee = new javax.swing.JTabbedPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        pnlMyProfile = new javax.swing.JPanel();
+        pnlMyProfileRow1 = new javax.swing.JPanel();
+        lblMyProfilePic = new javax.swing.JLabel();
+        pnlMyProfileEmployeeDetails = new javax.swing.JPanel();
+        lblEmployeeID = new javax.swing.JLabel();
+        lblFullName = new javax.swing.JLabel();
+        pnlMyProfileRow2 = new javax.swing.JPanel();
+        pnlMyProfileEmployee = new javax.swing.JPanel();
+        lblDepartment = new javax.swing.JLabel();
+        txtDepartment = new javax.swing.JLabel();
+        lblPosition = new javax.swing.JLabel();
+        txtPosition = new javax.swing.JLabel();
+        lblStatus = new javax.swing.JLabel();
+        txtStatus = new javax.swing.JLabel();
+        lblSupervisor = new javax.swing.JLabel();
+        txtSupervisor = new javax.swing.JLabel();
+        vGlue = new javax.swing.JLabel();
+        pnlMyProfilePersonal = new javax.swing.JPanel();
+        lblBirthday = new javax.swing.JLabel();
+        txtBirthday = new javax.swing.JLabel();
+        lblPhoneNumber = new javax.swing.JLabel();
+        txtPhoneNumber = new javax.swing.JLabel();
+        lblAddress = new javax.swing.JLabel();
+        txtAddress = new javax.swing.JTextArea();
+        vGlue1 = new javax.swing.JLabel();
+        pnlMyProfileRow3 = new javax.swing.JPanel();
+        pnlMyProfileStatutory = new javax.swing.JPanel();
+        lblTIN = new javax.swing.JLabel();
+        txtTIN = new javax.swing.JLabel();
+        lblSSS = new javax.swing.JLabel();
+        txtSSS = new javax.swing.JLabel();
+        lblPhilHealth = new javax.swing.JLabel();
+        txtPhilHealth = new javax.swing.JLabel();
+        lblPagibig = new javax.swing.JLabel();
+        txtPagibig = new javax.swing.JLabel();
+        vGlue4 = new javax.swing.JLabel();
+        pnlMyProfileSalary = new javax.swing.JPanel();
+        lblBasicRate = new javax.swing.JLabel();
+        txtBasicRate = new javax.swing.JLabel();
+        lblGrossSemi = new javax.swing.JLabel();
+        txtGrossSemi = new javax.swing.JLabel();
+        lblHourlyRate = new javax.swing.JLabel();
+        txtHourlyRate = new javax.swing.JLabel();
+        vGlue3 = new javax.swing.JLabel();
+        pnlMyProfileAllowance = new javax.swing.JPanel();
+        lblRiceSubsidy = new javax.swing.JLabel();
+        txtRiceSubsidy = new javax.swing.JLabel();
+        lblPhoneAllowance = new javax.swing.JLabel();
+        txtPhoneAllowance = new javax.swing.JLabel();
+        lblClothingAllowance = new javax.swing.JLabel();
+        txtClothingAllowance = new javax.swing.JLabel();
+        vGlue2 = new javax.swing.JLabel();
+        vGlue8 = new javax.swing.JLabel();
+        pnlMyProfileVGlue = new javax.swing.JLabel();
+        pnlEmpManage = new javax.swing.JPanel();
+        pnlEmpManageCtrl = new javax.swing.JPanel();
+        pnlEmpManageSearch = new javax.swing.JPanel();
+        lblEmpManageSearch = new javax.swing.JLabel();
+        txtEmpManageSearch = new javax.swing.JTextField();
+        btnEmpManageSearch = new javax.swing.JButton();
+        pnlEmpManageButtons = new javax.swing.JPanel();
+        btnEmpManageAdd = new javax.swing.JButton();
+        btnEmpManageEdit = new javax.swing.JButton();
+        btnEmpManageDelete = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblEmpManageList = new javax.swing.JTable();
+        pnlAttendance = new javax.swing.JPanel();
+        tabAttendance = new javax.swing.JTabbedPane();
+        pnlMyAttendance = new javax.swing.JPanel();
+        pnlMyAttendanceCtrl = new javax.swing.JPanel();
+        txtMyAttendanceSearch = new javax.swing.JTextField();
+        drpMyAttendanceMonth = new javax.swing.JComboBox<>();
+        drpMyAttendanceYear = new javax.swing.JComboBox<>();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tblMyAttendance = new javax.swing.JTable();
+        pnlAttendanceRec = new javax.swing.JPanel();
+        pnlAttendanceRecCtrl = new javax.swing.JPanel();
+        txtAttendanceSearch = new javax.swing.JTextField();
+        drpAttendanceMonth = new javax.swing.JComboBox<>();
+        drpAttendanceYear = new javax.swing.JComboBox<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblAttendanceRec = new javax.swing.JTable();
+        pnlReqLeave = new javax.swing.JPanel();
+        pnlReqLeaveCtrl = new javax.swing.JPanel();
+        drpReqLeaveType = new javax.swing.JComboBox<>();
+        txtReqLeaveStart = new javax.swing.JFormattedTextField();
+        txtReqLeaveEnd = new javax.swing.JFormattedTextField();
+        txtReqLeaveReason = new javax.swing.JTextField();
+        btnReqLeaveSend = new javax.swing.JButton();
+        btnReqLeaveClear = new javax.swing.JButton();
+        pnlPReqLeaveVGlue10 = new javax.swing.JLabel();
+        jSplitPane2 = new javax.swing.JSplitPane();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        tblReqLeave = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        pnlReqLeaveMsg = new javax.swing.JPanel();
+        pnlReqLeaveReason = new javax.swing.JPanel();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        txtReqLeaveReason1 = new javax.swing.JTextArea();
+        vGlue14 = new javax.swing.JLabel();
+        pnlReqLeaveDecision = new javax.swing.JPanel();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        txtReqLeaveDecision = new javax.swing.JTextArea();
+        vGlue15 = new javax.swing.JLabel();
+        pnlPLeaveRecVGlue11 = new javax.swing.JLabel();
+        pnlLeaveRecords = new javax.swing.JPanel();
+        pnlLeaveRecCtrl = new javax.swing.JPanel();
+        txtLeaveRecSearch = new javax.swing.JTextField();
+        drpLeaveRecMonth = new javax.swing.JComboBox<>();
+        drpLeaveRecYear = new javax.swing.JComboBox<>();
+        drpLeaveRecStatus = new javax.swing.JComboBox<>();
+        pnlPLeaveRecVGlue9 = new javax.swing.JLabel();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tblLeaveRec = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        pnlLeaveRecMsg = new javax.swing.JPanel();
+        pnlLeaveRecReason = new javax.swing.JPanel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        txtLeaveRecReason = new javax.swing.JTextArea();
+        vGlue12 = new javax.swing.JLabel();
+        pnlLeaveRecDecision = new javax.swing.JPanel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        txtLeaveRecDecision = new javax.swing.JTextArea();
+        jPanel4 = new javax.swing.JPanel();
+        btnLeaveRecApprove = new javax.swing.JButton();
+        btnLeaveRecReject = new javax.swing.JButton();
+        vGlue13 = new javax.swing.JLabel();
+        pnlLeaveRecVGlue8 = new javax.swing.JLabel();
+        pnlPayroll = new javax.swing.JPanel();
+        tabPayroll = new javax.swing.JTabbedPane();
+        pnlMyPayroll = new javax.swing.JPanel();
+        pnlMyPayrollCtrl = new javax.swing.JPanel();
+        drpMyPayrollMonth = new javax.swing.JComboBox<>();
+        drpMyPayrollPeriod = new javax.swing.JComboBox<>();
+        drpMyPayrollYear = new javax.swing.JComboBox<>();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        pnlMyPayrollRow1 = new javax.swing.JPanel();
+        lblPayrollEID = new javax.swing.JLabel();
+        txtPayrollEID = new javax.swing.JLabel();
+        lblPayrollName = new javax.swing.JLabel();
+        txtPayrollName = new javax.swing.JLabel();
+        lblPayrollDate = new javax.swing.JLabel();
+        txtPayrollDate = new javax.swing.JLabel();
+        pnlMyPayrollVGlue1 = new javax.swing.JLabel();
+        pnlMyPayrollRow2 = new javax.swing.JPanel();
+        pnlMyPayrollEarnings = new javax.swing.JPanel();
+        lblMyBasicPay = new javax.swing.JLabel();
+        txtMyBasicPay = new javax.swing.JLabel();
+        lblMyAllowancePay = new javax.swing.JLabel();
+        txtMyAllowancePay = new javax.swing.JLabel();
+        lblMyOvertimePay = new javax.swing.JLabel();
+        txtMyOvertimePay = new javax.swing.JLabel();
+        vGlue6 = new javax.swing.JLabel();
+        pnlMyPayrollDeductions = new javax.swing.JPanel();
+        lblMyLateDeduc = new javax.swing.JLabel();
+        txtMyLateDeduc = new javax.swing.JLabel();
+        lblMyTaxDeduc = new javax.swing.JLabel();
+        txtMyTaxDeduc = new javax.swing.JLabel();
+        lblMySSSDeduc = new javax.swing.JLabel();
+        txtMySSSDeduc = new javax.swing.JLabel();
+        lblMyPhilHealthDeduc = new javax.swing.JLabel();
+        txtMyPhilHealthDeduc = new javax.swing.JLabel();
+        lblMyPagibigDeduc = new javax.swing.JLabel();
+        txtMyPagibigDeduc = new javax.swing.JLabel();
+        vGlue5 = new javax.swing.JLabel();
+        pnlMyPayrollVGlue2 = new javax.swing.JLabel();
+        pnlMyPayrollRow3 = new javax.swing.JPanel();
+        pnlMyPayrollSummary = new javax.swing.JPanel();
+        lblMyGrossPay = new javax.swing.JLabel();
+        txtMyGrossPay = new javax.swing.JLabel();
+        lblMyTotalDeductions = new javax.swing.JLabel();
+        txtMyTotalDeductions = new javax.swing.JLabel();
+        lblMyNetPay = new javax.swing.JLabel();
+        txtMyNetPay = new javax.swing.JLabel();
+        vGlue7 = new javax.swing.JLabel();
+        pnlMyPayrollVGlue3 = new javax.swing.JLabel();
+        pnlMyPayrollVGlue = new javax.swing.JLabel();
+        pnlPayrollRec = new javax.swing.JPanel();
+        pnlPayrollRecCtrl = new javax.swing.JPanel();
+        txtPayrollRecSearch = new javax.swing.JTextField();
+        drpPayrollRecMonth = new javax.swing.JComboBox<>();
+        drpPayrollRecPeriod = new javax.swing.JComboBox<>();
+        drpPayrollRecYear = new javax.swing.JComboBox<>();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jPanel2 = new javax.swing.JPanel();
+        pnlPayrollRecRow1 = new javax.swing.JPanel();
+        lblPayrollRecID = new javax.swing.JLabel();
+        txtPayrollRecEID = new javax.swing.JLabel();
+        lblPayrollRecName = new javax.swing.JLabel();
+        txtPayrollRecName = new javax.swing.JLabel();
+        lblPayrollRecDate = new javax.swing.JLabel();
+        txtPayrollRecDate = new javax.swing.JLabel();
+        pnlPayrollRecVGlue4 = new javax.swing.JLabel();
+        pnlPayrollRecRow2 = new javax.swing.JPanel();
+        pnlPayrollRecEarnings = new javax.swing.JPanel();
+        lblBasicPay = new javax.swing.JLabel();
+        txtBasicPay = new javax.swing.JLabel();
+        lblAllowancePay = new javax.swing.JLabel();
+        txtAllowancePay = new javax.swing.JLabel();
+        lblOvertimePay = new javax.swing.JLabel();
+        txtOvertimePay = new javax.swing.JLabel();
+        vGlue9 = new javax.swing.JLabel();
+        pnlPayrollRecDeductions = new javax.swing.JPanel();
+        lblLateDeduc = new javax.swing.JLabel();
+        txtLateDeduc = new javax.swing.JLabel();
+        lblTaxDeduc = new javax.swing.JLabel();
+        txtTaxDeduc = new javax.swing.JLabel();
+        lblSSSDeduc = new javax.swing.JLabel();
+        txtSSSDeduc = new javax.swing.JLabel();
+        lblPhilHealthDeduc = new javax.swing.JLabel();
+        txtPhilHealthDeduc = new javax.swing.JLabel();
+        lblPagibigDeduc = new javax.swing.JLabel();
+        txtPagibigDeduc = new javax.swing.JLabel();
+        vGlue10 = new javax.swing.JLabel();
+        pnlPayrollRecVGlue5 = new javax.swing.JLabel();
+        pnlPayrollRecRow3 = new javax.swing.JPanel();
+        pnlPayrollRecSummary = new javax.swing.JPanel();
+        lblGrossPay = new javax.swing.JLabel();
+        txtGrossPay = new javax.swing.JLabel();
+        lblTotalDeductions = new javax.swing.JLabel();
+        txtTotalDeductions = new javax.swing.JLabel();
+        lblNetPay = new javax.swing.JLabel();
+        txtNetPay = new javax.swing.JLabel();
+        vGlue11 = new javax.swing.JLabel();
+        pnlPayrollRecVGlue6 = new javax.swing.JLabel();
+        pnlPayrollRecVGlue7 = new javax.swing.JLabel();
+        pnlStatutory = new javax.swing.JPanel();
+        lblStatutoryNotice = new javax.swing.JLabel();
+        pnlIT = new javax.swing.JPanel();
+        tabUserAccounts = new javax.swing.JTabbedPane();
+        pnlUserAccounts = new javax.swing.JPanel();
+        pnlUserManageCtrl = new javax.swing.JPanel();
+        pnlUserManageSearch = new javax.swing.JPanel();
+        lblEmpManageSearch1 = new javax.swing.JLabel();
+        txtEmpManageSearch1 = new javax.swing.JTextField();
+        btnEmpManageSearch1 = new javax.swing.JButton();
+        pnlUserManageButtons = new javax.swing.JPanel();
+        btnUserAdd = new javax.swing.JButton();
+        btnUserEdit = new javax.swing.JButton();
+        btnUserDelete = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblUserAccounts = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1100, 750));
 
         pnlSidebar.setBackground(new java.awt.Color(204, 255, 204));
         pnlSidebar.setPreferredSize(new java.awt.Dimension(150, 700));
@@ -173,28 +422,28 @@ public class MainDashboard extends javax.swing.JFrame {
         pnlNavHR.setMinimumSize(new java.awt.Dimension(150, 0));
         pnlNavHR.setLayout(new javax.swing.BoxLayout(pnlNavHR, javax.swing.BoxLayout.Y_AXIS));
 
-        btnManageEmp.setText("Employee List");
-        btnManageEmp.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnManageEmp.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnManageEmp.setMargin(new java.awt.Insets(0, 20, 0, 0));
-        btnManageEmp.setMaximumSize(new java.awt.Dimension(150, 45));
-        btnManageEmp.setMinimumSize(new java.awt.Dimension(150, 45));
-        btnManageEmp.setPreferredSize(new java.awt.Dimension(150, 45));
-        pnlNavHR.add(btnManageEmp);
+        btnEmpManage.setText("Employee Management");
+        btnEmpManage.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnEmpManage.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEmpManage.setMargin(new java.awt.Insets(0, 20, 0, 0));
+        btnEmpManage.setMaximumSize(new java.awt.Dimension(150, 45));
+        btnEmpManage.setMinimumSize(new java.awt.Dimension(150, 45));
+        btnEmpManage.setPreferredSize(new java.awt.Dimension(150, 45));
+        pnlNavHR.add(btnEmpManage);
 
-        btnLeaveRec.setText("Leave Requests");
-        btnLeaveRec.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnLeaveRec.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnLeaveRec.setMargin(new java.awt.Insets(0, 20, 0, 0));
-        btnLeaveRec.setMaximumSize(new java.awt.Dimension(150, 45));
-        btnLeaveRec.setMinimumSize(new java.awt.Dimension(150, 45));
-        btnLeaveRec.setPreferredSize(new java.awt.Dimension(150, 45));
-        btnLeaveRec.addActionListener(new java.awt.event.ActionListener() {
+        pnlLeaveRec.setText("Leave Records");
+        pnlLeaveRec.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        pnlLeaveRec.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnlLeaveRec.setMargin(new java.awt.Insets(0, 20, 0, 0));
+        pnlLeaveRec.setMaximumSize(new java.awt.Dimension(150, 45));
+        pnlLeaveRec.setMinimumSize(new java.awt.Dimension(150, 45));
+        pnlLeaveRec.setPreferredSize(new java.awt.Dimension(150, 45));
+        pnlLeaveRec.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLeaveRecActionPerformed(evt);
+                pnlLeaveRecActionPerformed(evt);
             }
         });
-        pnlNavHR.add(btnLeaveRec);
+        pnlNavHR.add(pnlLeaveRec);
 
         btnAttendanceRec.setText("Attendance Records");
         btnAttendanceRec.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -234,7 +483,7 @@ public class MainDashboard extends javax.swing.JFrame {
         });
         pnlNavFinance.add(btnSalaryDetails);
 
-        btnStatutory.setText("Deductions Table");
+        btnStatutory.setText("Deduction Tables");
         btnStatutory.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnStatutory.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnStatutory.setMargin(new java.awt.Insets(0, 20, 0, 0));
@@ -310,9 +559,9 @@ public class MainDashboard extends javax.swing.JFrame {
         pnlHeaderWest.setOpaque(false);
         pnlHeaderWest.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 15, 15));
 
-        lblBreadcrumb.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblBreadcrumb.setText("Breadcrumb");
-        pnlHeaderWest.add(lblBreadcrumb);
+        lblPageTitle.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblPageTitle.setText("Page Title");
+        pnlHeaderWest.add(lblPageTitle);
 
         pnlHeader.add(pnlHeaderWest, java.awt.BorderLayout.WEST);
 
@@ -496,7 +745,2365 @@ public class MainDashboard extends javax.swing.JFrame {
 
         pnlDashboard.add(pnlRow3);
 
-        pnlContent.add(pnlDashboard, "card2");
+        pnlContent.add(pnlDashboard, "cardDashboard");
+
+        pnlEmployee.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlEmployee.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane2.setBorder(null);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        pnlMyProfile.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMyProfile.setPreferredSize(new java.awt.Dimension(930, 800));
+        pnlMyProfile.setLayout(new java.awt.GridBagLayout());
+
+        pnlMyProfileRow1.setOpaque(false);
+        pnlMyProfileRow1.setLayout(new java.awt.BorderLayout());
+
+        lblMyProfilePic.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMyProfilePic.setText("My Profile Pic");
+        lblMyProfilePic.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        lblMyProfilePic.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblMyProfilePic.setOpaque(true);
+        lblMyProfilePic.setPreferredSize(new java.awt.Dimension(200, 200));
+        pnlMyProfileRow1.add(lblMyProfilePic, java.awt.BorderLayout.WEST);
+
+        pnlMyProfileEmployeeDetails.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 10, 1, 1));
+        pnlMyProfileEmployeeDetails.setOpaque(false);
+        pnlMyProfileEmployeeDetails.setLayout(new java.awt.GridBagLayout());
+
+        lblEmployeeID.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblEmployeeID.setText("Employee ID");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
+        pnlMyProfileEmployeeDetails.add(lblEmployeeID, gridBagConstraints);
+
+        lblFullName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblFullName.setText("Full Name");
+        lblFullName.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 0);
+        pnlMyProfileEmployeeDetails.add(lblFullName, gridBagConstraints);
+
+        pnlMyProfileRow1.add(pnlMyProfileEmployeeDetails, java.awt.BorderLayout.CENTER);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(20, 33, 20, 20);
+        pnlMyProfile.add(pnlMyProfileRow1, gridBagConstraints);
+
+        pnlMyProfileRow2.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMyProfileRow2.setLayout(new java.awt.GridBagLayout());
+
+        pnlMyProfileEmployee.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Personal Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlMyProfileEmployee.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlMyProfileEmployee.setOpaque(false);
+        pnlMyProfileEmployee.setLayout(new java.awt.GridBagLayout());
+
+        lblDepartment.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblDepartment.setForeground(new java.awt.Color(140, 140, 140));
+        lblDepartment.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblDepartment.setText("Department:");
+        lblDepartment.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileEmployee.add(lblDepartment, gridBagConstraints);
+
+        txtDepartment.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtDepartment.setForeground(new java.awt.Color(30, 30, 30));
+        txtDepartment.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtDepartment.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileEmployee.add(txtDepartment, gridBagConstraints);
+
+        lblPosition.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblPosition.setForeground(new java.awt.Color(140, 140, 140));
+        lblPosition.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPosition.setText("Position:");
+        lblPosition.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileEmployee.add(lblPosition, gridBagConstraints);
+
+        txtPosition.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPosition.setForeground(new java.awt.Color(30, 30, 30));
+        txtPosition.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtPosition.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileEmployee.add(txtPosition, gridBagConstraints);
+
+        lblStatus.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblStatus.setForeground(new java.awt.Color(140, 140, 140));
+        lblStatus.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblStatus.setText("Status:");
+        lblStatus.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileEmployee.add(lblStatus, gridBagConstraints);
+
+        txtStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtStatus.setForeground(new java.awt.Color(30, 30, 30));
+        txtStatus.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtStatus.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileEmployee.add(txtStatus, gridBagConstraints);
+
+        lblSupervisor.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblSupervisor.setForeground(new java.awt.Color(140, 140, 140));
+        lblSupervisor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblSupervisor.setText("Immediate Supervisor:");
+        lblSupervisor.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileEmployee.add(lblSupervisor, gridBagConstraints);
+
+        txtSupervisor.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtSupervisor.setForeground(new java.awt.Color(30, 30, 30));
+        txtSupervisor.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtSupervisor.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileEmployee.add(txtSupervisor, gridBagConstraints);
+
+        vGlue.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlMyProfileEmployee.add(vGlue, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlMyProfileRow2.add(pnlMyProfileEmployee, gridBagConstraints);
+
+        pnlMyProfilePersonal.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Personal Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlMyProfilePersonal.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlMyProfilePersonal.setOpaque(false);
+        pnlMyProfilePersonal.setLayout(new java.awt.GridBagLayout());
+
+        lblBirthday.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblBirthday.setForeground(new java.awt.Color(140, 140, 140));
+        lblBirthday.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblBirthday.setText("Birthday:");
+        lblBirthday.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfilePersonal.add(lblBirthday, gridBagConstraints);
+
+        txtBirthday.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtBirthday.setForeground(new java.awt.Color(30, 30, 30));
+        txtBirthday.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtBirthday.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfilePersonal.add(txtBirthday, gridBagConstraints);
+
+        lblPhoneNumber.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblPhoneNumber.setForeground(new java.awt.Color(140, 140, 140));
+        lblPhoneNumber.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPhoneNumber.setText("Phone Number:");
+        lblPhoneNumber.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfilePersonal.add(lblPhoneNumber, gridBagConstraints);
+
+        txtPhoneNumber.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPhoneNumber.setForeground(new java.awt.Color(30, 30, 30));
+        txtPhoneNumber.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtPhoneNumber.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfilePersonal.add(txtPhoneNumber, gridBagConstraints);
+
+        lblAddress.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblAddress.setForeground(new java.awt.Color(140, 140, 140));
+        lblAddress.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblAddress.setText("Address:");
+        lblAddress.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfilePersonal.add(lblAddress, gridBagConstraints);
+
+        txtAddress.setEditable(false);
+        txtAddress.setLineWrap(true);
+        txtAddress.setRows(4);
+        txtAddress.setBorder(null);
+        txtAddress.setFocusable(false);
+        txtAddress.setMinimumSize(new java.awt.Dimension(10, 10));
+        txtAddress.setOpaque(false);
+        txtAddress.setPreferredSize(new java.awt.Dimension(0, 0));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfilePersonal.add(txtAddress, gridBagConstraints);
+
+        vGlue1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue1.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlMyProfilePersonal.add(vGlue1, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlMyProfileRow2.add(pnlMyProfilePersonal, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 20);
+        pnlMyProfile.add(pnlMyProfileRow2, gridBagConstraints);
+
+        pnlMyProfileRow3.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMyProfileRow3.setLayout(new java.awt.GridBagLayout());
+
+        pnlMyProfileStatutory.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Statutory Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlMyProfileStatutory.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlMyProfileStatutory.setOpaque(false);
+        pnlMyProfileStatutory.setLayout(new java.awt.GridBagLayout());
+
+        lblTIN.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblTIN.setForeground(new java.awt.Color(140, 140, 140));
+        lblTIN.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTIN.setText("TIN #:");
+        lblTIN.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileStatutory.add(lblTIN, gridBagConstraints);
+
+        txtTIN.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTIN.setForeground(new java.awt.Color(30, 30, 30));
+        txtTIN.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtTIN.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileStatutory.add(txtTIN, gridBagConstraints);
+
+        lblSSS.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblSSS.setForeground(new java.awt.Color(140, 140, 140));
+        lblSSS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblSSS.setText("SSS #:");
+        lblSSS.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileStatutory.add(lblSSS, gridBagConstraints);
+
+        txtSSS.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtSSS.setForeground(new java.awt.Color(30, 30, 30));
+        txtSSS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtSSS.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileStatutory.add(txtSSS, gridBagConstraints);
+
+        lblPhilHealth.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblPhilHealth.setForeground(new java.awt.Color(140, 140, 140));
+        lblPhilHealth.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPhilHealth.setText("PhilHealth #:");
+        lblPhilHealth.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileStatutory.add(lblPhilHealth, gridBagConstraints);
+
+        txtPhilHealth.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPhilHealth.setForeground(new java.awt.Color(30, 30, 30));
+        txtPhilHealth.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtPhilHealth.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileStatutory.add(txtPhilHealth, gridBagConstraints);
+
+        lblPagibig.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblPagibig.setForeground(new java.awt.Color(140, 140, 140));
+        lblPagibig.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPagibig.setText("Pagibig #:");
+        lblPagibig.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileStatutory.add(lblPagibig, gridBagConstraints);
+
+        txtPagibig.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPagibig.setForeground(new java.awt.Color(30, 30, 30));
+        txtPagibig.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtPagibig.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileStatutory.add(txtPagibig, gridBagConstraints);
+
+        vGlue4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue4.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlMyProfileStatutory.add(vGlue4, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.33;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        pnlMyProfileRow3.add(pnlMyProfileStatutory, gridBagConstraints);
+
+        pnlMyProfileSalary.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Salary Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlMyProfileSalary.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlMyProfileSalary.setOpaque(false);
+        pnlMyProfileSalary.setLayout(new java.awt.GridBagLayout());
+
+        lblBasicRate.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblBasicRate.setForeground(new java.awt.Color(140, 140, 140));
+        lblBasicRate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblBasicRate.setText("Basic Rate:");
+        lblBasicRate.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileSalary.add(lblBasicRate, gridBagConstraints);
+
+        txtBasicRate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtBasicRate.setForeground(new java.awt.Color(30, 30, 30));
+        txtBasicRate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtBasicRate.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileSalary.add(txtBasicRate, gridBagConstraints);
+
+        lblGrossSemi.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblGrossSemi.setForeground(new java.awt.Color(140, 140, 140));
+        lblGrossSemi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblGrossSemi.setText("Gross Semi-Monthly:");
+        lblGrossSemi.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileSalary.add(lblGrossSemi, gridBagConstraints);
+
+        txtGrossSemi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtGrossSemi.setForeground(new java.awt.Color(30, 30, 30));
+        txtGrossSemi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtGrossSemi.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileSalary.add(txtGrossSemi, gridBagConstraints);
+
+        lblHourlyRate.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblHourlyRate.setForeground(new java.awt.Color(140, 140, 140));
+        lblHourlyRate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblHourlyRate.setText("Hourly Rate:");
+        lblHourlyRate.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileSalary.add(lblHourlyRate, gridBagConstraints);
+
+        txtHourlyRate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtHourlyRate.setForeground(new java.awt.Color(30, 30, 30));
+        txtHourlyRate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtHourlyRate.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileSalary.add(txtHourlyRate, gridBagConstraints);
+
+        vGlue3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue3.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue3.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlMyProfileSalary.add(vGlue3, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.33;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        pnlMyProfileRow3.add(pnlMyProfileSalary, gridBagConstraints);
+
+        pnlMyProfileAllowance.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Allowance Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlMyProfileAllowance.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlMyProfileAllowance.setOpaque(false);
+        pnlMyProfileAllowance.setLayout(new java.awt.GridBagLayout());
+
+        lblRiceSubsidy.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblRiceSubsidy.setForeground(new java.awt.Color(140, 140, 140));
+        lblRiceSubsidy.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblRiceSubsidy.setText("Rice Subsidy:");
+        lblRiceSubsidy.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileAllowance.add(lblRiceSubsidy, gridBagConstraints);
+
+        txtRiceSubsidy.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtRiceSubsidy.setForeground(new java.awt.Color(30, 30, 30));
+        txtRiceSubsidy.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtRiceSubsidy.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileAllowance.add(txtRiceSubsidy, gridBagConstraints);
+
+        lblPhoneAllowance.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblPhoneAllowance.setForeground(new java.awt.Color(140, 140, 140));
+        lblPhoneAllowance.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPhoneAllowance.setText("Phone Allowance:");
+        lblPhoneAllowance.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileAllowance.add(lblPhoneAllowance, gridBagConstraints);
+
+        txtPhoneAllowance.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPhoneAllowance.setForeground(new java.awt.Color(30, 30, 30));
+        txtPhoneAllowance.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtPhoneAllowance.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileAllowance.add(txtPhoneAllowance, gridBagConstraints);
+
+        lblClothingAllowance.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblClothingAllowance.setForeground(new java.awt.Color(140, 140, 140));
+        lblClothingAllowance.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblClothingAllowance.setText("Clothing Allowance:");
+        lblClothingAllowance.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyProfileAllowance.add(lblClothingAllowance, gridBagConstraints);
+
+        txtClothingAllowance.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtClothingAllowance.setForeground(new java.awt.Color(30, 30, 30));
+        txtClothingAllowance.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtClothingAllowance.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyProfileAllowance.add(txtClothingAllowance, gridBagConstraints);
+
+        vGlue2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue2.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue2.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlMyProfileAllowance.add(vGlue2, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.33;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
+        pnlMyProfileRow3.add(pnlMyProfileAllowance, gridBagConstraints);
+
+        vGlue8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue8.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue8.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue8.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlMyProfileRow3.add(vGlue8, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 20, 20);
+        pnlMyProfile.add(pnlMyProfileRow3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weighty = 1.0;
+        pnlMyProfile.add(pnlMyProfileVGlue, gridBagConstraints);
+
+        jScrollPane2.setViewportView(pnlMyProfile);
+
+        tabEmployee.addTab("My Profile", jScrollPane2);
+
+        pnlEmpManage.setLayout(new java.awt.BorderLayout());
+
+        pnlEmpManageCtrl.setBackground(new java.awt.Color(255, 255, 255));
+        pnlEmpManageCtrl.setLayout(new java.awt.BorderLayout());
+
+        pnlEmpManageSearch.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnlEmpManageSearch.setOpaque(false);
+        pnlEmpManageSearch.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+
+        lblEmpManageSearch.setText("Search Employee ID:");
+        pnlEmpManageSearch.add(lblEmpManageSearch);
+
+        txtEmpManageSearch.setText("Employee ID");
+        txtEmpManageSearch.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtEmpManageSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEmpManageSearchKeyTyped(evt);
+            }
+        });
+        pnlEmpManageSearch.add(txtEmpManageSearch);
+
+        btnEmpManageSearch.setText("Search");
+        btnEmpManageSearch.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlEmpManageSearch.add(btnEmpManageSearch);
+
+        pnlEmpManageCtrl.add(pnlEmpManageSearch, java.awt.BorderLayout.WEST);
+
+        pnlEmpManageButtons.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnlEmpManageButtons.setOpaque(false);
+        pnlEmpManageButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 5));
+
+        btnEmpManageAdd.setText("Add Employee");
+        btnEmpManageAdd.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlEmpManageButtons.add(btnEmpManageAdd);
+
+        btnEmpManageEdit.setText("Edit Employee");
+        btnEmpManageEdit.setEnabled(false);
+        btnEmpManageEdit.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlEmpManageButtons.add(btnEmpManageEdit);
+
+        btnEmpManageDelete.setText("Delete Employee");
+        btnEmpManageDelete.setEnabled(false);
+        btnEmpManageDelete.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlEmpManageButtons.add(btnEmpManageDelete);
+
+        pnlEmpManageCtrl.add(pnlEmpManageButtons, java.awt.BorderLayout.EAST);
+
+        pnlEmpManage.add(pnlEmpManageCtrl, java.awt.BorderLayout.NORTH);
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        tblEmpManageList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tblEmpManageList.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tblEmpManageList.setFillsViewportHeight(true);
+        tblEmpManageList.setRowHeight(30);
+        tblEmpManageList.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblEmpManageList);
+
+        pnlEmpManage.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        tabEmployee.addTab("Employee Management", pnlEmpManage);
+
+        pnlEmployee.add(tabEmployee, java.awt.BorderLayout.CENTER);
+
+        pnlContent.add(pnlEmployee, "cardEmployee");
+
+        pnlAttendance.setLayout(new java.awt.BorderLayout());
+
+        pnlMyAttendance.setLayout(new java.awt.BorderLayout());
+
+        pnlMyAttendanceCtrl.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtMyAttendanceSearch.setText("Employee ID");
+        txtMyAttendanceSearch.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtMyAttendanceSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMyAttendanceSearchKeyTyped(evt);
+            }
+        });
+        pnlMyAttendanceCtrl.add(txtMyAttendanceSearch);
+
+        drpMyAttendanceMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Month]", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        drpMyAttendanceMonth.setPreferredSize(new java.awt.Dimension(150, 30));
+        drpMyAttendanceMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpMyAttendanceMonthActionPerformed(evt);
+            }
+        });
+        pnlMyAttendanceCtrl.add(drpMyAttendanceMonth);
+
+        drpMyAttendanceYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Year]", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        drpMyAttendanceYear.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnlMyAttendanceCtrl.add(drpMyAttendanceYear);
+
+        pnlMyAttendance.add(pnlMyAttendanceCtrl, java.awt.BorderLayout.NORTH);
+
+        jScrollPane5.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        tblMyAttendance.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        tblMyAttendance.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tblMyAttendance.setFillsViewportHeight(true);
+        tblMyAttendance.setRowHeight(30);
+        tblMyAttendance.getTableHeader().setReorderingAllowed(false);
+        jScrollPane5.setViewportView(tblMyAttendance);
+
+        pnlMyAttendance.add(jScrollPane5, java.awt.BorderLayout.CENTER);
+
+        tabAttendance.addTab("My Attendance", pnlMyAttendance);
+
+        pnlAttendanceRec.setLayout(new java.awt.BorderLayout());
+
+        pnlAttendanceRecCtrl.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtAttendanceSearch.setText("Employee ID");
+        txtAttendanceSearch.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtAttendanceSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAttendanceSearchKeyTyped(evt);
+            }
+        });
+        pnlAttendanceRecCtrl.add(txtAttendanceSearch);
+
+        drpAttendanceMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Month]", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        drpAttendanceMonth.setPreferredSize(new java.awt.Dimension(150, 30));
+        drpAttendanceMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpAttendanceMonthActionPerformed(evt);
+            }
+        });
+        pnlAttendanceRecCtrl.add(drpAttendanceMonth);
+
+        drpAttendanceYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Year]", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        drpAttendanceYear.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnlAttendanceRecCtrl.add(drpAttendanceYear);
+
+        pnlAttendanceRec.add(pnlAttendanceRecCtrl, java.awt.BorderLayout.NORTH);
+
+        jScrollPane4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        tblAttendanceRec.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        tblAttendanceRec.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tblAttendanceRec.setFillsViewportHeight(true);
+        tblAttendanceRec.setRowHeight(30);
+        tblAttendanceRec.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(tblAttendanceRec);
+
+        pnlAttendanceRec.add(jScrollPane4, java.awt.BorderLayout.CENTER);
+
+        tabAttendance.addTab("Attendance Records", pnlAttendanceRec);
+
+        pnlReqLeave.setLayout(new java.awt.BorderLayout());
+
+        pnlReqLeaveCtrl.setBackground(new java.awt.Color(255, 255, 255));
+        pnlReqLeaveCtrl.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Request Leave Form", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(204, 204, 204)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+
+        drpReqLeaveType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Leave Type]", "Sick Leave", "Vacation Leave", "Emergency", "Maternity/Paternity", "Etc" }));
+        drpReqLeaveType.setPreferredSize(new java.awt.Dimension(125, 30));
+        pnlReqLeaveCtrl.add(drpReqLeaveType);
+
+        txtReqLeaveStart.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        txtReqLeaveStart.setText("Start Date: YYYY-MM-DD");
+        txtReqLeaveStart.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnlReqLeaveCtrl.add(txtReqLeaveStart);
+
+        txtReqLeaveEnd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        txtReqLeaveEnd.setText("End Date: YYYY-MM-DD");
+        txtReqLeaveEnd.setPreferredSize(new java.awt.Dimension(150, 30));
+        txtReqLeaveEnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtReqLeaveEndActionPerformed(evt);
+            }
+        });
+        pnlReqLeaveCtrl.add(txtReqLeaveEnd);
+
+        txtReqLeaveReason.setText("Reason");
+        txtReqLeaveReason.setPreferredSize(new java.awt.Dimension(200, 30));
+        pnlReqLeaveCtrl.add(txtReqLeaveReason);
+
+        btnReqLeaveSend.setText("Send Request");
+        btnReqLeaveSend.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlReqLeaveCtrl.add(btnReqLeaveSend);
+
+        btnReqLeaveClear.setText("Clear");
+        btnReqLeaveClear.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnlReqLeaveCtrl.add(btnReqLeaveClear);
+        pnlReqLeaveCtrl.add(pnlPReqLeaveVGlue10);
+
+        pnlReqLeave.add(pnlReqLeaveCtrl, java.awt.BorderLayout.NORTH);
+
+        jSplitPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane2.setDividerLocation(350);
+        jSplitPane2.setDividerSize(8);
+        jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane2.setResizeWeight(1.0);
+        jSplitPane2.setOneTouchExpandable(true);
+        jSplitPane2.setOpaque(false);
+
+        jScrollPane13.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane13.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        tblReqLeave.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        tblReqLeave.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tblReqLeave.setFillsViewportHeight(true);
+        tblReqLeave.setRowHeight(30);
+        tblReqLeave.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblReqLeave.setShowGrid(true);
+        tblReqLeave.getTableHeader().setReorderingAllowed(false);
+        jScrollPane13.setViewportView(tblReqLeave);
+
+        jSplitPane2.setTopComponent(jScrollPane13);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setLayout(new java.awt.GridBagLayout());
+
+        pnlReqLeaveMsg.setBackground(new java.awt.Color(255, 255, 255));
+        pnlReqLeaveMsg.setLayout(new java.awt.GridBagLayout());
+
+        pnlReqLeaveReason.setBackground(new java.awt.Color(255, 255, 255));
+        pnlReqLeaveReason.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Employee Reason", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlReqLeaveReason.setMinimumSize(new java.awt.Dimension(0, 0));
+        pnlReqLeaveReason.setOpaque(false);
+        pnlReqLeaveReason.setLayout(new java.awt.GridBagLayout());
+
+        jScrollPane14.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtReqLeaveReason1.setEditable(false);
+        txtReqLeaveReason1.setBackground(new java.awt.Color(255, 255, 255));
+        txtReqLeaveReason1.setLineWrap(true);
+        txtReqLeaveReason1.setRows(4);
+        txtReqLeaveReason1.setWrapStyleWord(true);
+        txtReqLeaveReason1.setBorder(null);
+        txtReqLeaveReason1.setFocusable(false);
+        txtReqLeaveReason1.setMinimumSize(new java.awt.Dimension(10, 10));
+        jScrollPane14.setViewportView(txtReqLeaveReason1);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        pnlReqLeaveReason.add(jScrollPane14, gridBagConstraints);
+
+        vGlue14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue14.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue14.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlReqLeaveReason.add(vGlue14, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlReqLeaveMsg.add(pnlReqLeaveReason, gridBagConstraints);
+
+        pnlReqLeaveDecision.setBackground(new java.awt.Color(255, 255, 255));
+        pnlReqLeaveDecision.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Decision", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlReqLeaveDecision.setMinimumSize(new java.awt.Dimension(0, 0));
+        pnlReqLeaveDecision.setOpaque(false);
+        pnlReqLeaveDecision.setLayout(new java.awt.GridBagLayout());
+
+        txtReqLeaveDecision.setEditable(false);
+        txtReqLeaveDecision.setBackground(new java.awt.Color(255, 255, 255));
+        txtReqLeaveDecision.setLineWrap(true);
+        txtReqLeaveDecision.setRows(4);
+        txtReqLeaveDecision.setWrapStyleWord(true);
+        txtReqLeaveDecision.setBorder(null);
+        txtReqLeaveDecision.setFocusable(false);
+        txtReqLeaveDecision.setMinimumSize(new java.awt.Dimension(10, 10));
+        jScrollPane15.setViewportView(txtReqLeaveDecision);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        pnlReqLeaveDecision.add(jScrollPane15, gridBagConstraints);
+
+        vGlue15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue15.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue15.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlReqLeaveDecision.add(vGlue15, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlReqLeaveMsg.add(pnlReqLeaveDecision, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weighty = 1.0;
+        pnlReqLeaveMsg.add(pnlPLeaveRecVGlue11, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 10, 20);
+        jPanel5.add(pnlReqLeaveMsg, gridBagConstraints);
+
+        jSplitPane2.setRightComponent(jPanel5);
+
+        pnlReqLeave.add(jSplitPane2, java.awt.BorderLayout.CENTER);
+
+        tabAttendance.addTab("Request Leave", pnlReqLeave);
+
+        pnlLeaveRecords.setLayout(new java.awt.BorderLayout());
+
+        pnlLeaveRecCtrl.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtLeaveRecSearch.setText("Employee ID");
+        txtLeaveRecSearch.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtLeaveRecSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLeaveRecSearchKeyTyped(evt);
+            }
+        });
+        pnlLeaveRecCtrl.add(txtLeaveRecSearch);
+
+        drpLeaveRecMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Month]", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        drpLeaveRecMonth.setPreferredSize(new java.awt.Dimension(150, 30));
+        drpLeaveRecMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpLeaveRecMonthActionPerformed(evt);
+            }
+        });
+        pnlLeaveRecCtrl.add(drpLeaveRecMonth);
+
+        drpLeaveRecYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Year]", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        drpLeaveRecYear.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnlLeaveRecCtrl.add(drpLeaveRecYear);
+
+        drpLeaveRecStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Approved", "Rejected", "All" }));
+        drpLeaveRecStatus.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnlLeaveRecCtrl.add(drpLeaveRecStatus);
+        pnlLeaveRecCtrl.add(pnlPLeaveRecVGlue9);
+
+        pnlLeaveRecords.add(pnlLeaveRecCtrl, java.awt.BorderLayout.NORTH);
+
+        jSplitPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane1.setDividerLocation(350);
+        jSplitPane1.setDividerSize(8);
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setResizeWeight(1.0);
+        jSplitPane1.setOneTouchExpandable(true);
+        jSplitPane1.setOpaque(false);
+
+        jScrollPane7.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane7.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        tblLeaveRec.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        tblLeaveRec.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tblLeaveRec.setFillsViewportHeight(true);
+        tblLeaveRec.setRowHeight(30);
+        tblLeaveRec.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblLeaveRec.setShowGrid(true);
+        tblLeaveRec.getTableHeader().setReorderingAllowed(false);
+        jScrollPane7.setViewportView(tblLeaveRec);
+
+        jSplitPane1.setTopComponent(jScrollPane7);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        pnlLeaveRecMsg.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLeaveRecMsg.setLayout(new java.awt.GridBagLayout());
+
+        pnlLeaveRecReason.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLeaveRecReason.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Employee Reason", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlLeaveRecReason.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlLeaveRecReason.setOpaque(false);
+        pnlLeaveRecReason.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane9.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtLeaveRecReason.setEditable(false);
+        txtLeaveRecReason.setBackground(new java.awt.Color(255, 255, 255));
+        txtLeaveRecReason.setLineWrap(true);
+        txtLeaveRecReason.setRows(4);
+        txtLeaveRecReason.setWrapStyleWord(true);
+        txtLeaveRecReason.setBorder(null);
+        txtLeaveRecReason.setFocusable(false);
+        txtLeaveRecReason.setMinimumSize(new java.awt.Dimension(10, 10));
+        jScrollPane9.setViewportView(txtLeaveRecReason);
+
+        pnlLeaveRecReason.add(jScrollPane9, java.awt.BorderLayout.CENTER);
+
+        vGlue12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue12.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue12.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        pnlLeaveRecReason.add(vGlue12, java.awt.BorderLayout.PAGE_START);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlLeaveRecMsg.add(pnlLeaveRecReason, gridBagConstraints);
+
+        pnlLeaveRecDecision.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLeaveRecDecision.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Decision", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlLeaveRecDecision.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlLeaveRecDecision.setOpaque(false);
+        pnlLeaveRecDecision.setLayout(new java.awt.GridBagLayout());
+
+        txtLeaveRecDecision.setEditable(false);
+        txtLeaveRecDecision.setBackground(new java.awt.Color(255, 255, 255));
+        txtLeaveRecDecision.setLineWrap(true);
+        txtLeaveRecDecision.setRows(4);
+        txtLeaveRecDecision.setWrapStyleWord(true);
+        txtLeaveRecDecision.setBorder(null);
+        txtLeaveRecDecision.setFocusable(false);
+        txtLeaveRecDecision.setMinimumSize(new java.awt.Dimension(10, 10));
+        jScrollPane10.setViewportView(txtLeaveRecDecision);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        pnlLeaveRecDecision.add(jScrollPane10, gridBagConstraints);
+
+        jPanel4.setOpaque(false);
+
+        btnLeaveRecApprove.setText("Approve");
+        btnLeaveRecApprove.setPreferredSize(new java.awt.Dimension(120, 30));
+        jPanel4.add(btnLeaveRecApprove);
+
+        btnLeaveRecReject.setText("Reject");
+        btnLeaveRecReject.setPreferredSize(new java.awt.Dimension(120, 30));
+        jPanel4.add(btnLeaveRecReject);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        pnlLeaveRecDecision.add(jPanel4, gridBagConstraints);
+
+        vGlue13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue13.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue13.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlLeaveRecDecision.add(vGlue13, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlLeaveRecMsg.add(pnlLeaveRecDecision, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weighty = 1.0;
+        pnlLeaveRecMsg.add(pnlLeaveRecVGlue8, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 10, 20);
+        jPanel3.add(pnlLeaveRecMsg, gridBagConstraints);
+
+        jSplitPane1.setRightComponent(jPanel3);
+
+        pnlLeaveRecords.add(jSplitPane1, java.awt.BorderLayout.CENTER);
+
+        tabAttendance.addTab("Leave Records", pnlLeaveRecords);
+
+        pnlAttendance.add(tabAttendance, java.awt.BorderLayout.CENTER);
+
+        pnlContent.add(pnlAttendance, "cardAttendance");
+
+        pnlPayroll.setLayout(new java.awt.BorderLayout());
+
+        pnlMyPayroll.setLayout(new java.awt.BorderLayout());
+
+        pnlMyPayrollCtrl.setBackground(new java.awt.Color(255, 255, 255));
+
+        drpMyPayrollMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Month]", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        drpMyPayrollMonth.setPreferredSize(new java.awt.Dimension(150, 30));
+        drpMyPayrollMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpMyPayrollMonthActionPerformed(evt);
+            }
+        });
+        pnlMyPayrollCtrl.add(drpMyPayrollMonth);
+
+        drpMyPayrollPeriod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Period]", "1st - 15th", "16th - End" }));
+        drpMyPayrollPeriod.setPreferredSize(new java.awt.Dimension(150, 30));
+        drpMyPayrollPeriod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpMyPayrollPeriodActionPerformed(evt);
+            }
+        });
+        pnlMyPayrollCtrl.add(drpMyPayrollPeriod);
+
+        drpMyPayrollYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Year]", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        drpMyPayrollYear.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnlMyPayrollCtrl.add(drpMyPayrollYear);
+
+        pnlMyPayroll.add(pnlMyPayrollCtrl, java.awt.BorderLayout.NORTH);
+
+        jScrollPane6.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        pnlMyPayrollRow1.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMyPayrollRow1.setLayout(new java.awt.GridBagLayout());
+
+        lblPayrollEID.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblPayrollEID.setForeground(new java.awt.Color(140, 140, 140));
+        lblPayrollEID.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPayrollEID.setText("Employee ID:");
+        lblPayrollEID.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollRow1.add(lblPayrollEID, gridBagConstraints);
+
+        txtPayrollEID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPayrollEID.setForeground(new java.awt.Color(30, 30, 30));
+        txtPayrollEID.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtPayrollEID.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollRow1.add(txtPayrollEID, gridBagConstraints);
+
+        lblPayrollName.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblPayrollName.setForeground(new java.awt.Color(140, 140, 140));
+        lblPayrollName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPayrollName.setText("Name:");
+        lblPayrollName.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollRow1.add(lblPayrollName, gridBagConstraints);
+
+        txtPayrollName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPayrollName.setForeground(new java.awt.Color(30, 30, 30));
+        txtPayrollName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtPayrollName.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollRow1.add(txtPayrollName, gridBagConstraints);
+
+        lblPayrollDate.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblPayrollDate.setForeground(new java.awt.Color(140, 140, 140));
+        lblPayrollDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPayrollDate.setText("Date Covered:");
+        lblPayrollDate.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollRow1.add(lblPayrollDate, gridBagConstraints);
+
+        txtPayrollDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPayrollDate.setForeground(new java.awt.Color(30, 30, 30));
+        txtPayrollDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtPayrollDate.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollRow1.add(txtPayrollDate, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weighty = 1.0;
+        pnlMyPayrollRow1.add(pnlMyPayrollVGlue1, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 10, 20);
+        jPanel1.add(pnlMyPayrollRow1, gridBagConstraints);
+
+        pnlMyPayrollRow2.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMyPayrollRow2.setLayout(new java.awt.GridBagLayout());
+
+        pnlMyPayrollEarnings.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Earnings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlMyPayrollEarnings.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlMyPayrollEarnings.setOpaque(false);
+        pnlMyPayrollEarnings.setLayout(new java.awt.GridBagLayout());
+
+        lblMyBasicPay.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblMyBasicPay.setForeground(new java.awt.Color(140, 140, 140));
+        lblMyBasicPay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMyBasicPay.setText("Basic Pay:");
+        lblMyBasicPay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollEarnings.add(lblMyBasicPay, gridBagConstraints);
+
+        txtMyBasicPay.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMyBasicPay.setForeground(new java.awt.Color(30, 30, 30));
+        txtMyBasicPay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtMyBasicPay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollEarnings.add(txtMyBasicPay, gridBagConstraints);
+
+        lblMyAllowancePay.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblMyAllowancePay.setForeground(new java.awt.Color(140, 140, 140));
+        lblMyAllowancePay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMyAllowancePay.setText("Allowances:");
+        lblMyAllowancePay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollEarnings.add(lblMyAllowancePay, gridBagConstraints);
+
+        txtMyAllowancePay.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMyAllowancePay.setForeground(new java.awt.Color(30, 30, 30));
+        txtMyAllowancePay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtMyAllowancePay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollEarnings.add(txtMyAllowancePay, gridBagConstraints);
+
+        lblMyOvertimePay.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblMyOvertimePay.setForeground(new java.awt.Color(140, 140, 140));
+        lblMyOvertimePay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMyOvertimePay.setText("Hourly Rate:");
+        lblMyOvertimePay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollEarnings.add(lblMyOvertimePay, gridBagConstraints);
+
+        txtMyOvertimePay.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMyOvertimePay.setForeground(new java.awt.Color(30, 30, 30));
+        txtMyOvertimePay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtMyOvertimePay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollEarnings.add(txtMyOvertimePay, gridBagConstraints);
+
+        vGlue6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue6.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue6.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlMyPayrollEarnings.add(vGlue6, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlMyPayrollRow2.add(pnlMyPayrollEarnings, gridBagConstraints);
+
+        pnlMyPayrollDeductions.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Deductions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlMyPayrollDeductions.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlMyPayrollDeductions.setOpaque(false);
+        pnlMyPayrollDeductions.setLayout(new java.awt.GridBagLayout());
+
+        lblMyLateDeduc.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblMyLateDeduc.setForeground(new java.awt.Color(140, 140, 140));
+        lblMyLateDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMyLateDeduc.setText("Late:");
+        lblMyLateDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollDeductions.add(lblMyLateDeduc, gridBagConstraints);
+
+        txtMyLateDeduc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMyLateDeduc.setForeground(new java.awt.Color(30, 30, 30));
+        txtMyLateDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtMyLateDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollDeductions.add(txtMyLateDeduc, gridBagConstraints);
+
+        lblMyTaxDeduc.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblMyTaxDeduc.setForeground(new java.awt.Color(140, 140, 140));
+        lblMyTaxDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMyTaxDeduc.setText("Withholding Tax:");
+        lblMyTaxDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollDeductions.add(lblMyTaxDeduc, gridBagConstraints);
+
+        txtMyTaxDeduc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMyTaxDeduc.setForeground(new java.awt.Color(30, 30, 30));
+        txtMyTaxDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtMyTaxDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollDeductions.add(txtMyTaxDeduc, gridBagConstraints);
+
+        lblMySSSDeduc.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblMySSSDeduc.setForeground(new java.awt.Color(140, 140, 140));
+        lblMySSSDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMySSSDeduc.setText("SSS:");
+        lblMySSSDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollDeductions.add(lblMySSSDeduc, gridBagConstraints);
+
+        txtMySSSDeduc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMySSSDeduc.setForeground(new java.awt.Color(30, 30, 30));
+        txtMySSSDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtMySSSDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollDeductions.add(txtMySSSDeduc, gridBagConstraints);
+
+        lblMyPhilHealthDeduc.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblMyPhilHealthDeduc.setForeground(new java.awt.Color(140, 140, 140));
+        lblMyPhilHealthDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMyPhilHealthDeduc.setText("PhilHealth:");
+        lblMyPhilHealthDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollDeductions.add(lblMyPhilHealthDeduc, gridBagConstraints);
+
+        txtMyPhilHealthDeduc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMyPhilHealthDeduc.setForeground(new java.awt.Color(30, 30, 30));
+        txtMyPhilHealthDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtMyPhilHealthDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollDeductions.add(txtMyPhilHealthDeduc, gridBagConstraints);
+
+        lblMyPagibigDeduc.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblMyPagibigDeduc.setForeground(new java.awt.Color(140, 140, 140));
+        lblMyPagibigDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMyPagibigDeduc.setText("Pagibig:");
+        lblMyPagibigDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollDeductions.add(lblMyPagibigDeduc, gridBagConstraints);
+
+        txtMyPagibigDeduc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMyPagibigDeduc.setForeground(new java.awt.Color(30, 30, 30));
+        txtMyPagibigDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtMyPagibigDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollDeductions.add(txtMyPagibigDeduc, gridBagConstraints);
+
+        vGlue5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue5.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue5.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlMyPayrollDeductions.add(vGlue5, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlMyPayrollRow2.add(pnlMyPayrollDeductions, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weighty = 1.0;
+        pnlMyPayrollRow2.add(pnlMyPayrollVGlue2, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 10, 20);
+        jPanel1.add(pnlMyPayrollRow2, gridBagConstraints);
+
+        pnlMyPayrollRow3.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMyPayrollRow3.setLayout(new java.awt.GridBagLayout());
+
+        pnlMyPayrollSummary.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pay Summary", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlMyPayrollSummary.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlMyPayrollSummary.setOpaque(false);
+        pnlMyPayrollSummary.setLayout(new java.awt.GridBagLayout());
+
+        lblMyGrossPay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblMyGrossPay.setForeground(new java.awt.Color(140, 140, 140));
+        lblMyGrossPay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMyGrossPay.setText("Gross Pay:");
+        lblMyGrossPay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollSummary.add(lblMyGrossPay, gridBagConstraints);
+
+        txtMyGrossPay.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMyGrossPay.setForeground(new java.awt.Color(30, 30, 30));
+        txtMyGrossPay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtMyGrossPay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollSummary.add(txtMyGrossPay, gridBagConstraints);
+
+        lblMyTotalDeductions.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblMyTotalDeductions.setForeground(new java.awt.Color(140, 140, 140));
+        lblMyTotalDeductions.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMyTotalDeductions.setText("Tota Deductions:");
+        lblMyTotalDeductions.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollSummary.add(lblMyTotalDeductions, gridBagConstraints);
+
+        txtMyTotalDeductions.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMyTotalDeductions.setForeground(new java.awt.Color(30, 30, 30));
+        txtMyTotalDeductions.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtMyTotalDeductions.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollSummary.add(txtMyTotalDeductions, gridBagConstraints);
+
+        lblMyNetPay.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblMyNetPay.setForeground(new java.awt.Color(140, 140, 140));
+        lblMyNetPay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblMyNetPay.setText("Net Pay:");
+        lblMyNetPay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlMyPayrollSummary.add(lblMyNetPay, gridBagConstraints);
+
+        txtMyNetPay.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtMyNetPay.setForeground(new java.awt.Color(30, 30, 30));
+        txtMyNetPay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtMyNetPay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlMyPayrollSummary.add(txtMyNetPay, gridBagConstraints);
+
+        vGlue7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue7.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue7.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlMyPayrollSummary.add(vGlue7, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
+        pnlMyPayrollRow3.add(pnlMyPayrollSummary, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weighty = 1.0;
+        pnlMyPayrollRow3.add(pnlMyPayrollVGlue3, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 20);
+        jPanel1.add(pnlMyPayrollRow3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weighty = 1.0;
+        jPanel1.add(pnlMyPayrollVGlue, gridBagConstraints);
+
+        jScrollPane6.setViewportView(jPanel1);
+
+        pnlMyPayroll.add(jScrollPane6, java.awt.BorderLayout.CENTER);
+
+        tabPayroll.addTab("My Payroll", pnlMyPayroll);
+
+        pnlPayrollRec.setLayout(new java.awt.BorderLayout());
+
+        pnlPayrollRecCtrl.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtPayrollRecSearch.setText("Employee ID");
+        txtPayrollRecSearch.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtPayrollRecSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPayrollRecSearchKeyTyped(evt);
+            }
+        });
+        pnlPayrollRecCtrl.add(txtPayrollRecSearch);
+
+        drpPayrollRecMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Month]", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        drpPayrollRecMonth.setPreferredSize(new java.awt.Dimension(150, 30));
+        drpPayrollRecMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpPayrollRecMonthActionPerformed(evt);
+            }
+        });
+        pnlPayrollRecCtrl.add(drpPayrollRecMonth);
+
+        drpPayrollRecPeriod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Period]", "1st - 15th", "16th - End" }));
+        drpPayrollRecPeriod.setPreferredSize(new java.awt.Dimension(150, 30));
+        drpPayrollRecPeriod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpPayrollRecPeriodActionPerformed(evt);
+            }
+        });
+        pnlPayrollRecCtrl.add(drpPayrollRecPeriod);
+
+        drpPayrollRecYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Year]", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        drpPayrollRecYear.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnlPayrollRecCtrl.add(drpPayrollRecYear);
+
+        pnlPayrollRec.add(pnlPayrollRecCtrl, java.awt.BorderLayout.NORTH);
+
+        jScrollPane8.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        pnlPayrollRecRow1.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPayrollRecRow1.setLayout(new java.awt.GridBagLayout());
+
+        lblPayrollRecID.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblPayrollRecID.setForeground(new java.awt.Color(140, 140, 140));
+        lblPayrollRecID.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPayrollRecID.setText("Employee ID:");
+        lblPayrollRecID.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecRow1.add(lblPayrollRecID, gridBagConstraints);
+
+        txtPayrollRecEID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPayrollRecEID.setForeground(new java.awt.Color(30, 30, 30));
+        txtPayrollRecEID.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtPayrollRecEID.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecRow1.add(txtPayrollRecEID, gridBagConstraints);
+
+        lblPayrollRecName.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblPayrollRecName.setForeground(new java.awt.Color(140, 140, 140));
+        lblPayrollRecName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPayrollRecName.setText("Name:");
+        lblPayrollRecName.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecRow1.add(lblPayrollRecName, gridBagConstraints);
+
+        txtPayrollRecName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPayrollRecName.setForeground(new java.awt.Color(30, 30, 30));
+        txtPayrollRecName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtPayrollRecName.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecRow1.add(txtPayrollRecName, gridBagConstraints);
+
+        lblPayrollRecDate.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblPayrollRecDate.setForeground(new java.awt.Color(140, 140, 140));
+        lblPayrollRecDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPayrollRecDate.setText("Date Covered:");
+        lblPayrollRecDate.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecRow1.add(lblPayrollRecDate, gridBagConstraints);
+
+        txtPayrollRecDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPayrollRecDate.setForeground(new java.awt.Color(30, 30, 30));
+        txtPayrollRecDate.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtPayrollRecDate.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecRow1.add(txtPayrollRecDate, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weighty = 1.0;
+        pnlPayrollRecRow1.add(pnlPayrollRecVGlue4, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 10, 20);
+        jPanel2.add(pnlPayrollRecRow1, gridBagConstraints);
+
+        pnlPayrollRecRow2.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPayrollRecRow2.setLayout(new java.awt.GridBagLayout());
+
+        pnlPayrollRecEarnings.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Earnings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlPayrollRecEarnings.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlPayrollRecEarnings.setOpaque(false);
+        pnlPayrollRecEarnings.setLayout(new java.awt.GridBagLayout());
+
+        lblBasicPay.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblBasicPay.setForeground(new java.awt.Color(140, 140, 140));
+        lblBasicPay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblBasicPay.setText("Basic Pay:");
+        lblBasicPay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecEarnings.add(lblBasicPay, gridBagConstraints);
+
+        txtBasicPay.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtBasicPay.setForeground(new java.awt.Color(30, 30, 30));
+        txtBasicPay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtBasicPay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecEarnings.add(txtBasicPay, gridBagConstraints);
+
+        lblAllowancePay.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblAllowancePay.setForeground(new java.awt.Color(140, 140, 140));
+        lblAllowancePay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblAllowancePay.setText("Allowances:");
+        lblAllowancePay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecEarnings.add(lblAllowancePay, gridBagConstraints);
+
+        txtAllowancePay.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtAllowancePay.setForeground(new java.awt.Color(30, 30, 30));
+        txtAllowancePay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtAllowancePay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecEarnings.add(txtAllowancePay, gridBagConstraints);
+
+        lblOvertimePay.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblOvertimePay.setForeground(new java.awt.Color(140, 140, 140));
+        lblOvertimePay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblOvertimePay.setText("Hourly Rate:");
+        lblOvertimePay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecEarnings.add(lblOvertimePay, gridBagConstraints);
+
+        txtOvertimePay.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtOvertimePay.setForeground(new java.awt.Color(30, 30, 30));
+        txtOvertimePay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtOvertimePay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecEarnings.add(txtOvertimePay, gridBagConstraints);
+
+        vGlue9.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue9.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue9.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlPayrollRecEarnings.add(vGlue9, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlPayrollRecRow2.add(pnlPayrollRecEarnings, gridBagConstraints);
+
+        pnlPayrollRecDeductions.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Deductions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlPayrollRecDeductions.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlPayrollRecDeductions.setOpaque(false);
+        pnlPayrollRecDeductions.setLayout(new java.awt.GridBagLayout());
+
+        lblLateDeduc.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblLateDeduc.setForeground(new java.awt.Color(140, 140, 140));
+        lblLateDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblLateDeduc.setText("Late:");
+        lblLateDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecDeductions.add(lblLateDeduc, gridBagConstraints);
+
+        txtLateDeduc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtLateDeduc.setForeground(new java.awt.Color(30, 30, 30));
+        txtLateDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtLateDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecDeductions.add(txtLateDeduc, gridBagConstraints);
+
+        lblTaxDeduc.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblTaxDeduc.setForeground(new java.awt.Color(140, 140, 140));
+        lblTaxDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTaxDeduc.setText("Withholding Tax:");
+        lblTaxDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecDeductions.add(lblTaxDeduc, gridBagConstraints);
+
+        txtTaxDeduc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTaxDeduc.setForeground(new java.awt.Color(30, 30, 30));
+        txtTaxDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtTaxDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecDeductions.add(txtTaxDeduc, gridBagConstraints);
+
+        lblSSSDeduc.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblSSSDeduc.setForeground(new java.awt.Color(140, 140, 140));
+        lblSSSDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblSSSDeduc.setText("SSS:");
+        lblSSSDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecDeductions.add(lblSSSDeduc, gridBagConstraints);
+
+        txtSSSDeduc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtSSSDeduc.setForeground(new java.awt.Color(30, 30, 30));
+        txtSSSDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtSSSDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecDeductions.add(txtSSSDeduc, gridBagConstraints);
+
+        lblPhilHealthDeduc.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblPhilHealthDeduc.setForeground(new java.awt.Color(140, 140, 140));
+        lblPhilHealthDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPhilHealthDeduc.setText("PhilHealth:");
+        lblPhilHealthDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecDeductions.add(lblPhilHealthDeduc, gridBagConstraints);
+
+        txtPhilHealthDeduc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPhilHealthDeduc.setForeground(new java.awt.Color(30, 30, 30));
+        txtPhilHealthDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtPhilHealthDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecDeductions.add(txtPhilHealthDeduc, gridBagConstraints);
+
+        lblPagibigDeduc.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
+        lblPagibigDeduc.setForeground(new java.awt.Color(140, 140, 140));
+        lblPagibigDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblPagibigDeduc.setText("Pagibig:");
+        lblPagibigDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecDeductions.add(lblPagibigDeduc, gridBagConstraints);
+
+        txtPagibigDeduc.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPagibigDeduc.setForeground(new java.awt.Color(30, 30, 30));
+        txtPagibigDeduc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtPagibigDeduc.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecDeductions.add(txtPagibigDeduc, gridBagConstraints);
+
+        vGlue10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue10.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue10.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlPayrollRecDeductions.add(vGlue10, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlPayrollRecRow2.add(pnlPayrollRecDeductions, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weighty = 1.0;
+        pnlPayrollRecRow2.add(pnlPayrollRecVGlue5, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 10, 20);
+        jPanel2.add(pnlPayrollRecRow2, gridBagConstraints);
+
+        pnlPayrollRecRow3.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPayrollRecRow3.setLayout(new java.awt.GridBagLayout());
+
+        pnlPayrollRecSummary.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pay Summary", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlPayrollRecSummary.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlPayrollRecSummary.setOpaque(false);
+        pnlPayrollRecSummary.setLayout(new java.awt.GridBagLayout());
+
+        lblGrossPay.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblGrossPay.setForeground(new java.awt.Color(140, 140, 140));
+        lblGrossPay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblGrossPay.setText("Gross Pay:");
+        lblGrossPay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecSummary.add(lblGrossPay, gridBagConstraints);
+
+        txtGrossPay.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtGrossPay.setForeground(new java.awt.Color(30, 30, 30));
+        txtGrossPay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtGrossPay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecSummary.add(txtGrossPay, gridBagConstraints);
+
+        lblTotalDeductions.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTotalDeductions.setForeground(new java.awt.Color(140, 140, 140));
+        lblTotalDeductions.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTotalDeductions.setText("Tota Deductions:");
+        lblTotalDeductions.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecSummary.add(lblTotalDeductions, gridBagConstraints);
+
+        txtTotalDeductions.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtTotalDeductions.setForeground(new java.awt.Color(30, 30, 30));
+        txtTotalDeductions.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtTotalDeductions.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecSummary.add(txtTotalDeductions, gridBagConstraints);
+
+        lblNetPay.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblNetPay.setForeground(new java.awt.Color(140, 140, 140));
+        lblNetPay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblNetPay.setText("Net Pay:");
+        lblNetPay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
+        pnlPayrollRecSummary.add(lblNetPay, gridBagConstraints);
+
+        txtNetPay.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNetPay.setForeground(new java.awt.Color(30, 30, 30));
+        txtNetPay.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        txtNetPay.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
+        pnlPayrollRecSummary.add(txtNetPay, gridBagConstraints);
+
+        vGlue11.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue11.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue11.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlPayrollRecSummary.add(vGlue11, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
+        pnlPayrollRecRow3.add(pnlPayrollRecSummary, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weighty = 1.0;
+        pnlPayrollRecRow3.add(pnlPayrollRecVGlue6, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 20);
+        jPanel2.add(pnlPayrollRecRow3, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weighty = 1.0;
+        jPanel2.add(pnlPayrollRecVGlue7, gridBagConstraints);
+
+        jScrollPane8.setViewportView(jPanel2);
+
+        pnlPayrollRec.add(jScrollPane8, java.awt.BorderLayout.CENTER);
+
+        tabPayroll.addTab("Payroll Records", pnlPayrollRec);
+
+        lblStatutoryNotice.setText("FOR FUTURE IMPLEMENTATIONS -- EDITING OF DEDUCTION TABLES!");
+
+        javax.swing.GroupLayout pnlStatutoryLayout = new javax.swing.GroupLayout(pnlStatutory);
+        pnlStatutory.setLayout(pnlStatutoryLayout);
+        pnlStatutoryLayout.setHorizontalGroup(
+            pnlStatutoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlStatutoryLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(lblStatutoryNotice)
+                .addContainerGap(555, Short.MAX_VALUE))
+        );
+        pnlStatutoryLayout.setVerticalGroup(
+            pnlStatutoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlStatutoryLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(lblStatutoryNotice)
+                .addContainerGap(632, Short.MAX_VALUE))
+        );
+
+        tabPayroll.addTab("Deduction Tables", pnlStatutory);
+
+        pnlPayroll.add(tabPayroll, java.awt.BorderLayout.CENTER);
+
+        pnlContent.add(pnlPayroll, "cardPayroll");
+
+        pnlIT.setLayout(new java.awt.BorderLayout());
+
+        pnlUserAccounts.setLayout(new java.awt.BorderLayout());
+
+        pnlUserManageCtrl.setBackground(new java.awt.Color(255, 255, 255));
+        pnlUserManageCtrl.setLayout(new java.awt.BorderLayout());
+
+        pnlUserManageSearch.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnlUserManageSearch.setOpaque(false);
+        pnlUserManageSearch.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+
+        lblEmpManageSearch1.setText("Search Employee ID:");
+        pnlUserManageSearch.add(lblEmpManageSearch1);
+
+        txtEmpManageSearch1.setText("Employee ID");
+        txtEmpManageSearch1.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtEmpManageSearch1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEmpManageSearch1KeyTyped(evt);
+            }
+        });
+        pnlUserManageSearch.add(txtEmpManageSearch1);
+
+        btnEmpManageSearch1.setText("Search");
+        btnEmpManageSearch1.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlUserManageSearch.add(btnEmpManageSearch1);
+
+        pnlUserManageCtrl.add(pnlUserManageSearch, java.awt.BorderLayout.WEST);
+
+        pnlUserManageButtons.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnlUserManageButtons.setOpaque(false);
+        pnlUserManageButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 5));
+
+        btnUserAdd.setText("Register User");
+        btnUserAdd.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlUserManageButtons.add(btnUserAdd);
+
+        btnUserEdit.setText("Edit User");
+        btnUserEdit.setEnabled(false);
+        btnUserEdit.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlUserManageButtons.add(btnUserEdit);
+
+        btnUserDelete.setText("Delete User");
+        btnUserDelete.setEnabled(false);
+        btnUserDelete.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlUserManageButtons.add(btnUserDelete);
+
+        pnlUserManageCtrl.add(pnlUserManageButtons, java.awt.BorderLayout.EAST);
+
+        pnlUserAccounts.add(pnlUserManageCtrl, java.awt.BorderLayout.NORTH);
+
+        tblUserAccounts.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(tblUserAccounts);
+
+        pnlUserAccounts.add(jScrollPane3, java.awt.BorderLayout.CENTER);
+
+        tabUserAccounts.addTab("User Accounts", pnlUserAccounts);
+
+        pnlIT.add(tabUserAccounts, java.awt.BorderLayout.CENTER);
+
+        pnlContent.add(pnlIT, "cardIT");
 
         pnlMain.add(pnlContent, java.awt.BorderLayout.CENTER);
 
@@ -517,9 +3124,9 @@ public class MainDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnUserAccountsActionPerformed
 
-    private void btnLeaveRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeaveRecActionPerformed
+    private void pnlLeaveRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pnlLeaveRecActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLeaveRecActionPerformed
+    }//GEN-LAST:event_pnlLeaveRecActionPerformed
 
     private void btnStatutoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatutoryActionPerformed
         // TODO add your handling code here:
@@ -532,6 +3139,62 @@ public class MainDashboard extends javax.swing.JFrame {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void txtAttendanceSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAttendanceSearchKeyTyped
+if (!Character.isDigit(evt.getKeyChar())) evt.consume();
+    }//GEN-LAST:event_txtAttendanceSearchKeyTyped
+
+    private void txtEmpManageSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpManageSearchKeyTyped
+if (!Character.isDigit(evt.getKeyChar())) evt.consume();
+    }//GEN-LAST:event_txtEmpManageSearchKeyTyped
+
+    private void drpAttendanceMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpAttendanceMonthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_drpAttendanceMonthActionPerformed
+
+    private void txtMyAttendanceSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMyAttendanceSearchKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMyAttendanceSearchKeyTyped
+
+    private void drpMyAttendanceMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpMyAttendanceMonthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_drpMyAttendanceMonthActionPerformed
+
+    private void drpMyPayrollMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpMyPayrollMonthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_drpMyPayrollMonthActionPerformed
+
+    private void drpMyPayrollPeriodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpMyPayrollPeriodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_drpMyPayrollPeriodActionPerformed
+
+    private void txtPayrollRecSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPayrollRecSearchKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPayrollRecSearchKeyTyped
+
+    private void drpPayrollRecMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpPayrollRecMonthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_drpPayrollRecMonthActionPerformed
+
+    private void drpPayrollRecPeriodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpPayrollRecPeriodActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_drpPayrollRecPeriodActionPerformed
+
+    private void txtEmpManageSearch1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmpManageSearch1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmpManageSearch1KeyTyped
+
+    private void drpLeaveRecMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpLeaveRecMonthActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_drpLeaveRecMonthActionPerformed
+
+    private void txtLeaveRecSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLeaveRecSearchKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtLeaveRecSearchKeyTyped
+
+    private void txtReqLeaveEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReqLeaveEndActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtReqLeaveEndActionPerformed
 
     /**
      * @param args the command line arguments
@@ -577,38 +3240,137 @@ public class MainDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnContactIT;
     private javax.swing.JButton btnContactSupervisor;
     private javax.swing.JButton btnDashboard;
-    private javax.swing.JButton btnLeaveRec;
+    private javax.swing.JButton btnEmpManage;
+    private javax.swing.JButton btnEmpManageAdd;
+    private javax.swing.JButton btnEmpManageDelete;
+    private javax.swing.JButton btnEmpManageEdit;
+    private javax.swing.JButton btnEmpManageSearch;
+    private javax.swing.JButton btnEmpManageSearch1;
+    private javax.swing.JButton btnLeaveRecApprove;
+    private javax.swing.JButton btnLeaveRecReject;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnManageEmp;
     private javax.swing.JButton btnMyAttendance;
     private javax.swing.JButton btnMyPayslip;
     private javax.swing.JButton btnMyProfile;
     private javax.swing.JButton btnPayroll;
     private javax.swing.JButton btnReqLeave;
+    private javax.swing.JButton btnReqLeaveClear;
+    private javax.swing.JButton btnReqLeaveSend;
     private javax.swing.JButton btnSalaryDetails;
     private javax.swing.JButton btnStatutory;
     private javax.swing.JButton btnSysLogs;
     private javax.swing.JButton btnSysSettings;
     private javax.swing.JButton btnUserAccounts;
+    private javax.swing.JButton btnUserAdd;
+    private javax.swing.JButton btnUserDelete;
+    private javax.swing.JButton btnUserEdit;
+    private javax.swing.JComboBox<String> drpAttendanceMonth;
+    private javax.swing.JComboBox<String> drpAttendanceYear;
+    private javax.swing.JComboBox<String> drpLeaveRecMonth;
+    private javax.swing.JComboBox<String> drpLeaveRecStatus;
+    private javax.swing.JComboBox<String> drpLeaveRecYear;
+    private javax.swing.JComboBox<String> drpMyAttendanceMonth;
+    private javax.swing.JComboBox<String> drpMyAttendanceYear;
+    private javax.swing.JComboBox<String> drpMyPayrollMonth;
+    private javax.swing.JComboBox<String> drpMyPayrollPeriod;
+    private javax.swing.JComboBox<String> drpMyPayrollYear;
+    private javax.swing.JComboBox<String> drpPayrollRecMonth;
+    private javax.swing.JComboBox<String> drpPayrollRecPeriod;
+    private javax.swing.JComboBox<String> drpPayrollRecYear;
+    private javax.swing.JComboBox<String> drpReqLeaveType;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane13;
+    private javax.swing.JScrollPane jScrollPane14;
+    private javax.swing.JScrollPane jScrollPane15;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JSplitPane jSplitPane2;
+    private javax.swing.JLabel lblAddress;
+    private javax.swing.JLabel lblAllowancePay;
     private javax.swing.JLabel lblAnnouncements;
-    private javax.swing.JLabel lblBreadcrumb;
+    private javax.swing.JLabel lblBasicPay;
+    private javax.swing.JLabel lblBasicRate;
+    private javax.swing.JLabel lblBirthday;
     private javax.swing.JLabel lblCardAttendance;
     private javax.swing.JLabel lblCardNextPayday;
     private javax.swing.JLabel lblCardPendingLeaves;
     private javax.swing.JLabel lblClock;
     private javax.swing.JLabel lblClockStatus;
+    private javax.swing.JLabel lblClothingAllowance;
     private javax.swing.JLabel lblContact;
+    private javax.swing.JLabel lblDepartment;
     private javax.swing.JLabel lblDeptTag;
+    private javax.swing.JLabel lblEmpManageSearch;
+    private javax.swing.JLabel lblEmpManageSearch1;
+    private javax.swing.JLabel lblEmployeeID;
+    private javax.swing.JLabel lblFullName;
+    private javax.swing.JLabel lblGrossPay;
+    private javax.swing.JLabel lblGrossSemi;
+    private javax.swing.JLabel lblHourlyRate;
+    private javax.swing.JLabel lblLateDeduc;
     private javax.swing.JLabel lblMotorPH;
+    private javax.swing.JLabel lblMyAllowancePay;
+    private javax.swing.JLabel lblMyBasicPay;
+    private javax.swing.JLabel lblMyGrossPay;
+    private javax.swing.JLabel lblMyLateDeduc;
+    private javax.swing.JLabel lblMyNetPay;
+    private javax.swing.JLabel lblMyOvertimePay;
+    private javax.swing.JLabel lblMyPagibigDeduc;
+    private javax.swing.JLabel lblMyPhilHealthDeduc;
+    private javax.swing.JLabel lblMyProfilePic;
+    private javax.swing.JLabel lblMySSSDeduc;
+    private javax.swing.JLabel lblMyTaxDeduc;
+    private javax.swing.JLabel lblMyTotalDeductions;
     private javax.swing.JLabel lblNameTag;
+    private javax.swing.JLabel lblNetPay;
+    private javax.swing.JLabel lblOvertimePay;
+    private javax.swing.JLabel lblPageTitle;
+    private javax.swing.JLabel lblPagibig;
+    private javax.swing.JLabel lblPagibigDeduc;
+    private javax.swing.JLabel lblPayrollDate;
+    private javax.swing.JLabel lblPayrollEID;
+    private javax.swing.JLabel lblPayrollName;
+    private javax.swing.JLabel lblPayrollRecDate;
+    private javax.swing.JLabel lblPayrollRecID;
+    private javax.swing.JLabel lblPayrollRecName;
+    private javax.swing.JLabel lblPhilHealth;
+    private javax.swing.JLabel lblPhilHealthDeduc;
+    private javax.swing.JLabel lblPhoneAllowance;
+    private javax.swing.JLabel lblPhoneNumber;
+    private javax.swing.JLabel lblPosition;
+    private javax.swing.JLabel lblRiceSubsidy;
+    private javax.swing.JLabel lblSSS;
+    private javax.swing.JLabel lblSSSDeduc;
+    private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblStatutoryNotice;
+    private javax.swing.JLabel lblSupervisor;
+    private javax.swing.JLabel lblTIN;
+    private javax.swing.JLabel lblTaxDeduc;
+    private javax.swing.JLabel lblTotalDeductions;
     private javax.swing.JPanel pnlAnnouncements;
+    private javax.swing.JPanel pnlAttendance;
+    private javax.swing.JPanel pnlAttendanceRec;
+    private javax.swing.JPanel pnlAttendanceRecCtrl;
     private javax.swing.JPanel pnlCardAttendance;
     private javax.swing.JPanel pnlCardNextPayday;
     private javax.swing.JPanel pnlCardPendingLeaves;
@@ -619,21 +3381,169 @@ public class MainDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel pnlContact2;
     private javax.swing.JPanel pnlContent;
     private javax.swing.JPanel pnlDashboard;
+    private javax.swing.JPanel pnlEmpManage;
+    private javax.swing.JPanel pnlEmpManageButtons;
+    private javax.swing.JPanel pnlEmpManageCtrl;
+    private javax.swing.JPanel pnlEmpManageSearch;
+    private javax.swing.JPanel pnlEmployee;
     private javax.swing.JPanel pnlHeader;
     private javax.swing.JPanel pnlHeaderEast;
     private javax.swing.JPanel pnlHeaderWest;
+    private javax.swing.JPanel pnlIT;
+    private javax.swing.JButton pnlLeaveRec;
+    private javax.swing.JPanel pnlLeaveRecCtrl;
+    private javax.swing.JPanel pnlLeaveRecDecision;
+    private javax.swing.JPanel pnlLeaveRecMsg;
+    private javax.swing.JPanel pnlLeaveRecReason;
+    private javax.swing.JLabel pnlLeaveRecVGlue8;
+    private javax.swing.JPanel pnlLeaveRecords;
     private javax.swing.JPanel pnlLogo;
     private javax.swing.JPanel pnlMain;
+    private javax.swing.JPanel pnlMyAttendance;
+    private javax.swing.JPanel pnlMyAttendanceCtrl;
+    private javax.swing.JPanel pnlMyPayroll;
+    private javax.swing.JPanel pnlMyPayrollCtrl;
+    private javax.swing.JPanel pnlMyPayrollDeductions;
+    private javax.swing.JPanel pnlMyPayrollEarnings;
+    private javax.swing.JPanel pnlMyPayrollRow1;
+    private javax.swing.JPanel pnlMyPayrollRow2;
+    private javax.swing.JPanel pnlMyPayrollRow3;
+    private javax.swing.JPanel pnlMyPayrollSummary;
+    private javax.swing.JLabel pnlMyPayrollVGlue;
+    private javax.swing.JLabel pnlMyPayrollVGlue1;
+    private javax.swing.JLabel pnlMyPayrollVGlue2;
+    private javax.swing.JLabel pnlMyPayrollVGlue3;
+    private javax.swing.JPanel pnlMyProfile;
+    private javax.swing.JPanel pnlMyProfileAllowance;
+    private javax.swing.JPanel pnlMyProfileEmployee;
+    private javax.swing.JPanel pnlMyProfileEmployeeDetails;
+    private javax.swing.JPanel pnlMyProfilePersonal;
+    private javax.swing.JPanel pnlMyProfileRow1;
+    private javax.swing.JPanel pnlMyProfileRow2;
+    private javax.swing.JPanel pnlMyProfileRow3;
+    private javax.swing.JPanel pnlMyProfileSalary;
+    private javax.swing.JPanel pnlMyProfileStatutory;
+    private javax.swing.JLabel pnlMyProfileVGlue;
     private javax.swing.JPanel pnlNameTag;
     private javax.swing.JPanel pnlNav;
     private javax.swing.JPanel pnlNavEmployee;
     private javax.swing.JPanel pnlNavFinance;
     private javax.swing.JPanel pnlNavHR;
     private javax.swing.JPanel pnlNavIT;
+    private javax.swing.JLabel pnlPLeaveRecVGlue11;
+    private javax.swing.JLabel pnlPLeaveRecVGlue9;
+    private javax.swing.JLabel pnlPReqLeaveVGlue10;
+    private javax.swing.JPanel pnlPayroll;
+    private javax.swing.JPanel pnlPayrollRec;
+    private javax.swing.JPanel pnlPayrollRecCtrl;
+    private javax.swing.JPanel pnlPayrollRecDeductions;
+    private javax.swing.JPanel pnlPayrollRecEarnings;
+    private javax.swing.JPanel pnlPayrollRecRow1;
+    private javax.swing.JPanel pnlPayrollRecRow2;
+    private javax.swing.JPanel pnlPayrollRecRow3;
+    private javax.swing.JPanel pnlPayrollRecSummary;
+    private javax.swing.JLabel pnlPayrollRecVGlue4;
+    private javax.swing.JLabel pnlPayrollRecVGlue5;
+    private javax.swing.JLabel pnlPayrollRecVGlue6;
+    private javax.swing.JLabel pnlPayrollRecVGlue7;
+    private javax.swing.JPanel pnlReqLeave;
+    private javax.swing.JPanel pnlReqLeaveCtrl;
+    private javax.swing.JPanel pnlReqLeaveDecision;
+    private javax.swing.JPanel pnlReqLeaveMsg;
+    private javax.swing.JPanel pnlReqLeaveReason;
     private javax.swing.JPanel pnlRow3;
     private javax.swing.JPanel pnlSidebar;
     private javax.swing.JPanel pnlStats;
+    private javax.swing.JPanel pnlStatutory;
+    private javax.swing.JPanel pnlUserAccounts;
+    private javax.swing.JPanel pnlUserManageButtons;
+    private javax.swing.JPanel pnlUserManageCtrl;
+    private javax.swing.JPanel pnlUserManageSearch;
     private javax.swing.JPanel pnlWelcome;
     private javax.swing.JLabel pnlWelcomeMsg;
+    private javax.swing.JTabbedPane tabAttendance;
+    private javax.swing.JTabbedPane tabEmployee;
+    private javax.swing.JTabbedPane tabPayroll;
+    private javax.swing.JTabbedPane tabUserAccounts;
+    private javax.swing.JTable tblAttendanceRec;
+    private javax.swing.JTable tblEmpManageList;
+    private javax.swing.JTable tblLeaveRec;
+    private javax.swing.JTable tblMyAttendance;
+    private javax.swing.JTable tblReqLeave;
+    private javax.swing.JTable tblUserAccounts;
+    private javax.swing.JTextArea txtAddress;
+    private javax.swing.JLabel txtAllowancePay;
+    private javax.swing.JTextField txtAttendanceSearch;
+    private javax.swing.JLabel txtBasicPay;
+    private javax.swing.JLabel txtBasicRate;
+    private javax.swing.JLabel txtBirthday;
+    private javax.swing.JLabel txtClothingAllowance;
+    private javax.swing.JLabel txtDepartment;
+    private javax.swing.JTextField txtEmpManageSearch;
+    private javax.swing.JTextField txtEmpManageSearch1;
+    private javax.swing.JLabel txtGrossPay;
+    private javax.swing.JLabel txtGrossSemi;
+    private javax.swing.JLabel txtHourlyRate;
+    private javax.swing.JLabel txtLateDeduc;
+    private javax.swing.JTextArea txtLeaveRecDecision;
+    private javax.swing.JTextArea txtLeaveRecReason;
+    private javax.swing.JTextField txtLeaveRecSearch;
+    private javax.swing.JLabel txtMyAllowancePay;
+    private javax.swing.JTextField txtMyAttendanceSearch;
+    private javax.swing.JLabel txtMyBasicPay;
+    private javax.swing.JLabel txtMyGrossPay;
+    private javax.swing.JLabel txtMyLateDeduc;
+    private javax.swing.JLabel txtMyNetPay;
+    private javax.swing.JLabel txtMyOvertimePay;
+    private javax.swing.JLabel txtMyPagibigDeduc;
+    private javax.swing.JLabel txtMyPhilHealthDeduc;
+    private javax.swing.JLabel txtMySSSDeduc;
+    private javax.swing.JLabel txtMyTaxDeduc;
+    private javax.swing.JLabel txtMyTotalDeductions;
+    private javax.swing.JLabel txtNetPay;
+    private javax.swing.JLabel txtOvertimePay;
+    private javax.swing.JLabel txtPagibig;
+    private javax.swing.JLabel txtPagibigDeduc;
+    private javax.swing.JLabel txtPayrollDate;
+    private javax.swing.JLabel txtPayrollEID;
+    private javax.swing.JLabel txtPayrollName;
+    private javax.swing.JLabel txtPayrollRecDate;
+    private javax.swing.JLabel txtPayrollRecEID;
+    private javax.swing.JLabel txtPayrollRecName;
+    private javax.swing.JTextField txtPayrollRecSearch;
+    private javax.swing.JLabel txtPhilHealth;
+    private javax.swing.JLabel txtPhilHealthDeduc;
+    private javax.swing.JLabel txtPhoneAllowance;
+    private javax.swing.JLabel txtPhoneNumber;
+    private javax.swing.JLabel txtPosition;
+    private javax.swing.JTextArea txtReqLeaveDecision;
+    private javax.swing.JFormattedTextField txtReqLeaveEnd;
+    private javax.swing.JTextField txtReqLeaveReason;
+    private javax.swing.JTextArea txtReqLeaveReason1;
+    private javax.swing.JFormattedTextField txtReqLeaveStart;
+    private javax.swing.JLabel txtRiceSubsidy;
+    private javax.swing.JLabel txtSSS;
+    private javax.swing.JLabel txtSSSDeduc;
+    private javax.swing.JLabel txtStatus;
+    private javax.swing.JLabel txtSupervisor;
+    private javax.swing.JLabel txtTIN;
+    private javax.swing.JLabel txtTaxDeduc;
+    private javax.swing.JLabel txtTotalDeductions;
+    private javax.swing.JLabel vGlue;
+    private javax.swing.JLabel vGlue1;
+    private javax.swing.JLabel vGlue10;
+    private javax.swing.JLabel vGlue11;
+    private javax.swing.JLabel vGlue12;
+    private javax.swing.JLabel vGlue13;
+    private javax.swing.JLabel vGlue14;
+    private javax.swing.JLabel vGlue15;
+    private javax.swing.JLabel vGlue2;
+    private javax.swing.JLabel vGlue3;
+    private javax.swing.JLabel vGlue4;
+    private javax.swing.JLabel vGlue5;
+    private javax.swing.JLabel vGlue6;
+    private javax.swing.JLabel vGlue7;
+    private javax.swing.JLabel vGlue8;
+    private javax.swing.JLabel vGlue9;
     // End of variables declaration//GEN-END:variables
 }
