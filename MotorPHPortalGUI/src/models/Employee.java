@@ -8,44 +8,39 @@ package models;
  *
  * @author Winter Melon
  */
-public class Employee {
-    // Basic Required Details
-    private String employeeId;
-    private String lastName;
-    private String firstName;
-    private Departments department; //Enum
+public abstract class Employee extends UserAccount{
+    protected String lastName;
+    protected String firstName;
     
     // Personal Details
-    private String birthday;
-    private String address;
-    private String phoneNumber;
+    protected String birthday;
+    protected String address;
+    protected String phoneNumber;
     
     // Statutory IDs
-    private String sssNumber;
-    private String philHealthNumber;
-    private String tinNumber;
-    private String pagIbigNumber;    
+    protected String sssNumber;
+    protected String philHealthNumber;
+    protected String tinNumber;
+    protected String pagIbigNumber;    
 
     // Employement Details
-    private String position;
-    private EmpStatus empStatus; //Enum
-    private String immediateSupervisor;
+    protected String position;
+    protected EmpStatus empStatus; //Enum
+    protected String immediateSupervisor;
     
-    // Financial Details
-    private double basicSalary;
-    private double riceSubsidy;
-    private double phoneAllowance;
-    private double clothingAllowance;
-    private double grossSemiMonthlyRate;
-    private double hourlyRate;
     
     // CONTRSTRUCTORS    
-
-    public Employee(String employeeId, String lastName, String firstName, Departments department, String birthday, String address, String phoneNumber, String sssNumber, String philHealthNumber, String tinNumber, String pagIbigNumber, String position, EmpStatus empStatus, String immediateSupervisor, double basicSalary, double riceSubsidy, double phoneAllowance, double clothingAllowance, double grossSemiMonthlyRate, double hourlyRate) {
-        this.employeeId = employeeId;
+    public Employee() {
+        super();
+    }
+    
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+    
+    public Employee(String lastName, String firstName, String birthday, String address, String phoneNumber, String sssNumber, String philHealthNumber, String tinNumber, String pagIbigNumber, String position, EmpStatus empStatus, String immediateSupervisor, double basicSalary, double riceSubsidy, double phoneAllowance, double clothingAllowance, double grossSemiMonthlyRate, double hourlyRate) {
         this.lastName = lastName;
         this.firstName = firstName;
-        this.department = department;
         this.birthday = birthday;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -56,30 +51,15 @@ public class Employee {
         this.position = position;
         this.empStatus = empStatus;
         this.immediateSupervisor = immediateSupervisor;
-        this.basicSalary = basicSalary;
-        this.riceSubsidy = riceSubsidy;
-        this.phoneAllowance = phoneAllowance;
-        this.clothingAllowance = clothingAllowance;
-        this.grossSemiMonthlyRate = grossSemiMonthlyRate;
-        this.hourlyRate = hourlyRate;
     }
 
     // GETTERS
-    
-    public String getEmployeeId() {
-        return employeeId;
-    }
-
     public String getLastName() {
         return lastName;
     }
 
     public String getFirstName() {
         return firstName;
-    }
-
-    public Departments getDepartment() {
-        return department;
     }
 
     public String getBirthday() {
@@ -122,36 +102,8 @@ public class Employee {
         return immediateSupervisor;
     }
 
-    public double getBasicSalary() {
-        return basicSalary;
-    }
-
-    public double getRiceSubsidy() {
-        return riceSubsidy;
-    }
-
-    public double getPhoneAllowance() {
-        return phoneAllowance;
-    }
-
-    public double getClothingAllowance() {
-        return clothingAllowance;
-    }
-
-    public double getGrossSemiMonthlyRate() {
-        return grossSemiMonthlyRate;
-    }
-
-    public double getHourlyRate() {
-        return hourlyRate;
-    }
    
     // SETTERS
-
-    public void setEmployeeId(String employeeId) {
-        this.employeeId = employeeId;
-    }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -160,9 +112,6 @@ public class Employee {
         this.firstName = firstName;
     }
 
-    public void setDepartment(Departments department) {
-        this.department = department;
-    }
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
@@ -204,31 +153,4 @@ public class Employee {
         this.immediateSupervisor = immediateSupervisor;
     }
 
-    public void setBasicSalary(double basicSalary) {
-        this.basicSalary = basicSalary;
-    }
-
-    public void setRiceSubsidy(double riceSubsidy) {
-        this.riceSubsidy = riceSubsidy;
-    }
-
-    public void setPhoneAllowance(double phoneAllowance) {
-        this.phoneAllowance = phoneAllowance;
-    }
-
-    public void setClothingAllowance(double clothingAllowance) {
-        this.clothingAllowance = clothingAllowance;
-    }
-
-    public void setGrossSemiMonthlyRate(double grossSemiMonthlyRate) {
-        this.grossSemiMonthlyRate = grossSemiMonthlyRate;
-    }
-
-    public void setHourlyRate(double hourlyRate) {
-        this.hourlyRate = hourlyRate;
-    }
-    
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
 }

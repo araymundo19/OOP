@@ -6,9 +6,11 @@ package dao;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import models.Employee;
+import models.EmployeeSalary;
 import models.EmpStatus;
 
 /**
@@ -37,13 +39,27 @@ public class EmployeeDAO implements IEmployeeDAO {
 
     @Override
     public Employee getEmployeeById(String id) {
-        return getAllEmployees().stream()
-                .filter(e -> e.getEmployeeId().equals(id))
-                .findFirst().orElse(null);
+        // Advanced: We search line-by-line to save memory (Early Exit)
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
+            br.readLine(); // Skip header
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                if (data[0].trim().equals(id)) {
+                    return mapToEmployee(data);
+                }
+            }
+        } catch (IOException e) { 
+            e.printStackTrace(); 
+        }
+        return null;
     }
+    
+    
 
+    
     private Employee mapToEmployee(String[] data) {
-        Employee emp = new Employee();
+        EmployeeSalary emp = new EmployeeSalary();
         emp.setEmployeeId(data[0].trim());
         emp.setLastName(data[1].trim());
         emp.setFirstName(data[2].trim());
@@ -69,8 +85,18 @@ public class EmployeeDAO implements IEmployeeDAO {
     
     private double parse(String val) {
         if (val == null || val.trim().isEmpty()) return 0.0;
-        return Double.parseDouble(val.trim().replace(",", ""));
+    
+        String cleaned = val.trim().replace(",", "").replace("\"", "");
+    
+    try {
+        return Double.parseDouble(cleaned);
+    } catch (NumberFormatException e) {
+        System.err.println("DEBUG: Could not parse numeric value: " + val);
+        return 0.0;
     }
+    }
+    
+    
 
     @Override
     public void updateEmployee(Employee emp) { /* Future Implementation */ }

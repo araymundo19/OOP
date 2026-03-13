@@ -12,8 +12,8 @@ package dao;
 import java.util.List;
 import models.Employee;
 
-public class IEmployeeDAO {
-    List<Employee> getAllEmployees();
+public interface IEmployeeDAO {
     Employee getEmployeeById(String id);
-    void updateEmployee(Employee emp);
+    List<Employee> getAllEmployees();
+    void updateEmployee(Employee emp); 
 }
