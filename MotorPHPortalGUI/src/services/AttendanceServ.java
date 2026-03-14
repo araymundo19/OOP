@@ -36,33 +36,46 @@ public class AttendanceServ {
         attendanceDao.updateTimeOut(empId, today, now);
     }
     
+    
+    // For Current logged user
+    public List<String[]> getAttendanceSummary(String month, String year) {
+        String currentId = AuthServ.getLoggedInUser().getEmployeeId();
+        List<AttendanceRecord> myLogs = attendanceDao.getRecordsByEmployee(currentId); 
+        return processLogs(myLogs, month, year, false);
+    }
+    
+    // FOr Specific Employee (HR/Admin)
     public List<String[]> getAttendanceSummary(String empId, String month, String year) {
         List<AttendanceRecord> rawLogs = attendanceDao.getRecordsByEmployee(empId);
         return processLogs(rawLogs, month, year, false);
     }
-
-    public List<String[]> getAttendanceSummary(String month, String year) {
+    
+    public List<String[]> getAllAttendanceSummary(String month, String year) {
         List<AttendanceRecord> allLogs = attendanceDao.getAllRecords(); 
-        return processLogs(allLogs, month, year, true);
+        return processLogs(allLogs, month, year, true); // true = HR View (includes ID column)
     }
         
     private List<String[]> processLogs(List<AttendanceRecord> logs, String month, String year, boolean isHRView) {
         List<String[]> summary = new ArrayList<>();
+        DateTimeFormatter flexibleTime = DateTimeFormatter.ofPattern("H:mm");
+    DateTimeFormatter flexibleDate = DateTimeFormatter.ofPattern("M/d/yyyy");
         
         for (AttendanceRecord log : logs) {
             try {
-                LocalDate date = LocalDate.parse(log.getDate(), DATE_FORMAT);
+                String dateStr = log.getDate().trim();
+                String timeInStr = log.getTimeIn().trim();
+                String timeOutStr = log.getTimeOut().trim();
+                
+                LocalDate date = LocalDate.parse(dateStr, DATE_FORMAT);
                 
                 // Filter by month/year
                 if (!String.valueOf(date.getYear()).equals(year) || 
                     !String.format("%02d", date.getMonthValue()).equals(month)) continue;
-
-                String timeIn = log.getTimeIn();
-                String timeOut = log.getTimeOut();
-
                 
-                LocalTime inTime = LocalTime.parse(timeIn, TIME_FORMAT);
-                LocalTime outTime = LocalTime.parse(timeOut, TIME_FORMAT);
+                if (timeOutStr.equals("00:00") || timeOutStr.isEmpty()) continue;
+
+                LocalTime inTime = LocalTime.parse(timeInStr, flexibleTime);
+            LocalTime outTime = LocalTime.parse(timeOutStr, flexibleTime);
 
                 // Math: Work hours (minus 1 hr break), Late (after 8:10), OT (after 17:00)
                 Duration work = Duration.between(inTime, outTime).minusHours(1);
@@ -71,20 +84,20 @@ public class AttendanceServ {
 
                 summary.add(createRow(log,
                         isHRView,
-                        timeIn,
-                        timeOut, 
+                        timeInStr,
+                        timeOutStr, 
                         formatDuration(work),
                         formatDuration(lateDur),
                         formatDuration(otDur)));
 
             } catch (Exception e) {
-                // Skips rows that are "00:00" or malformed
+                System.err.println("Skipped Row: " + log.getDate() + " Error: " + e.getMessage());
             }
         }
         return summary;
     }
 
-private String[] createRow(AttendanceRecord log, boolean isHR, String in, String out, String work, String late, String ot) {
+    private String[] createRow(AttendanceRecord log, boolean isHR, String in, String out, String work, String late, String ot) {
         if (isHR) {
             return new String[] { log.getEmployeeId(), log.getDate(), in, out, work, late, ot };
         } else {

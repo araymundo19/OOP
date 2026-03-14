@@ -25,7 +25,7 @@ public class EmployeeSalary extends Employee {
         return "Access for: " + department;
     }
     
-    // CONSTRUCTOR TO MAKE ACCESS EASIER
+    // CONSTRUCTOR TO MAKE ACCESS EASIER = UserAccountsDAO
     public EmployeeSalary(String id, String pass, String role, Departments dept) {
     this.employeeId = id;
     this.password = pass;

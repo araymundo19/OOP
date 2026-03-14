@@ -10,7 +10,8 @@ package gui;
  * @author Winter Melon
  */
 import services.AuthServ;
-import javax.swing.JOptionPane;
+import services.SessionServ;
+import models.EmployeeSalary;
 
 public class LoginFrame extends javax.swing.JFrame {
 
@@ -33,19 +34,22 @@ public class LoginFrame extends javax.swing.JFrame {
             return;
         }
         
-        AuthServ auth = new AuthServ();
-        boolean success = auth.authenticate(enteredId, enteredPass);
-        
-        if (success) {
+        if (AuthServ.authenticate(enteredId, enteredPass)) {
+            
+            AuthServ.syncUserSession(new dao.EmployeeDAO());
+            
+            if (AuthServ.getLoggedInUser() instanceof models.EmployeeSalary emp) {
+                services.SessionServ.startSession(emp);
+            }
             
             new MainDashboard().setVisible(true);
             this.dispose();
             
         } else {
-            
+            // 6. Fail
             handleLoginFailure();
         }
-        }
+    }
     
     private void handleLoginFailure() {
         lblStatus.setText("Invalid employee ID or password.");

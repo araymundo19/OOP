@@ -9,6 +9,7 @@ package gui;
  *
  * @author Winter Melon
  */
+import util.SalaryComputationHelper;
 import java.util.Map;
 import java.util.List;
 import javax.swing.JLabel;

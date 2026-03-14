@@ -16,9 +16,9 @@ import models.Departments;
 
 public class AuthServ {
     private static UserAccount loggedInUser;
-    private final IUserAccountsDAO accountDao = new UserAccountsDAO();
+    private static final IUserAccountsDAO accountDao = new UserAccountsDAO();
     
-    public boolean authenticate(String id, String password) {
+    public static boolean authenticate(String id, String password) {
         UserAccount account = accountDao.authenticate(id, password);
         if (account != null) {
             loggedInUser = account;
@@ -30,28 +30,38 @@ public class AuthServ {
     public static UserAccount getLoggedInUser() {
         return loggedInUser;
     }
+    
+    public static void syncUserSession(dao.EmployeeDAO empDao) {
+        if (loggedInUser instanceof models.EmployeeSalary emp) {
+            models.Employee fullData = empDao.getEmployeeById(emp.getEmployeeId());
+            if (fullData != null) {
+                emp.setFirstName(fullData.getFirstName());
+                emp.setLastName(fullData.getLastName());
+        }
+    }
+}
 
     // --- RBAC HELPER METHODS ---
     // GUI WILL USE TO HIDE/SHOW PARTS
     
-    public boolean isAdmin() {
+    public static boolean isAdmin() {
         return loggedInUser != null && loggedInUser.getDepartment() == Departments.ADMIN;
     }
     
-    public boolean isIT() {
+    public static boolean isIT() {
         return loggedInUser != null && loggedInUser.getDepartment() == Departments.IT;
     }
     
-    public boolean isHR() {
+    public static boolean isHR() {
         return loggedInUser != null && loggedInUser.getDepartment() == Departments.HR;
     }
 
-    public boolean isFinance() {
+    public static boolean isFinance() {
         return loggedInUser != null && loggedInUser.getDepartment() == Departments.FINANCE;
     }
     
     
-    public boolean hasPrivilegedAccess() {
+    public static boolean hasPrivilegedAccess() {
         return isHR() || isIT() || isAdmin() || isFinance();
     }
     
