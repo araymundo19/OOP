@@ -8,16 +8,149 @@ package gui;
  *
  * @author Winter Melon
  */
+import util.DateTimeUtils;
+import java.awt.CardLayout;
+import models.UserAccount;
+import models.EmployeeSalary;
+import services.AuthServ;
+import services.ProfileServ;
+import static services.AuthServ.*;
+
+
 public class MainDashboard extends javax.swing.JFrame {
 
     /**
      * Creates new form MainDashboard
      */
+    
+    // vvv Start of Constructor
     public MainDashboard() {
         initComponents();
-    }
+        setLocationRelativeTo(null);
+        
+        // GET NAME AND DEPARTMENT HEADER
+        AuthServ.syncUserSession(new dao.EmployeeDAO());
+        UserAccount user = AuthServ.getLoggedInUser();
+        if (user instanceof EmployeeSalary emp) {
+            lblNameTag.setText("Welcome, " + emp.getFirstName() + "!");
+            lblDeptTag.setText("[" + emp.getDepartment().toString() + "]");
+        }
+        
+     
+        // LIVE DATE AND TIME
+        javax.swing.Timer timer = new javax.swing.Timer(1000, e -> {
+            lblDate.setText(DateTimeUtils.getNowDate());
+            lblClock.setText(DateTimeUtils.getNowTime());        
+        });
+        timer.start();
+        
+        // CARD MODULES
+        this.empContent = new EmployeeModule();
+        this.hrContent = new HRModule();
+        this.financeContent = new FinanceModule();
+        this.itContent = new ITModule();
+        
+        setupModule(pnlEmployeeModule, empContent);
+        setupModule(pnlHRModule, hrContent);
+        setupModule(pnlFinanceModule, financeContent);
+        setupModule(pnlITModule, itContent);
+        
+        // BUTTONS GROUP
+        allNavButtons = new javax.swing.JButton[]{
+            btnDashboard, btnMyProfile, btnMyAttendance, btnMyPayslip, btnLeaveRequest, // Employee Nav
+            btnEmpManage, btnLeaveRec, btnAttendanceRec, // HR Nav
+            btnPayroll, btnSalaryDetails, btnStatutory, // Finance Nav
+            btnUserAccounts, btnSysLogs, btnSysSettings }; // IT Nav
+        
+        
+        applyRBAC();
 
-    /**
+    }
+    /// ^^^ End of Constructor
+    
+        // Module Seutp
+        private void setupModule(javax.swing.JPanel slot, javax.swing.JPanel content) {
+            slot.setLayout(new java.awt.BorderLayout());
+            slot.add(content, java.awt.BorderLayout.CENTER);
+            slot.revalidate();
+            slot.repaint();
+        }
+        
+        // Card Switch + Tab Setup
+        private void switchToCard(String cardName, javax.swing.JButton activeBtn, javax.swing.JTabbedPane targetTabPane, int tabIndex) {
+        CardLayout cl = (CardLayout) pnlContent.getLayout();
+        cl.show(pnlContent, cardName);
+        
+        
+        // 
+        if ("cardEmployeeModule".equals(cardName)) {
+            ProfileServ pServ = new ProfileServ();
+            EmployeeSalary fullProfile = pServ.getCurrentUserProfile();
+    
+            if (fullProfile != null) {
+                empContent.displayData(fullProfile);
+            }
+            
+            String currentMonthName = java.time.LocalDate.now()
+                .getMonth()
+                .getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.ENGLISH);
+    
+            String currentY = String.valueOf(java.time.LocalDate.now().getYear());
+            empContent.getDrpMonth().setSelectedItem(currentMonthName);
+            empContent.getDrpYear().setSelectedItem(currentY);
+            empContent.refreshAttendanceTable();
+        }
+        
+        if (targetTabPane != null) {
+        targetTabPane.setSelectedIndex(tabIndex);
+        }
+        
+        // Buttons Marker/Reset
+        for (javax.swing.JButton btn : allNavButtons) {
+        btn.setBackground(new java.awt.Color(245, 245, 245));
+        btn.setForeground(java.awt.Color.BLACK);
+        }
+        
+        activeBtn.setBackground(new java.awt.Color(0, 102, 204));
+        activeBtn.setForeground(java.awt.Color.WHITE);
+        }
+
+        
+        // RBAC FOR BUTTONS PANEL
+        private void applyRBAC() {
+            pnlNavHR.setVisible(isAdmin() || isHR());
+            pnlNavFinance.setVisible(isAdmin() || isFinance());
+            pnlNavIT.setVisible(isAdmin() || isIT());
+            
+            pnlNav.revalidate();
+            pnlNav.repaint();
+        }
+
+    
+        // DASHBOARD
+    
+        // ATTENDANCE CARD
+        public void initAttendance() {
+            // Initial State
+            btnClockIn.setEnabled(true);
+            btnClockOut.setEnabled(false);
+            lblClockStatus.setText("STATUS: NOT CLOCKED IN");
+            lblClockStatus.setForeground(java.awt.Color.GRAY);
+            }
+        
+        // NEXT PAYDAY CARD
+        public void initNextPayday() {
+        // PLACE HOLDER FOR COUNTDOWN/PROGRESS BAR/COUNTDOWN
+}
+        
+        // COMPANY ANNOUNCEMENTS CARD
+        public void setAnnouncements(String text) {
+            txtAnnouncements.setText(text);
+            txtAnnouncements.setCaretPosition(0); // Scroll to the top automatically
+}
+    
+    
+     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
@@ -34,10 +167,10 @@ public class MainDashboard extends javax.swing.JFrame {
         btnMyProfile = new javax.swing.JButton();
         btnMyAttendance = new javax.swing.JButton();
         btnMyPayslip = new javax.swing.JButton();
-        btnReqLeave = new javax.swing.JButton();
+        btnLeaveRequest = new javax.swing.JButton();
         pnlNavHR = new javax.swing.JPanel();
         btnEmpManage = new javax.swing.JButton();
-        pnlLeaveRec = new javax.swing.JButton();
+        btnLeaveRec = new javax.swing.JButton();
         btnAttendanceRec = new javax.swing.JButton();
         pnlNavFinance = new javax.swing.JPanel();
         btnPayroll = new javax.swing.JButton();
@@ -51,11 +184,12 @@ public class MainDashboard extends javax.swing.JFrame {
         pnlMain = new javax.swing.JPanel();
         pnlHeader = new javax.swing.JPanel();
         pnlHeaderWest = new javax.swing.JPanel();
-        lblPageTitle = new javax.swing.JLabel();
-        pnlHeaderEast = new javax.swing.JPanel();
         pnlNameTag = new javax.swing.JPanel();
         lblNameTag = new javax.swing.JLabel();
         lblDeptTag = new javax.swing.JLabel();
+        pnlHeaderEast = new javax.swing.JPanel();
+        pnlDate = new javax.swing.JPanel();
+        lblDate = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         pnlClock = new javax.swing.JPanel();
         lblClock = new javax.swing.JLabel();
@@ -63,23 +197,35 @@ public class MainDashboard extends javax.swing.JFrame {
         btnLogout = new javax.swing.JButton();
         pnlContent = new javax.swing.JPanel();
         pnlDashboard = new javax.swing.JPanel();
-        pnlWelcome = new javax.swing.JPanel();
-        pnlWelcomeMsg = new javax.swing.JLabel();
-        pnlClockInOut = new javax.swing.JPanel();
-        lblClockStatus = new javax.swing.JLabel();
-        btnClockIn = new javax.swing.JButton();
-        jSeparator3 = new javax.swing.JSeparator();
-        btnClockOut = new javax.swing.JButton();
-        pnlStats = new javax.swing.JPanel();
+        pnlRow1 = new javax.swing.JPanel();
         pnlCardAttendance = new javax.swing.JPanel();
         lblCardAttendance = new javax.swing.JLabel();
+        pnlClockInOut = new javax.swing.JPanel();
+        lblClockStatus = new javax.swing.JLabel();
+        lblTimelog = new javax.swing.JLabel();
+        btnClockIn = new javax.swing.JButton();
+        btnClockOut = new javax.swing.JButton();
         pnlCardNextPayday = new javax.swing.JPanel();
         lblCardNextPayday = new javax.swing.JLabel();
-        pnlCardPendingLeaves = new javax.swing.JPanel();
-        lblCardPendingLeaves = new javax.swing.JLabel();
-        pnlRow3 = new javax.swing.JPanel();
+        pnlNextPayday = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        lblPaydayDate = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        barPaydayCountdown = new javax.swing.JProgressBar();
+        jPanel8 = new javax.swing.JPanel();
+        lblPaydayCountdown = new javax.swing.JLabel();
+        pnlCardNextPayday1 = new javax.swing.JPanel();
+        lblCardNextPayday1 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        lblTotalHours = new javax.swing.JLabel();
+        lblHoursUnit = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        lblWorkDaysCount = new javax.swing.JLabel();
+        pnlRow2 = new javax.swing.JPanel();
         pnlAnnouncements = new javax.swing.JPanel();
-        lblAnnouncements = new javax.swing.JLabel();
+        lblCardAnnouncements = new javax.swing.JLabel();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        txtAnnouncements = new javax.swing.JTextArea();
         pnlContact = new javax.swing.JPanel();
         pnlContact1 = new javax.swing.JPanel();
         lblContact = new javax.swing.JLabel();
@@ -91,9 +237,15 @@ public class MainDashboard extends javax.swing.JFrame {
         btnContactHR = new javax.swing.JButton();
         jSeparator6 = new javax.swing.JSeparator();
         btnContactFinance = new javax.swing.JButton();
-        pnlEmployee = new javax.swing.JPanel();
-        tabEmployee = new javax.swing.JTabbedPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        pnlRow3 = new javax.swing.JPanel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 32767));
+        pnlEmployeeModule = new javax.swing.JPanel();
+        pnlHRModule = new javax.swing.JPanel();
+        pnlFinanceModule = new javax.swing.JPanel();
+        pnlITModule = new javax.swing.JPanel();
+        pnlEmployeeAccess = new javax.swing.JPanel();
+        tabEmployeeModule = new javax.swing.JTabbedPane();
+        ScrMyProfile = new javax.swing.JScrollPane();
         pnlMyProfile = new javax.swing.JPanel();
         pnlMyProfileRow1 = new javax.swing.JPanel();
         lblMyProfilePic = new javax.swing.JLabel();
@@ -148,20 +300,6 @@ public class MainDashboard extends javax.swing.JFrame {
         vGlue2 = new javax.swing.JLabel();
         vGlue8 = new javax.swing.JLabel();
         pnlMyProfileVGlue = new javax.swing.JLabel();
-        pnlEmpManage = new javax.swing.JPanel();
-        pnlEmpManageCtrl = new javax.swing.JPanel();
-        pnlEmpManageSearch = new javax.swing.JPanel();
-        lblEmpManageSearch = new javax.swing.JLabel();
-        txtEmpManageSearch = new javax.swing.JTextField();
-        btnEmpManageSearch = new javax.swing.JButton();
-        pnlEmpManageButtons = new javax.swing.JPanel();
-        btnEmpManageAdd = new javax.swing.JButton();
-        btnEmpManageEdit = new javax.swing.JButton();
-        btnEmpManageDelete = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblEmpManageList = new javax.swing.JTable();
-        pnlAttendance = new javax.swing.JPanel();
-        tabAttendance = new javax.swing.JTabbedPane();
         pnlMyAttendance = new javax.swing.JPanel();
         pnlMyAttendanceCtrl = new javax.swing.JPanel();
         txtMyAttendanceSearch = new javax.swing.JTextField();
@@ -169,70 +307,14 @@ public class MainDashboard extends javax.swing.JFrame {
         drpMyAttendanceYear = new javax.swing.JComboBox<>();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblMyAttendance = new javax.swing.JTable();
-        pnlAttendanceRec = new javax.swing.JPanel();
-        pnlAttendanceRecCtrl = new javax.swing.JPanel();
-        txtAttendanceSearch = new javax.swing.JTextField();
-        drpAttendanceMonth = new javax.swing.JComboBox<>();
-        drpAttendanceYear = new javax.swing.JComboBox<>();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tblAttendanceRec = new javax.swing.JTable();
-        pnlReqLeave = new javax.swing.JPanel();
-        pnlReqLeaveCtrl = new javax.swing.JPanel();
-        drpReqLeaveType = new javax.swing.JComboBox<>();
-        txtReqLeaveStart = new javax.swing.JFormattedTextField();
-        txtReqLeaveEnd = new javax.swing.JFormattedTextField();
-        txtReqLeaveReason = new javax.swing.JTextField();
-        btnReqLeaveSend = new javax.swing.JButton();
-        btnReqLeaveClear = new javax.swing.JButton();
-        pnlPReqLeaveVGlue10 = new javax.swing.JLabel();
-        jSplitPane2 = new javax.swing.JSplitPane();
-        jScrollPane13 = new javax.swing.JScrollPane();
-        tblReqLeave = new javax.swing.JTable();
-        jPanel5 = new javax.swing.JPanel();
-        pnlReqLeaveMsg = new javax.swing.JPanel();
-        pnlReqLeaveReason = new javax.swing.JPanel();
-        jScrollPane14 = new javax.swing.JScrollPane();
-        txtReqLeaveReason1 = new javax.swing.JTextArea();
-        vGlue14 = new javax.swing.JLabel();
-        pnlReqLeaveDecision = new javax.swing.JPanel();
-        jScrollPane15 = new javax.swing.JScrollPane();
-        txtReqLeaveDecision = new javax.swing.JTextArea();
-        vGlue15 = new javax.swing.JLabel();
-        pnlPLeaveRecVGlue11 = new javax.swing.JLabel();
-        pnlLeaveRecords = new javax.swing.JPanel();
-        pnlLeaveRecCtrl = new javax.swing.JPanel();
-        txtLeaveRecSearch = new javax.swing.JTextField();
-        drpLeaveRecMonth = new javax.swing.JComboBox<>();
-        drpLeaveRecYear = new javax.swing.JComboBox<>();
-        drpLeaveRecStatus = new javax.swing.JComboBox<>();
-        pnlPLeaveRecVGlue9 = new javax.swing.JLabel();
-        jSplitPane1 = new javax.swing.JSplitPane();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        tblLeaveRec = new javax.swing.JTable();
-        jPanel3 = new javax.swing.JPanel();
-        pnlLeaveRecMsg = new javax.swing.JPanel();
-        pnlLeaveRecReason = new javax.swing.JPanel();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        txtLeaveRecReason = new javax.swing.JTextArea();
-        vGlue12 = new javax.swing.JLabel();
-        pnlLeaveRecDecision = new javax.swing.JPanel();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        txtLeaveRecDecision = new javax.swing.JTextArea();
-        jPanel4 = new javax.swing.JPanel();
-        btnLeaveRecApprove = new javax.swing.JButton();
-        btnLeaveRecReject = new javax.swing.JButton();
-        vGlue13 = new javax.swing.JLabel();
-        pnlLeaveRecVGlue8 = new javax.swing.JLabel();
-        pnlPayroll = new javax.swing.JPanel();
-        tabPayroll = new javax.swing.JTabbedPane();
-        pnlMyPayroll = new javax.swing.JPanel();
-        pnlMyPayrollCtrl = new javax.swing.JPanel();
-        drpMyPayrollMonth = new javax.swing.JComboBox<>();
-        drpMyPayrollPeriod = new javax.swing.JComboBox<>();
-        drpMyPayrollYear = new javax.swing.JComboBox<>();
-        jScrollPane6 = new javax.swing.JScrollPane();
+        pnlMyPayslip = new javax.swing.JPanel();
+        pnlMyPayslipCtrl = new javax.swing.JPanel();
+        drpMyPayslipMonth = new javax.swing.JComboBox<>();
+        drpMyPayslipPeriod = new javax.swing.JComboBox<>();
+        drpMyPayslipYear = new javax.swing.JComboBox<>();
+        ScrMyPayslip = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
-        pnlMyPayrollRow1 = new javax.swing.JPanel();
+        pnlMyPayslipRow1 = new javax.swing.JPanel();
         lblPayrollEID = new javax.swing.JLabel();
         txtPayrollEID = new javax.swing.JLabel();
         lblPayrollName = new javax.swing.JLabel();
@@ -240,7 +322,7 @@ public class MainDashboard extends javax.swing.JFrame {
         lblPayrollDate = new javax.swing.JLabel();
         txtPayrollDate = new javax.swing.JLabel();
         pnlMyPayrollVGlue1 = new javax.swing.JLabel();
-        pnlMyPayrollRow2 = new javax.swing.JPanel();
+        pnlMyPayslipRow2 = new javax.swing.JPanel();
         pnlMyPayrollEarnings = new javax.swing.JPanel();
         lblMyBasicPay = new javax.swing.JLabel();
         txtMyBasicPay = new javax.swing.JLabel();
@@ -262,7 +344,7 @@ public class MainDashboard extends javax.swing.JFrame {
         txtMyPagibigDeduc = new javax.swing.JLabel();
         vGlue5 = new javax.swing.JLabel();
         pnlMyPayrollVGlue2 = new javax.swing.JLabel();
-        pnlMyPayrollRow3 = new javax.swing.JPanel();
+        pnlMyPayslipRow3 = new javax.swing.JPanel();
         pnlMyPayrollSummary = new javax.swing.JPanel();
         lblMyGrossPay = new javax.swing.JLabel();
         txtMyGrossPay = new javax.swing.JLabel();
@@ -272,8 +354,33 @@ public class MainDashboard extends javax.swing.JFrame {
         txtMyNetPay = new javax.swing.JLabel();
         vGlue7 = new javax.swing.JLabel();
         pnlMyPayrollVGlue3 = new javax.swing.JLabel();
-        pnlMyPayrollVGlue = new javax.swing.JLabel();
-        pnlPayrollRec = new javax.swing.JPanel();
+        pnlMyPayslipVGlue = new javax.swing.JLabel();
+        pnlLeaveRequest = new javax.swing.JPanel();
+        pnlLeaveRequestCtrl = new javax.swing.JPanel();
+        drpLeaveRequestType = new javax.swing.JComboBox<>();
+        txtLeaveRequestStart = new javax.swing.JFormattedTextField();
+        txtLeaveRequestEnd = new javax.swing.JFormattedTextField();
+        txtLeaveRequestReason = new javax.swing.JTextField();
+        btnLeaveRequestSend = new javax.swing.JButton();
+        btnLeaveRequestClear = new javax.swing.JButton();
+        pnlReqLeaveVGlue10 = new javax.swing.JLabel();
+        jSplitPane2 = new javax.swing.JSplitPane();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        tblLeaveRequest = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        pnlLeaveRequestMsg = new javax.swing.JPanel();
+        pnlLeaveRequestReason = new javax.swing.JPanel();
+        jScrollPane14 = new javax.swing.JScrollPane();
+        txtReqLeaveReason1 = new javax.swing.JTextArea();
+        vGlue14 = new javax.swing.JLabel();
+        pnlLeaveRequestDecision = new javax.swing.JPanel();
+        jScrollPane15 = new javax.swing.JScrollPane();
+        txtReqLeaveDecision = new javax.swing.JTextArea();
+        vGlue15 = new javax.swing.JLabel();
+        pnlLeaveRequestVGlue11 = new javax.swing.JLabel();
+        pnlFinanceAccess = new javax.swing.JPanel();
+        tabFinanceModule = new javax.swing.JTabbedPane();
+        pnlPayrollRecords = new javax.swing.JPanel();
         pnlPayrollRecCtrl = new javax.swing.JPanel();
         txtPayrollRecSearch = new javax.swing.JTextField();
         drpPayrollRecMonth = new javax.swing.JComboBox<>();
@@ -324,8 +431,8 @@ public class MainDashboard extends javax.swing.JFrame {
         pnlPayrollRecVGlue7 = new javax.swing.JLabel();
         pnlStatutory = new javax.swing.JPanel();
         lblStatutoryNotice = new javax.swing.JLabel();
-        pnlIT = new javax.swing.JPanel();
-        tabUserAccounts = new javax.swing.JTabbedPane();
+        pnlITAccess = new javax.swing.JPanel();
+        tabITModule = new javax.swing.JTabbedPane();
         pnlUserAccounts = new javax.swing.JPanel();
         pnlUserManageCtrl = new javax.swing.JPanel();
         pnlUserManageSearch = new javax.swing.JPanel();
@@ -338,15 +445,62 @@ public class MainDashboard extends javax.swing.JFrame {
         btnUserDelete = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblUserAccounts = new javax.swing.JTable();
+        pnlHRAccess = new javax.swing.JPanel();
+        tabHRModule = new javax.swing.JTabbedPane();
+        pnlEmpManage = new javax.swing.JPanel();
+        pnlEmpManageCtrl = new javax.swing.JPanel();
+        pnlEmpManageSearch = new javax.swing.JPanel();
+        lblEmpManageSearch = new javax.swing.JLabel();
+        txtEmpManageSearch = new javax.swing.JTextField();
+        btnEmpManageSearch = new javax.swing.JButton();
+        pnlEmpManageButtons = new javax.swing.JPanel();
+        btnEmpManageAdd = new javax.swing.JButton();
+        btnEmpManageEdit = new javax.swing.JButton();
+        btnEmpManageDelete = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblEmpManageList = new javax.swing.JTable();
+        pnlAttendanceRecords = new javax.swing.JPanel();
+        pnlAttendanceRecCtrl = new javax.swing.JPanel();
+        txtAttendanceSearch = new javax.swing.JTextField();
+        drpAttendanceMonth = new javax.swing.JComboBox<>();
+        drpAttendanceYear = new javax.swing.JComboBox<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblAttendanceRec = new javax.swing.JTable();
+        pnlLeaveRecords = new javax.swing.JPanel();
+        pnlLeaveRecCtrl = new javax.swing.JPanel();
+        txtLeaveRecSearch = new javax.swing.JTextField();
+        drpLeaveRecMonth = new javax.swing.JComboBox<>();
+        drpLeaveRecYear = new javax.swing.JComboBox<>();
+        drpLeaveRecStatus = new javax.swing.JComboBox<>();
+        pnlPLeaveRecVGlue9 = new javax.swing.JLabel();
+        jSplitPane1 = new javax.swing.JSplitPane();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        tblLeaveRec = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        pnlLeaveRecMsg = new javax.swing.JPanel();
+        pnlLeaveRecReason = new javax.swing.JPanel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        txtLeaveRecReason = new javax.swing.JTextArea();
+        vGlue12 = new javax.swing.JLabel();
+        pnlLeaveRecDecision = new javax.swing.JPanel();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        txtLeaveRecDecision = new javax.swing.JTextArea();
+        jPanel4 = new javax.swing.JPanel();
+        btnLeaveRecApprove = new javax.swing.JButton();
+        btnLeaveRecReject = new javax.swing.JButton();
+        vGlue13 = new javax.swing.JLabel();
+        pnlLeaveRecVGlue8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1100, 750));
+        setMinimumSize(new java.awt.Dimension(1100, 296));
         setPreferredSize(new java.awt.Dimension(1100, 750));
 
         pnlSidebar.setBackground(new java.awt.Color(204, 255, 204));
         pnlSidebar.setPreferredSize(new java.awt.Dimension(150, 700));
         pnlSidebar.setLayout(new java.awt.BorderLayout());
 
-        pnlLogo.setBackground(new java.awt.Color(255, 204, 153));
+        pnlLogo.setBackground(new java.awt.Color(255, 255, 255));
         pnlLogo.setMinimumSize(new java.awt.Dimension(116, 75));
         pnlLogo.setPreferredSize(new java.awt.Dimension(116, 75));
         pnlLogo.setLayout(new java.awt.GridBagLayout());
@@ -373,6 +527,11 @@ public class MainDashboard extends javax.swing.JFrame {
         btnDashboard.setMaximumSize(new java.awt.Dimension(150, 45));
         btnDashboard.setMinimumSize(new java.awt.Dimension(150, 45));
         btnDashboard.setPreferredSize(new java.awt.Dimension(150, 45));
+        btnDashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDashboardActionPerformed(evt);
+            }
+        });
         pnlNavEmployee.add(btnDashboard);
 
         btnMyProfile.setText("My Profile");
@@ -396,6 +555,11 @@ public class MainDashboard extends javax.swing.JFrame {
         btnMyAttendance.setMaximumSize(new java.awt.Dimension(150, 45));
         btnMyAttendance.setMinimumSize(new java.awt.Dimension(150, 45));
         btnMyAttendance.setPreferredSize(new java.awt.Dimension(150, 45));
+        btnMyAttendance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMyAttendanceActionPerformed(evt);
+            }
+        });
         pnlNavEmployee.add(btnMyAttendance);
 
         btnMyPayslip.setText("My Payslip");
@@ -405,16 +569,26 @@ public class MainDashboard extends javax.swing.JFrame {
         btnMyPayslip.setMaximumSize(new java.awt.Dimension(150, 45));
         btnMyPayslip.setMinimumSize(new java.awt.Dimension(150, 45));
         btnMyPayslip.setPreferredSize(new java.awt.Dimension(150, 45));
+        btnMyPayslip.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMyPayslipActionPerformed(evt);
+            }
+        });
         pnlNavEmployee.add(btnMyPayslip);
 
-        btnReqLeave.setText("Request Leave");
-        btnReqLeave.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnReqLeave.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnReqLeave.setMargin(new java.awt.Insets(0, 20, 0, 0));
-        btnReqLeave.setMaximumSize(new java.awt.Dimension(150, 45));
-        btnReqLeave.setMinimumSize(new java.awt.Dimension(150, 45));
-        btnReqLeave.setPreferredSize(new java.awt.Dimension(150, 45));
-        pnlNavEmployee.add(btnReqLeave);
+        btnLeaveRequest.setText("Leave Request");
+        btnLeaveRequest.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnLeaveRequest.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnLeaveRequest.setMargin(new java.awt.Insets(0, 20, 0, 0));
+        btnLeaveRequest.setMaximumSize(new java.awt.Dimension(150, 45));
+        btnLeaveRequest.setMinimumSize(new java.awt.Dimension(150, 45));
+        btnLeaveRequest.setPreferredSize(new java.awt.Dimension(150, 45));
+        btnLeaveRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLeaveRequestActionPerformed(evt);
+            }
+        });
+        pnlNavEmployee.add(btnLeaveRequest);
 
         pnlNav.add(pnlNavEmployee);
 
@@ -429,21 +603,26 @@ public class MainDashboard extends javax.swing.JFrame {
         btnEmpManage.setMaximumSize(new java.awt.Dimension(150, 45));
         btnEmpManage.setMinimumSize(new java.awt.Dimension(150, 45));
         btnEmpManage.setPreferredSize(new java.awt.Dimension(150, 45));
-        pnlNavHR.add(btnEmpManage);
-
-        pnlLeaveRec.setText("Leave Records");
-        pnlLeaveRec.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        pnlLeaveRec.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        pnlLeaveRec.setMargin(new java.awt.Insets(0, 20, 0, 0));
-        pnlLeaveRec.setMaximumSize(new java.awt.Dimension(150, 45));
-        pnlLeaveRec.setMinimumSize(new java.awt.Dimension(150, 45));
-        pnlLeaveRec.setPreferredSize(new java.awt.Dimension(150, 45));
-        pnlLeaveRec.addActionListener(new java.awt.event.ActionListener() {
+        btnEmpManage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pnlLeaveRecActionPerformed(evt);
+                btnEmpManageActionPerformed(evt);
             }
         });
-        pnlNavHR.add(pnlLeaveRec);
+        pnlNavHR.add(btnEmpManage);
+
+        btnLeaveRec.setText("Leave Records");
+        btnLeaveRec.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnLeaveRec.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnLeaveRec.setMargin(new java.awt.Insets(0, 20, 0, 0));
+        btnLeaveRec.setMaximumSize(new java.awt.Dimension(150, 45));
+        btnLeaveRec.setMinimumSize(new java.awt.Dimension(150, 45));
+        btnLeaveRec.setPreferredSize(new java.awt.Dimension(150, 45));
+        btnLeaveRec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLeaveRecActionPerformed(evt);
+            }
+        });
+        pnlNavHR.add(btnLeaveRec);
 
         btnAttendanceRec.setText("Attendance Records");
         btnAttendanceRec.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -452,6 +631,11 @@ public class MainDashboard extends javax.swing.JFrame {
         btnAttendanceRec.setMaximumSize(new java.awt.Dimension(150, 45));
         btnAttendanceRec.setMinimumSize(new java.awt.Dimension(150, 45));
         btnAttendanceRec.setPreferredSize(new java.awt.Dimension(150, 45));
+        btnAttendanceRec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAttendanceRecActionPerformed(evt);
+            }
+        });
         pnlNavHR.add(btnAttendanceRec);
 
         pnlNav.add(pnlNavHR);
@@ -467,11 +651,17 @@ public class MainDashboard extends javax.swing.JFrame {
         btnPayroll.setMaximumSize(new java.awt.Dimension(150, 45));
         btnPayroll.setMinimumSize(new java.awt.Dimension(150, 45));
         btnPayroll.setPreferredSize(new java.awt.Dimension(150, 45));
+        btnPayroll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPayrollActionPerformed(evt);
+            }
+        });
         pnlNavFinance.add(btnPayroll);
 
         btnSalaryDetails.setText("Salary Details");
         btnSalaryDetails.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnSalaryDetails.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSalaryDetails.setEnabled(false);
         btnSalaryDetails.setMargin(new java.awt.Insets(0, 20, 0, 0));
         btnSalaryDetails.setMaximumSize(new java.awt.Dimension(150, 45));
         btnSalaryDetails.setMinimumSize(new java.awt.Dimension(150, 45));
@@ -550,36 +740,42 @@ public class MainDashboard extends javax.swing.JFrame {
         getContentPane().add(pnlSidebar, java.awt.BorderLayout.LINE_START);
 
         pnlMain.setBackground(new java.awt.Color(153, 153, 153));
+        pnlMain.setPreferredSize(new java.awt.Dimension(900, 905));
         pnlMain.setLayout(new java.awt.BorderLayout());
 
-        pnlHeader.setBackground(new java.awt.Color(255, 255, 204));
+        pnlHeader.setBackground(new java.awt.Color(229, 229, 229));
         pnlHeader.setPreferredSize(new java.awt.Dimension(950, 50));
         pnlHeader.setLayout(new java.awt.BorderLayout());
 
         pnlHeaderWest.setOpaque(false);
-        pnlHeaderWest.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 15, 15));
-
-        lblPageTitle.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblPageTitle.setText("Page Title");
-        pnlHeaderWest.add(lblPageTitle);
-
-        pnlHeader.add(pnlHeaderWest, java.awt.BorderLayout.WEST);
-
-        pnlHeaderEast.setOpaque(false);
-        pnlHeaderEast.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 15, 10));
+        pnlHeaderWest.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 15, 10));
 
         pnlNameTag.setMinimumSize(new java.awt.Dimension(44, 20));
         pnlNameTag.setOpaque(false);
 
-        lblNameTag.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        lblNameTag.setText("Name");
+        lblNameTag.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblNameTag.setText("[Name]");
         pnlNameTag.add(lblNameTag);
 
         lblDeptTag.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         lblDeptTag.setText("[DEPT]");
         pnlNameTag.add(lblDeptTag);
 
-        pnlHeaderEast.add(pnlNameTag);
+        pnlHeaderWest.add(pnlNameTag);
+
+        pnlHeader.add(pnlHeaderWest, java.awt.BorderLayout.WEST);
+
+        pnlHeaderEast.setOpaque(false);
+        pnlHeaderEast.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 15, 10));
+
+        pnlDate.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        pnlDate.setMinimumSize(new java.awt.Dimension(44, 20));
+
+        lblDate.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        lblDate.setText("Date");
+        pnlDate.add(lblDate);
+
+        pnlHeaderEast.add(pnlDate);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jSeparator1.setPreferredSize(new java.awt.Dimension(2, 30));
@@ -589,7 +785,7 @@ public class MainDashboard extends javax.swing.JFrame {
         pnlClock.setMinimumSize(new java.awt.Dimension(44, 20));
 
         lblClock.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
-        lblClock.setText("HH:mm:ss");
+        lblClock.setText("Live Clock");
         pnlClock.add(lblClock);
 
         pnlHeaderEast.add(pnlClock);
@@ -611,95 +807,210 @@ public class MainDashboard extends javax.swing.JFrame {
         pnlMain.add(pnlHeader, java.awt.BorderLayout.PAGE_START);
 
         pnlContent.setBackground(new java.awt.Color(153, 255, 204));
+        pnlContent.setPreferredSize(new java.awt.Dimension(900, 855));
         pnlContent.setLayout(new java.awt.CardLayout());
 
-        pnlDashboard.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        pnlDashboard.setBackground(new java.awt.Color(255, 255, 255));
+        pnlDashboard.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlDashboard.setMinimumSize(new java.awt.Dimension(900, 253));
         pnlDashboard.setLayout(new javax.swing.BoxLayout(pnlDashboard, javax.swing.BoxLayout.Y_AXIS));
 
-        pnlWelcome.setMaximumSize(new java.awt.Dimension(32767, 100));
-        pnlWelcome.setLayout(new java.awt.BorderLayout());
-
-        pnlWelcomeMsg.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        pnlWelcomeMsg.setText("Welcome, [NAME]!");
-        pnlWelcome.add(pnlWelcomeMsg, java.awt.BorderLayout.WEST);
-
-        lblClockStatus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblClockStatus.setText("Status: [Not Clocked In]");
-        pnlClockInOut.add(lblClockStatus);
-
-        btnClockIn.setText("Clock In");
-        pnlClockInOut.add(btnClockIn);
-
-        jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jSeparator3.setPreferredSize(new java.awt.Dimension(2, 30));
-        pnlClockInOut.add(jSeparator3);
-
-        btnClockOut.setText("Clock Out");
-        pnlClockInOut.add(btnClockOut);
-
-        pnlWelcome.add(pnlClockInOut, java.awt.BorderLayout.EAST);
-
-        pnlDashboard.add(pnlWelcome);
-
-        pnlStats.setBackground(new java.awt.Color(204, 255, 204));
-        pnlStats.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 0, 10));
-        pnlStats.setLayout(new java.awt.GridLayout(1, 0, 20, 0));
+        pnlRow1.setBackground(new java.awt.Color(255, 255, 255));
+        pnlRow1.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 0, 10));
+        pnlRow1.setAlignmentY(0.0F);
+        pnlRow1.setMinimumSize(new java.awt.Dimension(1100, 191));
+        pnlRow1.setLayout(new java.awt.GridLayout(1, 3, 10, 0));
 
         pnlCardAttendance.setBackground(new java.awt.Color(255, 255, 255));
         pnlCardAttendance.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(231, 231, 231), 2, true));
-        pnlCardAttendance.setPreferredSize(new java.awt.Dimension(200, 100));
-        pnlCardAttendance.setLayout(new java.awt.BorderLayout(10, 0));
+        pnlCardAttendance.setPreferredSize(new java.awt.Dimension(200, 200));
+        pnlCardAttendance.setLayout(new java.awt.BorderLayout());
 
-        lblCardAttendance.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCardAttendance.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCardAttendance.setForeground(new java.awt.Color(51, 51, 51));
         lblCardAttendance.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCardAttendance.setText("Attendance:");
+        lblCardAttendance.setText("ATTENDANCE");
+        lblCardAttendance.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 5, 0));
         lblCardAttendance.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlCardAttendance.add(lblCardAttendance, java.awt.BorderLayout.NORTH);
 
-        pnlStats.add(pnlCardAttendance);
+        pnlClockInOut.setBackground(new java.awt.Color(255, 255, 255));
+        pnlClockInOut.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlClockInOut.setLayout(new java.awt.GridLayout(0, 1, 10, 10));
+
+        lblClockStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblClockStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblClockStatus.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        pnlClockInOut.add(lblClockStatus);
+
+        lblTimelog.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblTimelog.setForeground(new java.awt.Color(0, 204, 51));
+        lblTimelog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTimelog.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        pnlClockInOut.add(lblTimelog);
+
+        btnClockIn.setText("Clock In");
+        btnClockIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClockInActionPerformed(evt);
+            }
+        });
+        pnlClockInOut.add(btnClockIn);
+
+        btnClockOut.setText("Clock Out");
+        btnClockOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClockOutActionPerformed(evt);
+            }
+        });
+        pnlClockInOut.add(btnClockOut);
+
+        pnlCardAttendance.add(pnlClockInOut, java.awt.BorderLayout.CENTER);
+
+        pnlRow1.add(pnlCardAttendance);
 
         pnlCardNextPayday.setBackground(new java.awt.Color(255, 255, 255));
         pnlCardNextPayday.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(231, 231, 231), 2, true));
         pnlCardNextPayday.setPreferredSize(new java.awt.Dimension(200, 100));
         pnlCardNextPayday.setLayout(new java.awt.BorderLayout());
 
-        lblCardNextPayday.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCardNextPayday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCardNextPayday.setForeground(new java.awt.Color(51, 51, 51));
         lblCardNextPayday.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCardNextPayday.setText("Next Payday:");
+        lblCardNextPayday.setText("NEXT PAYDAY");
+        lblCardNextPayday.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 5, 0));
         lblCardNextPayday.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         pnlCardNextPayday.add(lblCardNextPayday, java.awt.BorderLayout.NORTH);
 
-        pnlStats.add(pnlCardNextPayday);
+        pnlNextPayday.setBackground(new java.awt.Color(255, 255, 255));
+        pnlNextPayday.setLayout(new java.awt.GridLayout(3, 1));
 
-        pnlCardPendingLeaves.setBackground(new java.awt.Color(255, 255, 255));
-        pnlCardPendingLeaves.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(231, 231, 231), 2, true));
-        pnlCardPendingLeaves.setPreferredSize(new java.awt.Dimension(200, 100));
-        pnlCardPendingLeaves.setLayout(new java.awt.BorderLayout());
+        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel7.setLayout(new java.awt.BorderLayout());
 
-        lblCardPendingLeaves.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblCardPendingLeaves.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblCardPendingLeaves.setText("Pending Leaves:");
-        lblCardPendingLeaves.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        pnlCardPendingLeaves.add(lblCardPendingLeaves, java.awt.BorderLayout.NORTH);
+        lblPaydayDate.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblPaydayDate.setForeground(new java.awt.Color(0, 102, 204));
+        lblPaydayDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPaydayDate.setText("March 15, 2026");
+        jPanel7.add(lblPaydayDate, java.awt.BorderLayout.SOUTH);
 
-        pnlStats.add(pnlCardPendingLeaves);
+        pnlNextPayday.add(jPanel7);
 
-        pnlDashboard.add(pnlStats);
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setLayout(new java.awt.BorderLayout());
 
-        pnlRow3.setBackground(new java.awt.Color(204, 255, 204));
-        pnlRow3.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        pnlRow3.setLayout(new java.awt.GridLayout(1, 0, 20, 0));
+        barPaydayCountdown.setValue(93);
+        barPaydayCountdown.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 10, true));
+        barPaydayCountdown.setBorderPainted(false);
+        barPaydayCountdown.setMaximumSize(new java.awt.Dimension(32767, 20));
+        barPaydayCountdown.setPreferredSize(new java.awt.Dimension(200, 40));
+        barPaydayCountdown.setStringPainted(true);
+        jPanel6.add(barPaydayCountdown, java.awt.BorderLayout.PAGE_END);
+
+        pnlNextPayday.add(jPanel6);
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblPaydayCountdown.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPaydayCountdown.setText("1 Day Remaining");
+        jPanel8.add(lblPaydayCountdown);
+
+        pnlNextPayday.add(jPanel8);
+
+        pnlCardNextPayday.add(pnlNextPayday, java.awt.BorderLayout.CENTER);
+
+        pnlRow1.add(pnlCardNextPayday);
+
+        pnlCardNextPayday1.setBackground(new java.awt.Color(255, 255, 255));
+        pnlCardNextPayday1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(231, 231, 231), 2, true));
+        pnlCardNextPayday1.setPreferredSize(new java.awt.Dimension(200, 100));
+        pnlCardNextPayday1.setLayout(new java.awt.BorderLayout());
+
+        lblCardNextPayday1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCardNextPayday1.setForeground(new java.awt.Color(51, 51, 51));
+        lblCardNextPayday1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCardNextPayday1.setText("TOTAL HOURS THIS PERIOD");
+        lblCardNextPayday1.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 5, 0));
+        lblCardNextPayday1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlCardNextPayday1.add(lblCardNextPayday1, java.awt.BorderLayout.NORTH);
+
+        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 0));
+        jPanel9.setLayout(new java.awt.GridBagLayout());
+
+        lblTotalHours.setFont(new java.awt.Font("Segoe UI", 1, 72)); // NOI18N
+        lblTotalHours.setForeground(new java.awt.Color(0, 153, 102));
+        lblTotalHours.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblTotalHours.setText("72.5");
+        lblTotalHours.setToolTipText("");
+        lblTotalHours.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel9.add(lblTotalHours, new java.awt.GridBagConstraints());
+
+        lblHoursUnit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblHoursUnit.setForeground(new java.awt.Color(0, 153, 102));
+        lblHoursUnit.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblHoursUnit.setText("HRS");
+        lblHoursUnit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel9.add(lblHoursUnit, new java.awt.GridBagConstraints());
+
+        pnlCardNextPayday1.add(jPanel9, java.awt.BorderLayout.CENTER);
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        lblWorkDaysCount.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblWorkDaysCount.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblWorkDaysCount.setText("9 / 11 Days Logged");
+        lblWorkDaysCount.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel10.add(lblWorkDaysCount);
+
+        pnlCardNextPayday1.add(jPanel10, java.awt.BorderLayout.PAGE_END);
+
+        pnlRow1.add(pnlCardNextPayday1);
+
+        pnlDashboard.add(pnlRow1);
+
+        pnlRow2.setBackground(new java.awt.Color(255, 255, 255));
+        pnlRow2.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlRow2.setAlignmentY(0.0F);
+        pnlRow2.setMaximumSize(new java.awt.Dimension(2000, 400));
+        pnlRow2.setLayout(new java.awt.GridBagLayout());
 
         pnlAnnouncements.setBackground(new java.awt.Color(255, 255, 255));
         pnlAnnouncements.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(231, 231, 231), 2, true));
-        pnlAnnouncements.setPreferredSize(new java.awt.Dimension(200, 100));
+        pnlAnnouncements.setPreferredSize(new java.awt.Dimension(14, 200));
+        pnlAnnouncements.setLayout(new java.awt.BorderLayout());
 
-        lblAnnouncements.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblAnnouncements.setText("Company Announcements:");
-        lblAnnouncements.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-        pnlAnnouncements.add(lblAnnouncements);
+        lblCardAnnouncements.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblCardAnnouncements.setForeground(new java.awt.Color(51, 51, 51));
+        lblCardAnnouncements.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCardAnnouncements.setText("COMPANY ANNOUNCEMENTS");
+        lblCardAnnouncements.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 5, 0));
+        lblCardAnnouncements.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        pnlAnnouncements.add(lblCardAnnouncements, java.awt.BorderLayout.NORTH);
 
-        pnlRow3.add(pnlAnnouncements);
+        jScrollPane11.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
+        txtAnnouncements.setEditable(false);
+        txtAnnouncements.setBackground(new java.awt.Color(255, 255, 255));
+        txtAnnouncements.setLineWrap(true);
+        txtAnnouncements.setRows(4);
+        txtAnnouncements.setText("📢 Office Updates - March 14, 2026\n\nUpcoming Holiday: No work on April 2–3 (Holy Week).\n\nSystem Maintenance: The Portal will be offline this Sunday at 10:00 PM.\n\nNew Policy: Please ensure all attendance disputes are filed by the 20th.");
+        txtAnnouncements.setWrapStyleWord(true);
+        txtAnnouncements.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 15, 10, 15));
+        txtAnnouncements.setFocusable(false);
+        txtAnnouncements.setMinimumSize(new java.awt.Dimension(10, 10));
+        jScrollPane11.setViewportView(txtAnnouncements);
+
+        pnlAnnouncements.add(jScrollPane11, java.awt.BorderLayout.CENTER);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 0.7;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlRow2.add(pnlAnnouncements, gridBagConstraints);
 
         pnlContact.setBackground(new java.awt.Color(255, 255, 255));
         pnlContact.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(229, 229, 229), 2, true));
@@ -707,8 +1018,10 @@ public class MainDashboard extends javax.swing.JFrame {
 
         pnlContact1.setOpaque(false);
 
-        lblContact.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblContact.setText("Contact:");
+        lblContact.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblContact.setForeground(new java.awt.Color(51, 51, 51));
+        lblContact.setText("CONTACT (FOR FUTURE IMPLEMENTATIONS)");
+        lblContact.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 0, 5, 0));
         pnlContact1.add(lblContact);
 
         pnlContact.add(pnlContact1);
@@ -741,17 +1054,43 @@ public class MainDashboard extends javax.swing.JFrame {
 
         pnlContact.add(pnlContact2);
 
-        pnlRow3.add(pnlContact);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlRow2.add(pnlContact, gridBagConstraints);
 
+        pnlDashboard.add(pnlRow2);
+
+        pnlRow3.setBackground(new java.awt.Color(255, 255, 255));
+        pnlRow3.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlRow3.setAlignmentY(0.0F);
+        pnlRow3.setMaximumSize(new java.awt.Dimension(1100, 2147483647));
+        pnlRow3.setLayout(new java.awt.GridBagLayout());
         pnlDashboard.add(pnlRow3);
+        pnlDashboard.add(filler2);
 
         pnlContent.add(pnlDashboard, "cardDashboard");
 
-        pnlEmployee.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        pnlEmployee.setLayout(new java.awt.BorderLayout());
+        pnlEmployeeModule.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlEmployeeModule.setLayout(new java.awt.BorderLayout());
+        pnlContent.add(pnlEmployeeModule, "cardEmployeeModule");
 
-        jScrollPane2.setBorder(null);
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        pnlHRModule.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlHRModule.setLayout(new java.awt.BorderLayout());
+        pnlContent.add(pnlHRModule, "cardHRModule");
+
+        pnlFinanceModule.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlFinanceModule.setLayout(new java.awt.BorderLayout());
+        pnlContent.add(pnlFinanceModule, "cardFinanceModule");
+
+        pnlITModule.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        pnlITModule.setLayout(new java.awt.BorderLayout());
+        pnlContent.add(pnlITModule, "cardITModule");
+
+        pnlEmployeeAccess.setLayout(new java.awt.BorderLayout());
+
+        ScrMyProfile.setBorder(null);
+        ScrMyProfile.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         pnlMyProfile.setBackground(new java.awt.Color(255, 255, 255));
         pnlMyProfile.setPreferredSize(new java.awt.Dimension(930, 800));
@@ -784,7 +1123,7 @@ public class MainDashboard extends javax.swing.JFrame {
         pnlMyProfileEmployeeDetails.add(lblEmployeeID, gridBagConstraints);
 
         lblFullName.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblFullName.setText("Full Name");
+        lblFullName.setText("Name");
         lblFullName.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -809,7 +1148,7 @@ public class MainDashboard extends javax.swing.JFrame {
         pnlMyProfileRow2.setBackground(new java.awt.Color(255, 255, 255));
         pnlMyProfileRow2.setLayout(new java.awt.GridBagLayout());
 
-        pnlMyProfileEmployee.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Personal Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlMyProfileEmployee.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Employee Details", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
         pnlMyProfileEmployee.setMinimumSize(new java.awt.Dimension(10, 10));
         pnlMyProfileEmployee.setOpaque(false);
         pnlMyProfileEmployee.setLayout(new java.awt.GridBagLayout());
@@ -1415,87 +1754,9 @@ public class MainDashboard extends javax.swing.JFrame {
         gridBagConstraints.weighty = 1.0;
         pnlMyProfile.add(pnlMyProfileVGlue, gridBagConstraints);
 
-        jScrollPane2.setViewportView(pnlMyProfile);
+        ScrMyProfile.setViewportView(pnlMyProfile);
 
-        tabEmployee.addTab("My Profile", jScrollPane2);
-
-        pnlEmpManage.setLayout(new java.awt.BorderLayout());
-
-        pnlEmpManageCtrl.setBackground(new java.awt.Color(255, 255, 255));
-        pnlEmpManageCtrl.setLayout(new java.awt.BorderLayout());
-
-        pnlEmpManageSearch.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        pnlEmpManageSearch.setOpaque(false);
-        pnlEmpManageSearch.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
-
-        lblEmpManageSearch.setText("Search Employee ID:");
-        pnlEmpManageSearch.add(lblEmpManageSearch);
-
-        txtEmpManageSearch.setText("Employee ID");
-        txtEmpManageSearch.setPreferredSize(new java.awt.Dimension(200, 30));
-        txtEmpManageSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtEmpManageSearchKeyTyped(evt);
-            }
-        });
-        pnlEmpManageSearch.add(txtEmpManageSearch);
-
-        btnEmpManageSearch.setText("Search");
-        btnEmpManageSearch.setPreferredSize(new java.awt.Dimension(120, 30));
-        pnlEmpManageSearch.add(btnEmpManageSearch);
-
-        pnlEmpManageCtrl.add(pnlEmpManageSearch, java.awt.BorderLayout.WEST);
-
-        pnlEmpManageButtons.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        pnlEmpManageButtons.setOpaque(false);
-        pnlEmpManageButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 5));
-
-        btnEmpManageAdd.setText("Add Employee");
-        btnEmpManageAdd.setPreferredSize(new java.awt.Dimension(120, 30));
-        pnlEmpManageButtons.add(btnEmpManageAdd);
-
-        btnEmpManageEdit.setText("Edit Employee");
-        btnEmpManageEdit.setEnabled(false);
-        btnEmpManageEdit.setPreferredSize(new java.awt.Dimension(120, 30));
-        pnlEmpManageButtons.add(btnEmpManageEdit);
-
-        btnEmpManageDelete.setText("Delete Employee");
-        btnEmpManageDelete.setEnabled(false);
-        btnEmpManageDelete.setPreferredSize(new java.awt.Dimension(120, 30));
-        pnlEmpManageButtons.add(btnEmpManageDelete);
-
-        pnlEmpManageCtrl.add(pnlEmpManageButtons, java.awt.BorderLayout.EAST);
-
-        pnlEmpManage.add(pnlEmpManageCtrl, java.awt.BorderLayout.NORTH);
-
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
-        tblEmpManageList.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        tblEmpManageList.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tblEmpManageList.setFillsViewportHeight(true);
-        tblEmpManageList.setRowHeight(30);
-        tblEmpManageList.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tblEmpManageList);
-
-        pnlEmpManage.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        tabEmployee.addTab("Employee Management", pnlEmpManage);
-
-        pnlEmployee.add(tabEmployee, java.awt.BorderLayout.CENTER);
-
-        pnlContent.add(pnlEmployee, "cardEmployee");
-
-        pnlAttendance.setLayout(new java.awt.BorderLayout());
+        tabEmployeeModule.addTab("My Profile", ScrMyProfile);
 
         pnlMyAttendance.setLayout(new java.awt.BorderLayout());
 
@@ -1546,474 +1807,43 @@ public class MainDashboard extends javax.swing.JFrame {
 
         pnlMyAttendance.add(jScrollPane5, java.awt.BorderLayout.CENTER);
 
-        tabAttendance.addTab("My Attendance", pnlMyAttendance);
+        tabEmployeeModule.addTab("My Attendance", pnlMyAttendance);
 
-        pnlAttendanceRec.setLayout(new java.awt.BorderLayout());
+        pnlMyPayslip.setLayout(new java.awt.BorderLayout());
 
-        pnlAttendanceRecCtrl.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMyPayslipCtrl.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtAttendanceSearch.setText("Employee ID");
-        txtAttendanceSearch.setPreferredSize(new java.awt.Dimension(200, 30));
-        txtAttendanceSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtAttendanceSearchKeyTyped(evt);
-            }
-        });
-        pnlAttendanceRecCtrl.add(txtAttendanceSearch);
-
-        drpAttendanceMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Month]", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
-        drpAttendanceMonth.setPreferredSize(new java.awt.Dimension(150, 30));
-        drpAttendanceMonth.addActionListener(new java.awt.event.ActionListener() {
+        drpMyPayslipMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Month]", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        drpMyPayslipMonth.setPreferredSize(new java.awt.Dimension(150, 30));
+        drpMyPayslipMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                drpAttendanceMonthActionPerformed(evt);
+                drpMyPayslipMonthActionPerformed(evt);
             }
         });
-        pnlAttendanceRecCtrl.add(drpAttendanceMonth);
+        pnlMyPayslipCtrl.add(drpMyPayslipMonth);
 
-        drpAttendanceYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Year]", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
-        drpAttendanceYear.setPreferredSize(new java.awt.Dimension(150, 30));
-        pnlAttendanceRecCtrl.add(drpAttendanceYear);
-
-        pnlAttendanceRec.add(pnlAttendanceRecCtrl, java.awt.BorderLayout.NORTH);
-
-        jScrollPane4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
-        tblAttendanceRec.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Title 1"
-            }
-        ));
-        tblAttendanceRec.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tblAttendanceRec.setFillsViewportHeight(true);
-        tblAttendanceRec.setRowHeight(30);
-        tblAttendanceRec.getTableHeader().setReorderingAllowed(false);
-        jScrollPane4.setViewportView(tblAttendanceRec);
-
-        pnlAttendanceRec.add(jScrollPane4, java.awt.BorderLayout.CENTER);
-
-        tabAttendance.addTab("Attendance Records", pnlAttendanceRec);
-
-        pnlReqLeave.setLayout(new java.awt.BorderLayout());
-
-        pnlReqLeaveCtrl.setBackground(new java.awt.Color(255, 255, 255));
-        pnlReqLeaveCtrl.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Request Leave Form", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(204, 204, 204)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
-
-        drpReqLeaveType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Leave Type]", "Sick Leave", "Vacation Leave", "Emergency", "Maternity/Paternity", "Etc" }));
-        drpReqLeaveType.setPreferredSize(new java.awt.Dimension(125, 30));
-        pnlReqLeaveCtrl.add(drpReqLeaveType);
-
-        txtReqLeaveStart.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
-        txtReqLeaveStart.setText("Start Date: YYYY-MM-DD");
-        txtReqLeaveStart.setPreferredSize(new java.awt.Dimension(150, 30));
-        pnlReqLeaveCtrl.add(txtReqLeaveStart);
-
-        txtReqLeaveEnd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
-        txtReqLeaveEnd.setText("End Date: YYYY-MM-DD");
-        txtReqLeaveEnd.setPreferredSize(new java.awt.Dimension(150, 30));
-        txtReqLeaveEnd.addActionListener(new java.awt.event.ActionListener() {
+        drpMyPayslipPeriod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Period]", "1st - 15th", "16th - End" }));
+        drpMyPayslipPeriod.setPreferredSize(new java.awt.Dimension(150, 30));
+        drpMyPayslipPeriod.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtReqLeaveEndActionPerformed(evt);
+                drpMyPayslipPeriodActionPerformed(evt);
             }
         });
-        pnlReqLeaveCtrl.add(txtReqLeaveEnd);
+        pnlMyPayslipCtrl.add(drpMyPayslipPeriod);
 
-        txtReqLeaveReason.setText("Reason");
-        txtReqLeaveReason.setPreferredSize(new java.awt.Dimension(200, 30));
-        pnlReqLeaveCtrl.add(txtReqLeaveReason);
+        drpMyPayslipYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Year]", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        drpMyPayslipYear.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnlMyPayslipCtrl.add(drpMyPayslipYear);
 
-        btnReqLeaveSend.setText("Send Request");
-        btnReqLeaveSend.setPreferredSize(new java.awt.Dimension(120, 30));
-        pnlReqLeaveCtrl.add(btnReqLeaveSend);
+        pnlMyPayslip.add(pnlMyPayslipCtrl, java.awt.BorderLayout.NORTH);
 
-        btnReqLeaveClear.setText("Clear");
-        btnReqLeaveClear.setPreferredSize(new java.awt.Dimension(100, 30));
-        pnlReqLeaveCtrl.add(btnReqLeaveClear);
-        pnlReqLeaveCtrl.add(pnlPReqLeaveVGlue10);
-
-        pnlReqLeave.add(pnlReqLeaveCtrl, java.awt.BorderLayout.NORTH);
-
-        jSplitPane2.setBackground(new java.awt.Color(255, 255, 255));
-        jSplitPane2.setDividerLocation(350);
-        jSplitPane2.setDividerSize(8);
-        jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane2.setResizeWeight(1.0);
-        jSplitPane2.setOneTouchExpandable(true);
-        jSplitPane2.setOpaque(false);
-
-        jScrollPane13.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane13.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
-        tblReqLeave.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Title 1"
-            }
-        ));
-        tblReqLeave.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tblReqLeave.setFillsViewportHeight(true);
-        tblReqLeave.setRowHeight(30);
-        tblReqLeave.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tblReqLeave.setShowGrid(true);
-        tblReqLeave.getTableHeader().setReorderingAllowed(false);
-        jScrollPane13.setViewportView(tblReqLeave);
-
-        jSplitPane2.setTopComponent(jScrollPane13);
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setLayout(new java.awt.GridBagLayout());
-
-        pnlReqLeaveMsg.setBackground(new java.awt.Color(255, 255, 255));
-        pnlReqLeaveMsg.setLayout(new java.awt.GridBagLayout());
-
-        pnlReqLeaveReason.setBackground(new java.awt.Color(255, 255, 255));
-        pnlReqLeaveReason.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Employee Reason", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
-        pnlReqLeaveReason.setMinimumSize(new java.awt.Dimension(0, 0));
-        pnlReqLeaveReason.setOpaque(false);
-        pnlReqLeaveReason.setLayout(new java.awt.GridBagLayout());
-
-        jScrollPane14.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtReqLeaveReason1.setEditable(false);
-        txtReqLeaveReason1.setBackground(new java.awt.Color(255, 255, 255));
-        txtReqLeaveReason1.setLineWrap(true);
-        txtReqLeaveReason1.setRows(4);
-        txtReqLeaveReason1.setWrapStyleWord(true);
-        txtReqLeaveReason1.setBorder(null);
-        txtReqLeaveReason1.setFocusable(false);
-        txtReqLeaveReason1.setMinimumSize(new java.awt.Dimension(10, 10));
-        jScrollPane14.setViewportView(txtReqLeaveReason1);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 1.0;
-        pnlReqLeaveReason.add(jScrollPane14, gridBagConstraints);
-
-        vGlue14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        vGlue14.setForeground(new java.awt.Color(30, 30, 30));
-        vGlue14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        vGlue14.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        pnlReqLeaveReason.add(vGlue14, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        pnlReqLeaveMsg.add(pnlReqLeaveReason, gridBagConstraints);
-
-        pnlReqLeaveDecision.setBackground(new java.awt.Color(255, 255, 255));
-        pnlReqLeaveDecision.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Decision", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
-        pnlReqLeaveDecision.setMinimumSize(new java.awt.Dimension(0, 0));
-        pnlReqLeaveDecision.setOpaque(false);
-        pnlReqLeaveDecision.setLayout(new java.awt.GridBagLayout());
-
-        txtReqLeaveDecision.setEditable(false);
-        txtReqLeaveDecision.setBackground(new java.awt.Color(255, 255, 255));
-        txtReqLeaveDecision.setLineWrap(true);
-        txtReqLeaveDecision.setRows(4);
-        txtReqLeaveDecision.setWrapStyleWord(true);
-        txtReqLeaveDecision.setBorder(null);
-        txtReqLeaveDecision.setFocusable(false);
-        txtReqLeaveDecision.setMinimumSize(new java.awt.Dimension(10, 10));
-        jScrollPane15.setViewportView(txtReqLeaveDecision);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 1.0;
-        pnlReqLeaveDecision.add(jScrollPane15, gridBagConstraints);
-
-        vGlue15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        vGlue15.setForeground(new java.awt.Color(30, 30, 30));
-        vGlue15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        vGlue15.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        pnlReqLeaveDecision.add(vGlue15, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        pnlReqLeaveMsg.add(pnlReqLeaveDecision, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.weighty = 1.0;
-        pnlReqLeaveMsg.add(pnlPLeaveRecVGlue11, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 10, 20);
-        jPanel5.add(pnlReqLeaveMsg, gridBagConstraints);
-
-        jSplitPane2.setRightComponent(jPanel5);
-
-        pnlReqLeave.add(jSplitPane2, java.awt.BorderLayout.CENTER);
-
-        tabAttendance.addTab("Request Leave", pnlReqLeave);
-
-        pnlLeaveRecords.setLayout(new java.awt.BorderLayout());
-
-        pnlLeaveRecCtrl.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtLeaveRecSearch.setText("Employee ID");
-        txtLeaveRecSearch.setPreferredSize(new java.awt.Dimension(200, 30));
-        txtLeaveRecSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtLeaveRecSearchKeyTyped(evt);
-            }
-        });
-        pnlLeaveRecCtrl.add(txtLeaveRecSearch);
-
-        drpLeaveRecMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Month]", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
-        drpLeaveRecMonth.setPreferredSize(new java.awt.Dimension(150, 30));
-        drpLeaveRecMonth.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                drpLeaveRecMonthActionPerformed(evt);
-            }
-        });
-        pnlLeaveRecCtrl.add(drpLeaveRecMonth);
-
-        drpLeaveRecYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Year]", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
-        drpLeaveRecYear.setPreferredSize(new java.awt.Dimension(150, 30));
-        pnlLeaveRecCtrl.add(drpLeaveRecYear);
-
-        drpLeaveRecStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Approved", "Rejected", "All" }));
-        drpLeaveRecStatus.setPreferredSize(new java.awt.Dimension(150, 30));
-        pnlLeaveRecCtrl.add(drpLeaveRecStatus);
-        pnlLeaveRecCtrl.add(pnlPLeaveRecVGlue9);
-
-        pnlLeaveRecords.add(pnlLeaveRecCtrl, java.awt.BorderLayout.NORTH);
-
-        jSplitPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jSplitPane1.setDividerLocation(350);
-        jSplitPane1.setDividerSize(8);
-        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
-        jSplitPane1.setResizeWeight(1.0);
-        jSplitPane1.setOneTouchExpandable(true);
-        jSplitPane1.setOpaque(false);
-
-        jScrollPane7.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane7.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
-        tblLeaveRec.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
-            },
-            new String [] {
-                "Title 1"
-            }
-        ));
-        tblLeaveRec.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        tblLeaveRec.setFillsViewportHeight(true);
-        tblLeaveRec.setRowHeight(30);
-        tblLeaveRec.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tblLeaveRec.setShowGrid(true);
-        tblLeaveRec.getTableHeader().setReorderingAllowed(false);
-        jScrollPane7.setViewportView(tblLeaveRec);
-
-        jSplitPane1.setTopComponent(jScrollPane7);
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setLayout(new java.awt.GridBagLayout());
-
-        pnlLeaveRecMsg.setBackground(new java.awt.Color(255, 255, 255));
-        pnlLeaveRecMsg.setLayout(new java.awt.GridBagLayout());
-
-        pnlLeaveRecReason.setBackground(new java.awt.Color(255, 255, 255));
-        pnlLeaveRecReason.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Employee Reason", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
-        pnlLeaveRecReason.setMinimumSize(new java.awt.Dimension(10, 10));
-        pnlLeaveRecReason.setOpaque(false);
-        pnlLeaveRecReason.setLayout(new java.awt.BorderLayout());
-
-        jScrollPane9.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtLeaveRecReason.setEditable(false);
-        txtLeaveRecReason.setBackground(new java.awt.Color(255, 255, 255));
-        txtLeaveRecReason.setLineWrap(true);
-        txtLeaveRecReason.setRows(4);
-        txtLeaveRecReason.setWrapStyleWord(true);
-        txtLeaveRecReason.setBorder(null);
-        txtLeaveRecReason.setFocusable(false);
-        txtLeaveRecReason.setMinimumSize(new java.awt.Dimension(10, 10));
-        jScrollPane9.setViewportView(txtLeaveRecReason);
-
-        pnlLeaveRecReason.add(jScrollPane9, java.awt.BorderLayout.CENTER);
-
-        vGlue12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        vGlue12.setForeground(new java.awt.Color(30, 30, 30));
-        vGlue12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        vGlue12.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        pnlLeaveRecReason.add(vGlue12, java.awt.BorderLayout.PAGE_START);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        pnlLeaveRecMsg.add(pnlLeaveRecReason, gridBagConstraints);
-
-        pnlLeaveRecDecision.setBackground(new java.awt.Color(255, 255, 255));
-        pnlLeaveRecDecision.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Decision", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
-        pnlLeaveRecDecision.setMinimumSize(new java.awt.Dimension(10, 10));
-        pnlLeaveRecDecision.setOpaque(false);
-        pnlLeaveRecDecision.setLayout(new java.awt.GridBagLayout());
-
-        txtLeaveRecDecision.setEditable(false);
-        txtLeaveRecDecision.setBackground(new java.awt.Color(255, 255, 255));
-        txtLeaveRecDecision.setLineWrap(true);
-        txtLeaveRecDecision.setRows(4);
-        txtLeaveRecDecision.setWrapStyleWord(true);
-        txtLeaveRecDecision.setBorder(null);
-        txtLeaveRecDecision.setFocusable(false);
-        txtLeaveRecDecision.setMinimumSize(new java.awt.Dimension(10, 10));
-        jScrollPane10.setViewportView(txtLeaveRecDecision);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.weightx = 1.0;
-        pnlLeaveRecDecision.add(jScrollPane10, gridBagConstraints);
-
-        jPanel4.setOpaque(false);
-
-        btnLeaveRecApprove.setText("Approve");
-        btnLeaveRecApprove.setPreferredSize(new java.awt.Dimension(120, 30));
-        jPanel4.add(btnLeaveRecApprove);
-
-        btnLeaveRecReject.setText("Reject");
-        btnLeaveRecReject.setPreferredSize(new java.awt.Dimension(120, 30));
-        jPanel4.add(btnLeaveRecReject);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
-        pnlLeaveRecDecision.add(jPanel4, gridBagConstraints);
-
-        vGlue13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        vGlue13.setForeground(new java.awt.Color(30, 30, 30));
-        vGlue13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        vGlue13.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        pnlLeaveRecDecision.add(vGlue13, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        gridBagConstraints.weightx = 0.5;
-        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        pnlLeaveRecMsg.add(pnlLeaveRecDecision, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.weighty = 1.0;
-        pnlLeaveRecMsg.add(pnlLeaveRecVGlue8, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 10, 20);
-        jPanel3.add(pnlLeaveRecMsg, gridBagConstraints);
-
-        jSplitPane1.setRightComponent(jPanel3);
-
-        pnlLeaveRecords.add(jSplitPane1, java.awt.BorderLayout.CENTER);
-
-        tabAttendance.addTab("Leave Records", pnlLeaveRecords);
-
-        pnlAttendance.add(tabAttendance, java.awt.BorderLayout.CENTER);
-
-        pnlContent.add(pnlAttendance, "cardAttendance");
-
-        pnlPayroll.setLayout(new java.awt.BorderLayout());
-
-        pnlMyPayroll.setLayout(new java.awt.BorderLayout());
-
-        pnlMyPayrollCtrl.setBackground(new java.awt.Color(255, 255, 255));
-
-        drpMyPayrollMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Month]", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
-        drpMyPayrollMonth.setPreferredSize(new java.awt.Dimension(150, 30));
-        drpMyPayrollMonth.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                drpMyPayrollMonthActionPerformed(evt);
-            }
-        });
-        pnlMyPayrollCtrl.add(drpMyPayrollMonth);
-
-        drpMyPayrollPeriod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Period]", "1st - 15th", "16th - End" }));
-        drpMyPayrollPeriod.setPreferredSize(new java.awt.Dimension(150, 30));
-        drpMyPayrollPeriod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                drpMyPayrollPeriodActionPerformed(evt);
-            }
-        });
-        pnlMyPayrollCtrl.add(drpMyPayrollPeriod);
-
-        drpMyPayrollYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Year]", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
-        drpMyPayrollYear.setPreferredSize(new java.awt.Dimension(150, 30));
-        pnlMyPayrollCtrl.add(drpMyPayrollYear);
-
-        pnlMyPayroll.add(pnlMyPayrollCtrl, java.awt.BorderLayout.NORTH);
-
-        jScrollPane6.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        ScrMyPayslip.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        pnlMyPayrollRow1.setBackground(new java.awt.Color(255, 255, 255));
-        pnlMyPayrollRow1.setLayout(new java.awt.GridBagLayout());
+        pnlMyPayslipRow1.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMyPayslipRow1.setLayout(new java.awt.GridBagLayout());
 
         lblPayrollEID.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         lblPayrollEID.setForeground(new java.awt.Color(140, 140, 140));
@@ -2024,7 +1854,7 @@ public class MainDashboard extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
-        pnlMyPayrollRow1.add(lblPayrollEID, gridBagConstraints);
+        pnlMyPayslipRow1.add(lblPayrollEID, gridBagConstraints);
 
         txtPayrollEID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPayrollEID.setForeground(new java.awt.Color(30, 30, 30));
@@ -2035,7 +1865,7 @@ public class MainDashboard extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
-        pnlMyPayrollRow1.add(txtPayrollEID, gridBagConstraints);
+        pnlMyPayslipRow1.add(txtPayrollEID, gridBagConstraints);
 
         lblPayrollName.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         lblPayrollName.setForeground(new java.awt.Color(140, 140, 140));
@@ -2046,7 +1876,7 @@ public class MainDashboard extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
-        pnlMyPayrollRow1.add(lblPayrollName, gridBagConstraints);
+        pnlMyPayslipRow1.add(lblPayrollName, gridBagConstraints);
 
         txtPayrollName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPayrollName.setForeground(new java.awt.Color(30, 30, 30));
@@ -2057,7 +1887,7 @@ public class MainDashboard extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
-        pnlMyPayrollRow1.add(txtPayrollName, gridBagConstraints);
+        pnlMyPayslipRow1.add(txtPayrollName, gridBagConstraints);
 
         lblPayrollDate.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         lblPayrollDate.setForeground(new java.awt.Color(140, 140, 140));
@@ -2068,7 +1898,7 @@ public class MainDashboard extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 20);
-        pnlMyPayrollRow1.add(lblPayrollDate, gridBagConstraints);
+        pnlMyPayslipRow1.add(lblPayrollDate, gridBagConstraints);
 
         txtPayrollDate.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPayrollDate.setForeground(new java.awt.Color(30, 30, 30));
@@ -2079,12 +1909,12 @@ public class MainDashboard extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 10, 10);
-        pnlMyPayrollRow1.add(txtPayrollDate, gridBagConstraints);
+        pnlMyPayslipRow1.add(txtPayrollDate, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.weighty = 1.0;
-        pnlMyPayrollRow1.add(pnlMyPayrollVGlue1, gridBagConstraints);
+        pnlMyPayslipRow1.add(pnlMyPayrollVGlue1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -2092,10 +1922,10 @@ public class MainDashboard extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 10, 20);
-        jPanel1.add(pnlMyPayrollRow1, gridBagConstraints);
+        jPanel1.add(pnlMyPayslipRow1, gridBagConstraints);
 
-        pnlMyPayrollRow2.setBackground(new java.awt.Color(255, 255, 255));
-        pnlMyPayrollRow2.setLayout(new java.awt.GridBagLayout());
+        pnlMyPayslipRow2.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMyPayslipRow2.setLayout(new java.awt.GridBagLayout());
 
         pnlMyPayrollEarnings.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Earnings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
         pnlMyPayrollEarnings.setMinimumSize(new java.awt.Dimension(10, 10));
@@ -2197,7 +2027,7 @@ public class MainDashboard extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        pnlMyPayrollRow2.add(pnlMyPayrollEarnings, gridBagConstraints);
+        pnlMyPayslipRow2.add(pnlMyPayrollEarnings, gridBagConstraints);
 
         pnlMyPayrollDeductions.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Deductions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
         pnlMyPayrollDeductions.setMinimumSize(new java.awt.Dimension(10, 10));
@@ -2345,12 +2175,12 @@ public class MainDashboard extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.5;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
-        pnlMyPayrollRow2.add(pnlMyPayrollDeductions, gridBagConstraints);
+        pnlMyPayslipRow2.add(pnlMyPayrollDeductions, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.weighty = 1.0;
-        pnlMyPayrollRow2.add(pnlMyPayrollVGlue2, gridBagConstraints);
+        pnlMyPayslipRow2.add(pnlMyPayrollVGlue2, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -2358,10 +2188,10 @@ public class MainDashboard extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 10, 20);
-        jPanel1.add(pnlMyPayrollRow2, gridBagConstraints);
+        jPanel1.add(pnlMyPayslipRow2, gridBagConstraints);
 
-        pnlMyPayrollRow3.setBackground(new java.awt.Color(255, 255, 255));
-        pnlMyPayrollRow3.setLayout(new java.awt.GridBagLayout());
+        pnlMyPayslipRow3.setBackground(new java.awt.Color(255, 255, 255));
+        pnlMyPayslipRow3.setLayout(new java.awt.GridBagLayout());
 
         pnlMyPayrollSummary.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pay Summary", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
         pnlMyPayrollSummary.setMinimumSize(new java.awt.Dimension(10, 10));
@@ -2463,12 +2293,12 @@ public class MainDashboard extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 10, 10);
-        pnlMyPayrollRow3.add(pnlMyPayrollSummary, gridBagConstraints);
+        pnlMyPayslipRow3.add(pnlMyPayrollSummary, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.weighty = 1.0;
-        pnlMyPayrollRow3.add(pnlMyPayrollVGlue3, gridBagConstraints);
+        pnlMyPayslipRow3.add(pnlMyPayrollVGlue3, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -2476,20 +2306,211 @@ public class MainDashboard extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 20);
-        jPanel1.add(pnlMyPayrollRow3, gridBagConstraints);
+        jPanel1.add(pnlMyPayslipRow3, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.weighty = 1.0;
-        jPanel1.add(pnlMyPayrollVGlue, gridBagConstraints);
+        jPanel1.add(pnlMyPayslipVGlue, gridBagConstraints);
 
-        jScrollPane6.setViewportView(jPanel1);
+        ScrMyPayslip.setViewportView(jPanel1);
 
-        pnlMyPayroll.add(jScrollPane6, java.awt.BorderLayout.CENTER);
+        pnlMyPayslip.add(ScrMyPayslip, java.awt.BorderLayout.CENTER);
 
-        tabPayroll.addTab("My Payroll", pnlMyPayroll);
+        tabEmployeeModule.addTab("My Payroll", pnlMyPayslip);
 
-        pnlPayrollRec.setLayout(new java.awt.BorderLayout());
+        pnlLeaveRequest.setLayout(new java.awt.BorderLayout());
+
+        pnlLeaveRequestCtrl.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLeaveRequestCtrl.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Request Leave Form", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(204, 204, 204)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+
+        drpLeaveRequestType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Leave Type]", "Sick Leave", "Vacation Leave", "Emergency", "Maternity/Paternity", "Etc" }));
+        drpLeaveRequestType.setPreferredSize(new java.awt.Dimension(125, 30));
+        pnlLeaveRequestCtrl.add(drpLeaveRequestType);
+
+        txtLeaveRequestStart.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        txtLeaveRequestStart.setText("Start Date: YYYY-MM-DD");
+        txtLeaveRequestStart.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnlLeaveRequestCtrl.add(txtLeaveRequestStart);
+
+        txtLeaveRequestEnd.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        txtLeaveRequestEnd.setText("End Date: YYYY-MM-DD");
+        txtLeaveRequestEnd.setPreferredSize(new java.awt.Dimension(150, 30));
+        txtLeaveRequestEnd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLeaveRequestEndActionPerformed(evt);
+            }
+        });
+        pnlLeaveRequestCtrl.add(txtLeaveRequestEnd);
+
+        txtLeaveRequestReason.setText("Reason");
+        txtLeaveRequestReason.setPreferredSize(new java.awt.Dimension(200, 30));
+        pnlLeaveRequestCtrl.add(txtLeaveRequestReason);
+
+        btnLeaveRequestSend.setText("Send Request");
+        btnLeaveRequestSend.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlLeaveRequestCtrl.add(btnLeaveRequestSend);
+
+        btnLeaveRequestClear.setText("Clear");
+        btnLeaveRequestClear.setPreferredSize(new java.awt.Dimension(100, 30));
+        pnlLeaveRequestCtrl.add(btnLeaveRequestClear);
+        pnlLeaveRequestCtrl.add(pnlReqLeaveVGlue10);
+
+        pnlLeaveRequest.add(pnlLeaveRequestCtrl, java.awt.BorderLayout.NORTH);
+
+        jSplitPane2.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane2.setDividerLocation(350);
+        jSplitPane2.setDividerSize(8);
+        jSplitPane2.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane2.setResizeWeight(1.0);
+        jSplitPane2.setOneTouchExpandable(true);
+        jSplitPane2.setOpaque(false);
+
+        jScrollPane13.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane13.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        tblLeaveRequest.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        tblLeaveRequest.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tblLeaveRequest.setFillsViewportHeight(true);
+        tblLeaveRequest.setRowHeight(30);
+        tblLeaveRequest.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblLeaveRequest.setShowGrid(true);
+        tblLeaveRequest.getTableHeader().setReorderingAllowed(false);
+        jScrollPane13.setViewportView(tblLeaveRequest);
+
+        jSplitPane2.setTopComponent(jScrollPane13);
+
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setLayout(new java.awt.GridBagLayout());
+
+        pnlLeaveRequestMsg.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLeaveRequestMsg.setLayout(new java.awt.GridBagLayout());
+
+        pnlLeaveRequestReason.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLeaveRequestReason.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Employee Reason", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlLeaveRequestReason.setMinimumSize(new java.awt.Dimension(0, 0));
+        pnlLeaveRequestReason.setOpaque(false);
+        pnlLeaveRequestReason.setLayout(new java.awt.GridBagLayout());
+
+        jScrollPane14.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtReqLeaveReason1.setEditable(false);
+        txtReqLeaveReason1.setBackground(new java.awt.Color(255, 255, 255));
+        txtReqLeaveReason1.setLineWrap(true);
+        txtReqLeaveReason1.setRows(4);
+        txtReqLeaveReason1.setWrapStyleWord(true);
+        txtReqLeaveReason1.setBorder(null);
+        txtReqLeaveReason1.setFocusable(false);
+        txtReqLeaveReason1.setMinimumSize(new java.awt.Dimension(10, 10));
+        jScrollPane14.setViewportView(txtReqLeaveReason1);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        pnlLeaveRequestReason.add(jScrollPane14, gridBagConstraints);
+
+        vGlue14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue14.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue14.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlLeaveRequestReason.add(vGlue14, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlLeaveRequestMsg.add(pnlLeaveRequestReason, gridBagConstraints);
+
+        pnlLeaveRequestDecision.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLeaveRequestDecision.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Decision", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlLeaveRequestDecision.setMinimumSize(new java.awt.Dimension(0, 0));
+        pnlLeaveRequestDecision.setOpaque(false);
+        pnlLeaveRequestDecision.setLayout(new java.awt.GridBagLayout());
+
+        txtReqLeaveDecision.setEditable(false);
+        txtReqLeaveDecision.setBackground(new java.awt.Color(255, 255, 255));
+        txtReqLeaveDecision.setLineWrap(true);
+        txtReqLeaveDecision.setRows(4);
+        txtReqLeaveDecision.setWrapStyleWord(true);
+        txtReqLeaveDecision.setBorder(null);
+        txtReqLeaveDecision.setFocusable(false);
+        txtReqLeaveDecision.setMinimumSize(new java.awt.Dimension(10, 10));
+        jScrollPane15.setViewportView(txtReqLeaveDecision);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        pnlLeaveRequestDecision.add(jScrollPane15, gridBagConstraints);
+
+        vGlue15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue15.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue15.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue15.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlLeaveRequestDecision.add(vGlue15, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlLeaveRequestMsg.add(pnlLeaveRequestDecision, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weighty = 1.0;
+        pnlLeaveRequestMsg.add(pnlLeaveRequestVGlue11, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 10, 20);
+        jPanel5.add(pnlLeaveRequestMsg, gridBagConstraints);
+
+        jSplitPane2.setRightComponent(jPanel5);
+
+        pnlLeaveRequest.add(jSplitPane2, java.awt.BorderLayout.CENTER);
+
+        tabEmployeeModule.addTab("Request Leave", pnlLeaveRequest);
+
+        pnlEmployeeAccess.add(tabEmployeeModule, java.awt.BorderLayout.CENTER);
+
+        pnlContent.add(pnlEmployeeAccess, "card7");
+
+        pnlPayrollRecords.setLayout(new java.awt.BorderLayout());
 
         pnlPayrollRecCtrl.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -2524,7 +2545,7 @@ public class MainDashboard extends javax.swing.JFrame {
         drpPayrollRecYear.setPreferredSize(new java.awt.Dimension(150, 30));
         pnlPayrollRecCtrl.add(drpPayrollRecYear);
 
-        pnlPayrollRec.add(pnlPayrollRecCtrl, java.awt.BorderLayout.NORTH);
+        pnlPayrollRecords.add(pnlPayrollRecCtrl, java.awt.BorderLayout.NORTH);
 
         jScrollPane8.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
@@ -3004,9 +3025,9 @@ public class MainDashboard extends javax.swing.JFrame {
 
         jScrollPane8.setViewportView(jPanel2);
 
-        pnlPayrollRec.add(jScrollPane8, java.awt.BorderLayout.CENTER);
+        pnlPayrollRecords.add(jScrollPane8, java.awt.BorderLayout.CENTER);
 
-        tabPayroll.addTab("Payroll Records", pnlPayrollRec);
+        tabFinanceModule.addTab("Payroll Records", pnlPayrollRecords);
 
         lblStatutoryNotice.setText("FOR FUTURE IMPLEMENTATIONS -- EDITING OF DEDUCTION TABLES!");
 
@@ -3017,23 +3038,40 @@ public class MainDashboard extends javax.swing.JFrame {
             .addGroup(pnlStatutoryLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(lblStatutoryNotice)
-                .addContainerGap(555, Short.MAX_VALUE))
+                .addContainerGap(485, Short.MAX_VALUE))
         );
         pnlStatutoryLayout.setVerticalGroup(
             pnlStatutoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlStatutoryLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(lblStatutoryNotice)
-                .addContainerGap(632, Short.MAX_VALUE))
+                .addContainerGap(612, Short.MAX_VALUE))
         );
 
-        tabPayroll.addTab("Deduction Tables", pnlStatutory);
+        tabFinanceModule.addTab("Deduction Tables", pnlStatutory);
 
-        pnlPayroll.add(tabPayroll, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout pnlFinanceAccessLayout = new javax.swing.GroupLayout(pnlFinanceAccess);
+        pnlFinanceAccess.setLayout(pnlFinanceAccessLayout);
+        pnlFinanceAccessLayout.setHorizontalGroup(
+            pnlFinanceAccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 900, Short.MAX_VALUE)
+            .addGroup(pnlFinanceAccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlFinanceAccessLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(tabFinanceModule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        pnlFinanceAccessLayout.setVerticalGroup(
+            pnlFinanceAccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
+            .addGroup(pnlFinanceAccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlFinanceAccessLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(tabFinanceModule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
-        pnlContent.add(pnlPayroll, "cardPayroll");
-
-        pnlIT.setLayout(new java.awt.BorderLayout());
+        pnlContent.add(pnlFinanceAccess, "card10");
 
         pnlUserAccounts.setLayout(new java.awt.BorderLayout());
 
@@ -3099,11 +3137,359 @@ public class MainDashboard extends javax.swing.JFrame {
 
         pnlUserAccounts.add(jScrollPane3, java.awt.BorderLayout.CENTER);
 
-        tabUserAccounts.addTab("User Accounts", pnlUserAccounts);
+        tabITModule.addTab("User Accounts", pnlUserAccounts);
 
-        pnlIT.add(tabUserAccounts, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout pnlITAccessLayout = new javax.swing.GroupLayout(pnlITAccess);
+        pnlITAccess.setLayout(pnlITAccessLayout);
+        pnlITAccessLayout.setHorizontalGroup(
+            pnlITAccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 900, Short.MAX_VALUE)
+            .addGroup(pnlITAccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlITAccessLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(tabITModule, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        pnlITAccessLayout.setVerticalGroup(
+            pnlITAccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
+            .addGroup(pnlITAccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlITAccessLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(tabITModule, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
 
-        pnlContent.add(pnlIT, "cardIT");
+        pnlContent.add(pnlITAccess, "card9");
+
+        pnlEmpManage.setLayout(new java.awt.BorderLayout());
+
+        pnlEmpManageCtrl.setBackground(new java.awt.Color(255, 255, 255));
+        pnlEmpManageCtrl.setLayout(new java.awt.BorderLayout());
+
+        pnlEmpManageSearch.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnlEmpManageSearch.setOpaque(false);
+        pnlEmpManageSearch.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+
+        lblEmpManageSearch.setText("Search Employee ID:");
+        pnlEmpManageSearch.add(lblEmpManageSearch);
+
+        txtEmpManageSearch.setText("Employee ID");
+        txtEmpManageSearch.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtEmpManageSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtEmpManageSearchKeyTyped(evt);
+            }
+        });
+        pnlEmpManageSearch.add(txtEmpManageSearch);
+
+        btnEmpManageSearch.setText("Search");
+        btnEmpManageSearch.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlEmpManageSearch.add(btnEmpManageSearch);
+
+        pnlEmpManageCtrl.add(pnlEmpManageSearch, java.awt.BorderLayout.WEST);
+
+        pnlEmpManageButtons.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        pnlEmpManageButtons.setOpaque(false);
+        pnlEmpManageButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 10, 5));
+
+        btnEmpManageAdd.setText("Add Employee");
+        btnEmpManageAdd.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlEmpManageButtons.add(btnEmpManageAdd);
+
+        btnEmpManageEdit.setText("Edit Employee");
+        btnEmpManageEdit.setEnabled(false);
+        btnEmpManageEdit.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlEmpManageButtons.add(btnEmpManageEdit);
+
+        btnEmpManageDelete.setText("Delete Employee");
+        btnEmpManageDelete.setEnabled(false);
+        btnEmpManageDelete.setPreferredSize(new java.awt.Dimension(120, 30));
+        pnlEmpManageButtons.add(btnEmpManageDelete);
+
+        pnlEmpManageCtrl.add(pnlEmpManageButtons, java.awt.BorderLayout.EAST);
+
+        pnlEmpManage.add(pnlEmpManageCtrl, java.awt.BorderLayout.NORTH);
+
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        tblEmpManageList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tblEmpManageList.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tblEmpManageList.setFillsViewportHeight(true);
+        tblEmpManageList.setRowHeight(30);
+        tblEmpManageList.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tblEmpManageList);
+
+        pnlEmpManage.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        tabHRModule.addTab("Employee Management", pnlEmpManage);
+
+        pnlAttendanceRecords.setLayout(new java.awt.BorderLayout());
+
+        pnlAttendanceRecCtrl.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtAttendanceSearch.setText("Employee ID");
+        txtAttendanceSearch.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtAttendanceSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtAttendanceSearchKeyTyped(evt);
+            }
+        });
+        pnlAttendanceRecCtrl.add(txtAttendanceSearch);
+
+        drpAttendanceMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Month]", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        drpAttendanceMonth.setPreferredSize(new java.awt.Dimension(150, 30));
+        drpAttendanceMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpAttendanceMonthActionPerformed(evt);
+            }
+        });
+        pnlAttendanceRecCtrl.add(drpAttendanceMonth);
+
+        drpAttendanceYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Year]", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        drpAttendanceYear.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnlAttendanceRecCtrl.add(drpAttendanceYear);
+
+        pnlAttendanceRecords.add(pnlAttendanceRecCtrl, java.awt.BorderLayout.NORTH);
+
+        jScrollPane4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        tblAttendanceRec.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        tblAttendanceRec.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tblAttendanceRec.setFillsViewportHeight(true);
+        tblAttendanceRec.setRowHeight(30);
+        tblAttendanceRec.getTableHeader().setReorderingAllowed(false);
+        jScrollPane4.setViewportView(tblAttendanceRec);
+
+        pnlAttendanceRecords.add(jScrollPane4, java.awt.BorderLayout.CENTER);
+
+        tabHRModule.addTab("Attendance Records", pnlAttendanceRecords);
+
+        pnlLeaveRecords.setLayout(new java.awt.BorderLayout());
+
+        pnlLeaveRecCtrl.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtLeaveRecSearch.setText("Employee ID");
+        txtLeaveRecSearch.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtLeaveRecSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLeaveRecSearchKeyTyped(evt);
+            }
+        });
+        pnlLeaveRecCtrl.add(txtLeaveRecSearch);
+
+        drpLeaveRecMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Month]", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
+        drpLeaveRecMonth.setPreferredSize(new java.awt.Dimension(150, 30));
+        drpLeaveRecMonth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drpLeaveRecMonthActionPerformed(evt);
+            }
+        });
+        pnlLeaveRecCtrl.add(drpLeaveRecMonth);
+
+        drpLeaveRecYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "[Year]", "2020", "2021", "2022", "2023", "2024", "2025", "2026", "2027", "2028", "2029", "2030" }));
+        drpLeaveRecYear.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnlLeaveRecCtrl.add(drpLeaveRecYear);
+
+        drpLeaveRecStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Approved", "Rejected", "All" }));
+        drpLeaveRecStatus.setPreferredSize(new java.awt.Dimension(150, 30));
+        pnlLeaveRecCtrl.add(drpLeaveRecStatus);
+        pnlLeaveRecCtrl.add(pnlPLeaveRecVGlue9);
+
+        pnlLeaveRecords.add(pnlLeaveRecCtrl, java.awt.BorderLayout.NORTH);
+
+        jSplitPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jSplitPane1.setDividerLocation(350);
+        jSplitPane1.setDividerSize(8);
+        jSplitPane1.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        jSplitPane1.setResizeWeight(1.0);
+        jSplitPane1.setOneTouchExpandable(true);
+        jSplitPane1.setOpaque(false);
+
+        jScrollPane7.setBackground(new java.awt.Color(255, 255, 255));
+        jScrollPane7.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        tblLeaveRec.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        tblLeaveRec.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tblLeaveRec.setFillsViewportHeight(true);
+        tblLeaveRec.setRowHeight(30);
+        tblLeaveRec.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblLeaveRec.setShowGrid(true);
+        tblLeaveRec.getTableHeader().setReorderingAllowed(false);
+        jScrollPane7.setViewportView(tblLeaveRec);
+
+        jSplitPane1.setTopComponent(jScrollPane7);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        pnlLeaveRecMsg.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLeaveRecMsg.setLayout(new java.awt.GridBagLayout());
+
+        pnlLeaveRecReason.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLeaveRecReason.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Employee Reason", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlLeaveRecReason.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlLeaveRecReason.setOpaque(false);
+        pnlLeaveRecReason.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane9.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtLeaveRecReason.setEditable(false);
+        txtLeaveRecReason.setBackground(new java.awt.Color(255, 255, 255));
+        txtLeaveRecReason.setLineWrap(true);
+        txtLeaveRecReason.setRows(4);
+        txtLeaveRecReason.setWrapStyleWord(true);
+        txtLeaveRecReason.setBorder(null);
+        txtLeaveRecReason.setFocusable(false);
+        txtLeaveRecReason.setMinimumSize(new java.awt.Dimension(10, 10));
+        jScrollPane9.setViewportView(txtLeaveRecReason);
+
+        pnlLeaveRecReason.add(jScrollPane9, java.awt.BorderLayout.CENTER);
+
+        vGlue12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue12.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue12.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        pnlLeaveRecReason.add(vGlue12, java.awt.BorderLayout.PAGE_START);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlLeaveRecMsg.add(pnlLeaveRecReason, gridBagConstraints);
+
+        pnlLeaveRecDecision.setBackground(new java.awt.Color(255, 255, 255));
+        pnlLeaveRecDecision.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Decision", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        pnlLeaveRecDecision.setMinimumSize(new java.awt.Dimension(10, 10));
+        pnlLeaveRecDecision.setOpaque(false);
+        pnlLeaveRecDecision.setLayout(new java.awt.GridBagLayout());
+
+        txtLeaveRecDecision.setEditable(false);
+        txtLeaveRecDecision.setBackground(new java.awt.Color(255, 255, 255));
+        txtLeaveRecDecision.setLineWrap(true);
+        txtLeaveRecDecision.setRows(4);
+        txtLeaveRecDecision.setWrapStyleWord(true);
+        txtLeaveRecDecision.setBorder(null);
+        txtLeaveRecDecision.setFocusable(false);
+        txtLeaveRecDecision.setMinimumSize(new java.awt.Dimension(10, 10));
+        jScrollPane10.setViewportView(txtLeaveRecDecision);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        pnlLeaveRecDecision.add(jScrollPane10, gridBagConstraints);
+
+        jPanel4.setOpaque(false);
+
+        btnLeaveRecApprove.setText("Approve");
+        btnLeaveRecApprove.setPreferredSize(new java.awt.Dimension(120, 30));
+        jPanel4.add(btnLeaveRecApprove);
+
+        btnLeaveRecReject.setText("Reject");
+        btnLeaveRecReject.setPreferredSize(new java.awt.Dimension(120, 30));
+        jPanel4.add(btnLeaveRecReject);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        pnlLeaveRecDecision.add(jPanel4, gridBagConstraints);
+
+        vGlue13.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        vGlue13.setForeground(new java.awt.Color(30, 30, 30));
+        vGlue13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        vGlue13.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        pnlLeaveRecDecision.add(vGlue13, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weightx = 0.5;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        pnlLeaveRecMsg.add(pnlLeaveRecDecision, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.weighty = 1.0;
+        pnlLeaveRecMsg.add(pnlLeaveRecVGlue8, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 10, 20);
+        jPanel3.add(pnlLeaveRecMsg, gridBagConstraints);
+
+        jSplitPane1.setRightComponent(jPanel3);
+
+        pnlLeaveRecords.add(jSplitPane1, java.awt.BorderLayout.CENTER);
+
+        tabHRModule.addTab("Leave Records", pnlLeaveRecords);
+
+        javax.swing.GroupLayout pnlHRAccessLayout = new javax.swing.GroupLayout(pnlHRAccess);
+        pnlHRAccess.setLayout(pnlHRAccessLayout);
+        pnlHRAccessLayout.setHorizontalGroup(
+            pnlHRAccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHRAccessLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(tabHRModule, javax.swing.GroupLayout.PREFERRED_SIZE, 880, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        pnlHRAccessLayout.setVerticalGroup(
+            pnlHRAccessLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHRAccessLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(tabHRModule, javax.swing.GroupLayout.PREFERRED_SIZE, 680, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        pnlContent.add(pnlHRAccess, "card8");
 
         pnlMain.add(pnlContent, java.awt.BorderLayout.CENTER);
 
@@ -3113,7 +3499,7 @@ public class MainDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMyProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyProfileActionPerformed
-        // TODO add your handling code here:
+    switchToCard("cardEmployeeModule", btnMyProfile, empContent.getTabPane(), 0);
     }//GEN-LAST:event_btnMyProfileActionPerformed
 
     private void btnSysLogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSysLogsActionPerformed
@@ -3121,15 +3507,15 @@ public class MainDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSysLogsActionPerformed
 
     private void btnUserAccountsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserAccountsActionPerformed
-        // TODO add your handling code here:
+    switchToCard("cardITModule", btnUserAccounts, itContent.getTabPane(), 0);
     }//GEN-LAST:event_btnUserAccountsActionPerformed
 
-    private void pnlLeaveRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pnlLeaveRecActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pnlLeaveRecActionPerformed
+    private void btnLeaveRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeaveRecActionPerformed
+    switchToCard("cardHRModule", btnLeaveRec, hrContent.getTabPane(), 1);
+    }//GEN-LAST:event_btnLeaveRecActionPerformed
 
     private void btnStatutoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatutoryActionPerformed
-        // TODO add your handling code here:
+    switchToCard("cardFinanceModule", btnStatutory, financeContent.getTabPane(), 1);
     }//GEN-LAST:event_btnStatutoryActionPerformed
 
     private void btnSalaryDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalaryDetailsActionPerformed
@@ -3137,7 +3523,18 @@ public class MainDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalaryDetailsActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        // TODO add your handling code here:
+    int confirm = javax.swing.JOptionPane.showConfirmDialog(
+        this, 
+        "Confirm log out?", 
+        "Confirm Logout", 
+        javax.swing.JOptionPane.YES_NO_OPTION,
+        javax.swing.JOptionPane.QUESTION_MESSAGE
+    );
+    
+    if (confirm == javax.swing.JOptionPane.YES_OPTION) {        
+        AuthServ.logout();
+    new LoginFrame().setVisible(true);
+    this.dispose();}
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void txtAttendanceSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAttendanceSearchKeyTyped
@@ -3160,13 +3557,13 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
         // TODO add your handling code here:
     }//GEN-LAST:event_drpMyAttendanceMonthActionPerformed
 
-    private void drpMyPayrollMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpMyPayrollMonthActionPerformed
+    private void drpMyPayslipMonthActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpMyPayslipMonthActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_drpMyPayrollMonthActionPerformed
+    }//GEN-LAST:event_drpMyPayslipMonthActionPerformed
 
-    private void drpMyPayrollPeriodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpMyPayrollPeriodActionPerformed
+    private void drpMyPayslipPeriodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drpMyPayslipPeriodActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_drpMyPayrollPeriodActionPerformed
+    }//GEN-LAST:event_drpMyPayslipPeriodActionPerformed
 
     private void txtPayrollRecSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPayrollRecSearchKeyTyped
         // TODO add your handling code here:
@@ -3192,9 +3589,59 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLeaveRecSearchKeyTyped
 
-    private void txtReqLeaveEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReqLeaveEndActionPerformed
+    private void txtLeaveRequestEndActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLeaveRequestEndActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtReqLeaveEndActionPerformed
+    }//GEN-LAST:event_txtLeaveRequestEndActionPerformed
+
+    private void btnDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDashboardActionPerformed
+    switchToCard("cardDashboard", btnDashboard, null, 0);
+    }//GEN-LAST:event_btnDashboardActionPerformed
+
+    private void btnClockInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClockInActionPerformed
+    String currentTime = DateTimeUtils.getNowTime();
+    lblClockStatus.setText("STATUS: ON DUTY");
+    lblClockStatus.setForeground(new java.awt.Color(0, 153, 0));
+    lblTimelog.setText("CLOCKED IN AT: " + currentTime);
+    lblTimelog.setForeground(new java.awt.Color(0, 153, 0));
+    
+    btnClockIn.setEnabled(false);
+    btnClockOut.setEnabled(true);// TODO add your handling code here:
+    }//GEN-LAST:event_btnClockInActionPerformed
+
+    private void btnClockOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClockOutActionPerformed
+    String currentTime = DateTimeUtils.getNowTime();
+    lblClockStatus.setText("STATUS: CLOCKED OUT");
+    lblClockStatus.setForeground(java.awt.Color.RED);
+    lblTimelog.setText("CLOCKED OUT AT: " + currentTime);
+    lblTimelog.setForeground(java.awt.Color.RED);
+    
+    btnClockIn.setEnabled(true);
+    btnClockOut.setEnabled(false);
+    }//GEN-LAST:event_btnClockOutActionPerformed
+
+    private void btnEmpManageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpManageActionPerformed
+    switchToCard("cardHRModule", btnEmpManage, hrContent.getTabPane(), 0);
+    }//GEN-LAST:event_btnEmpManageActionPerformed
+
+    private void btnMyAttendanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyAttendanceActionPerformed
+    switchToCard("cardEmployeeModule", btnMyAttendance, empContent.getTabPane(), 1);
+    }//GEN-LAST:event_btnMyAttendanceActionPerformed
+
+    private void btnMyPayslipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMyPayslipActionPerformed
+    switchToCard("cardEmployeeModule", btnMyPayslip, empContent.getTabPane(), 2);
+    }//GEN-LAST:event_btnMyPayslipActionPerformed
+
+    private void btnLeaveRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeaveRequestActionPerformed
+    switchToCard("cardEmployeeModule", btnLeaveRequest, empContent.getTabPane(), 3);
+    }//GEN-LAST:event_btnLeaveRequestActionPerformed
+
+    private void btnAttendanceRecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAttendanceRecActionPerformed
+    switchToCard("cardHRModule", btnAttendanceRec, hrContent.getTabPane(), 2);
+    }//GEN-LAST:event_btnAttendanceRecActionPerformed
+
+    private void btnPayrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPayrollActionPerformed
+    switchToCard("cardFinanceModule", btnPayroll, financeContent.getTabPane(), 0);
+    }//GEN-LAST:event_btnPayrollActionPerformed
 
     /**
      * @param args the command line arguments
@@ -3232,6 +3679,9 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane ScrMyPayslip;
+    private javax.swing.JScrollPane ScrMyProfile;
+    private javax.swing.JProgressBar barPaydayCountdown;
     private javax.swing.JButton btnAttendanceRec;
     private javax.swing.JButton btnClockIn;
     private javax.swing.JButton btnClockOut;
@@ -3246,16 +3696,17 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
     private javax.swing.JButton btnEmpManageEdit;
     private javax.swing.JButton btnEmpManageSearch;
     private javax.swing.JButton btnEmpManageSearch1;
+    private javax.swing.JButton btnLeaveRec;
     private javax.swing.JButton btnLeaveRecApprove;
     private javax.swing.JButton btnLeaveRecReject;
+    private javax.swing.JButton btnLeaveRequest;
+    private javax.swing.JButton btnLeaveRequestClear;
+    private javax.swing.JButton btnLeaveRequestSend;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMyAttendance;
     private javax.swing.JButton btnMyPayslip;
     private javax.swing.JButton btnMyProfile;
     private javax.swing.JButton btnPayroll;
-    private javax.swing.JButton btnReqLeave;
-    private javax.swing.JButton btnReqLeaveClear;
-    private javax.swing.JButton btnReqLeaveSend;
     private javax.swing.JButton btnSalaryDetails;
     private javax.swing.JButton btnStatutory;
     private javax.swing.JButton btnSysLogs;
@@ -3269,37 +3720,41 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
     private javax.swing.JComboBox<String> drpLeaveRecMonth;
     private javax.swing.JComboBox<String> drpLeaveRecStatus;
     private javax.swing.JComboBox<String> drpLeaveRecYear;
+    private javax.swing.JComboBox<String> drpLeaveRequestType;
     private javax.swing.JComboBox<String> drpMyAttendanceMonth;
     private javax.swing.JComboBox<String> drpMyAttendanceYear;
-    private javax.swing.JComboBox<String> drpMyPayrollMonth;
-    private javax.swing.JComboBox<String> drpMyPayrollPeriod;
-    private javax.swing.JComboBox<String> drpMyPayrollYear;
+    private javax.swing.JComboBox<String> drpMyPayslipMonth;
+    private javax.swing.JComboBox<String> drpMyPayslipPeriod;
+    private javax.swing.JComboBox<String> drpMyPayslipYear;
     private javax.swing.JComboBox<String> drpPayrollRecMonth;
     private javax.swing.JComboBox<String> drpPayrollRecPeriod;
     private javax.swing.JComboBox<String> drpPayrollRecYear;
-    private javax.swing.JComboBox<String> drpReqLeaveType;
     private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane14;
     private javax.swing.JScrollPane jScrollPane15;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
@@ -3307,17 +3762,18 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
     private javax.swing.JSplitPane jSplitPane2;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAllowancePay;
-    private javax.swing.JLabel lblAnnouncements;
     private javax.swing.JLabel lblBasicPay;
     private javax.swing.JLabel lblBasicRate;
     private javax.swing.JLabel lblBirthday;
+    private javax.swing.JLabel lblCardAnnouncements;
     private javax.swing.JLabel lblCardAttendance;
     private javax.swing.JLabel lblCardNextPayday;
-    private javax.swing.JLabel lblCardPendingLeaves;
+    private javax.swing.JLabel lblCardNextPayday1;
     private javax.swing.JLabel lblClock;
     private javax.swing.JLabel lblClockStatus;
     private javax.swing.JLabel lblClothingAllowance;
     private javax.swing.JLabel lblContact;
+    private javax.swing.JLabel lblDate;
     private javax.swing.JLabel lblDepartment;
     private javax.swing.JLabel lblDeptTag;
     private javax.swing.JLabel lblEmpManageSearch;
@@ -3327,6 +3783,7 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
     private javax.swing.JLabel lblGrossPay;
     private javax.swing.JLabel lblGrossSemi;
     private javax.swing.JLabel lblHourlyRate;
+    private javax.swing.JLabel lblHoursUnit;
     private javax.swing.JLabel lblLateDeduc;
     private javax.swing.JLabel lblMotorPH;
     private javax.swing.JLabel lblMyAllowancePay;
@@ -3344,9 +3801,10 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
     private javax.swing.JLabel lblNameTag;
     private javax.swing.JLabel lblNetPay;
     private javax.swing.JLabel lblOvertimePay;
-    private javax.swing.JLabel lblPageTitle;
     private javax.swing.JLabel lblPagibig;
     private javax.swing.JLabel lblPagibigDeduc;
+    private javax.swing.JLabel lblPaydayCountdown;
+    private javax.swing.JLabel lblPaydayDate;
     private javax.swing.JLabel lblPayrollDate;
     private javax.swing.JLabel lblPayrollEID;
     private javax.swing.JLabel lblPayrollName;
@@ -3366,14 +3824,16 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
     private javax.swing.JLabel lblSupervisor;
     private javax.swing.JLabel lblTIN;
     private javax.swing.JLabel lblTaxDeduc;
+    private javax.swing.JLabel lblTimelog;
     private javax.swing.JLabel lblTotalDeductions;
+    private javax.swing.JLabel lblTotalHours;
+    private javax.swing.JLabel lblWorkDaysCount;
     private javax.swing.JPanel pnlAnnouncements;
-    private javax.swing.JPanel pnlAttendance;
-    private javax.swing.JPanel pnlAttendanceRec;
     private javax.swing.JPanel pnlAttendanceRecCtrl;
+    private javax.swing.JPanel pnlAttendanceRecords;
     private javax.swing.JPanel pnlCardAttendance;
     private javax.swing.JPanel pnlCardNextPayday;
-    private javax.swing.JPanel pnlCardPendingLeaves;
+    private javax.swing.JPanel pnlCardNextPayday1;
     private javax.swing.JPanel pnlClock;
     private javax.swing.JPanel pnlClockInOut;
     private javax.swing.JPanel pnlContact;
@@ -3381,38 +3841,50 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
     private javax.swing.JPanel pnlContact2;
     private javax.swing.JPanel pnlContent;
     private javax.swing.JPanel pnlDashboard;
+    private javax.swing.JPanel pnlDate;
     private javax.swing.JPanel pnlEmpManage;
     private javax.swing.JPanel pnlEmpManageButtons;
     private javax.swing.JPanel pnlEmpManageCtrl;
     private javax.swing.JPanel pnlEmpManageSearch;
-    private javax.swing.JPanel pnlEmployee;
+    private javax.swing.JPanel pnlEmployeeAccess;
+    private javax.swing.JPanel pnlEmployeeModule;
+    private javax.swing.JPanel pnlFinanceAccess;
+    private javax.swing.JPanel pnlFinanceModule;
+    private javax.swing.JPanel pnlHRAccess;
+    private javax.swing.JPanel pnlHRModule;
     private javax.swing.JPanel pnlHeader;
     private javax.swing.JPanel pnlHeaderEast;
     private javax.swing.JPanel pnlHeaderWest;
-    private javax.swing.JPanel pnlIT;
-    private javax.swing.JButton pnlLeaveRec;
+    private javax.swing.JPanel pnlITAccess;
+    private javax.swing.JPanel pnlITModule;
     private javax.swing.JPanel pnlLeaveRecCtrl;
     private javax.swing.JPanel pnlLeaveRecDecision;
     private javax.swing.JPanel pnlLeaveRecMsg;
     private javax.swing.JPanel pnlLeaveRecReason;
     private javax.swing.JLabel pnlLeaveRecVGlue8;
     private javax.swing.JPanel pnlLeaveRecords;
+    private javax.swing.JPanel pnlLeaveRequest;
+    private javax.swing.JPanel pnlLeaveRequestCtrl;
+    private javax.swing.JPanel pnlLeaveRequestDecision;
+    private javax.swing.JPanel pnlLeaveRequestMsg;
+    private javax.swing.JPanel pnlLeaveRequestReason;
+    private javax.swing.JLabel pnlLeaveRequestVGlue11;
     private javax.swing.JPanel pnlLogo;
     private javax.swing.JPanel pnlMain;
     private javax.swing.JPanel pnlMyAttendance;
     private javax.swing.JPanel pnlMyAttendanceCtrl;
-    private javax.swing.JPanel pnlMyPayroll;
-    private javax.swing.JPanel pnlMyPayrollCtrl;
     private javax.swing.JPanel pnlMyPayrollDeductions;
     private javax.swing.JPanel pnlMyPayrollEarnings;
-    private javax.swing.JPanel pnlMyPayrollRow1;
-    private javax.swing.JPanel pnlMyPayrollRow2;
-    private javax.swing.JPanel pnlMyPayrollRow3;
     private javax.swing.JPanel pnlMyPayrollSummary;
-    private javax.swing.JLabel pnlMyPayrollVGlue;
     private javax.swing.JLabel pnlMyPayrollVGlue1;
     private javax.swing.JLabel pnlMyPayrollVGlue2;
     private javax.swing.JLabel pnlMyPayrollVGlue3;
+    private javax.swing.JPanel pnlMyPayslip;
+    private javax.swing.JPanel pnlMyPayslipCtrl;
+    private javax.swing.JPanel pnlMyPayslipRow1;
+    private javax.swing.JPanel pnlMyPayslipRow2;
+    private javax.swing.JPanel pnlMyPayslipRow3;
+    private javax.swing.JLabel pnlMyPayslipVGlue;
     private javax.swing.JPanel pnlMyProfile;
     private javax.swing.JPanel pnlMyProfileAllowance;
     private javax.swing.JPanel pnlMyProfileEmployee;
@@ -3430,11 +3902,8 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
     private javax.swing.JPanel pnlNavFinance;
     private javax.swing.JPanel pnlNavHR;
     private javax.swing.JPanel pnlNavIT;
-    private javax.swing.JLabel pnlPLeaveRecVGlue11;
+    private javax.swing.JPanel pnlNextPayday;
     private javax.swing.JLabel pnlPLeaveRecVGlue9;
-    private javax.swing.JLabel pnlPReqLeaveVGlue10;
-    private javax.swing.JPanel pnlPayroll;
-    private javax.swing.JPanel pnlPayrollRec;
     private javax.swing.JPanel pnlPayrollRecCtrl;
     private javax.swing.JPanel pnlPayrollRecDeductions;
     private javax.swing.JPanel pnlPayrollRecEarnings;
@@ -3446,33 +3915,30 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
     private javax.swing.JLabel pnlPayrollRecVGlue5;
     private javax.swing.JLabel pnlPayrollRecVGlue6;
     private javax.swing.JLabel pnlPayrollRecVGlue7;
-    private javax.swing.JPanel pnlReqLeave;
-    private javax.swing.JPanel pnlReqLeaveCtrl;
-    private javax.swing.JPanel pnlReqLeaveDecision;
-    private javax.swing.JPanel pnlReqLeaveMsg;
-    private javax.swing.JPanel pnlReqLeaveReason;
+    private javax.swing.JPanel pnlPayrollRecords;
+    private javax.swing.JLabel pnlReqLeaveVGlue10;
+    private javax.swing.JPanel pnlRow1;
+    private javax.swing.JPanel pnlRow2;
     private javax.swing.JPanel pnlRow3;
     private javax.swing.JPanel pnlSidebar;
-    private javax.swing.JPanel pnlStats;
     private javax.swing.JPanel pnlStatutory;
     private javax.swing.JPanel pnlUserAccounts;
     private javax.swing.JPanel pnlUserManageButtons;
     private javax.swing.JPanel pnlUserManageCtrl;
     private javax.swing.JPanel pnlUserManageSearch;
-    private javax.swing.JPanel pnlWelcome;
-    private javax.swing.JLabel pnlWelcomeMsg;
-    private javax.swing.JTabbedPane tabAttendance;
-    private javax.swing.JTabbedPane tabEmployee;
-    private javax.swing.JTabbedPane tabPayroll;
-    private javax.swing.JTabbedPane tabUserAccounts;
+    private javax.swing.JTabbedPane tabEmployeeModule;
+    private javax.swing.JTabbedPane tabFinanceModule;
+    private javax.swing.JTabbedPane tabHRModule;
+    private javax.swing.JTabbedPane tabITModule;
     private javax.swing.JTable tblAttendanceRec;
     private javax.swing.JTable tblEmpManageList;
     private javax.swing.JTable tblLeaveRec;
+    private javax.swing.JTable tblLeaveRequest;
     private javax.swing.JTable tblMyAttendance;
-    private javax.swing.JTable tblReqLeave;
     private javax.swing.JTable tblUserAccounts;
     private javax.swing.JTextArea txtAddress;
     private javax.swing.JLabel txtAllowancePay;
+    private javax.swing.JTextArea txtAnnouncements;
     private javax.swing.JTextField txtAttendanceSearch;
     private javax.swing.JLabel txtBasicPay;
     private javax.swing.JLabel txtBasicRate;
@@ -3488,6 +3954,9 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
     private javax.swing.JTextArea txtLeaveRecDecision;
     private javax.swing.JTextArea txtLeaveRecReason;
     private javax.swing.JTextField txtLeaveRecSearch;
+    private javax.swing.JFormattedTextField txtLeaveRequestEnd;
+    private javax.swing.JTextField txtLeaveRequestReason;
+    private javax.swing.JFormattedTextField txtLeaveRequestStart;
     private javax.swing.JLabel txtMyAllowancePay;
     private javax.swing.JTextField txtMyAttendanceSearch;
     private javax.swing.JLabel txtMyBasicPay;
@@ -3517,10 +3986,7 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
     private javax.swing.JLabel txtPhoneNumber;
     private javax.swing.JLabel txtPosition;
     private javax.swing.JTextArea txtReqLeaveDecision;
-    private javax.swing.JFormattedTextField txtReqLeaveEnd;
-    private javax.swing.JTextField txtReqLeaveReason;
     private javax.swing.JTextArea txtReqLeaveReason1;
-    private javax.swing.JFormattedTextField txtReqLeaveStart;
     private javax.swing.JLabel txtRiceSubsidy;
     private javax.swing.JLabel txtSSS;
     private javax.swing.JLabel txtSSSDeduc;
@@ -3546,4 +4012,14 @@ if (!Character.isDigit(evt.getKeyChar())) evt.consume();
     private javax.swing.JLabel vGlue8;
     private javax.swing.JLabel vGlue9;
     // End of variables declaration//GEN-END:variables
+
+    // Module Declarations
+    private EmployeeModule empContent;
+    private HRModule hrContent;
+    private FinanceModule financeContent;
+    private ITModule itContent;
+    
+    // Buttons groupings for easy refresh
+    private javax.swing.JButton[] allNavButtons;
+
 }

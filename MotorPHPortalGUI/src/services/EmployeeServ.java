@@ -10,19 +10,19 @@ package services;
  */
 
 import dao.EmployeeDAO;
-import dao.UserAccountDAO;
+import dao.UserAccountsDAO;
 import models.Employee;
 import models.UserAccount;
 
 
 public class EmployeeServ {
     private EmployeeDAO employeeDao = new EmployeeDAO();
-    private UserAccountDAO accountDao = new UserAccountDAO();
+    private UserAccountsDAO accountDao = new UserAccountsDAO();
 
 // Set department by Employee Id
 public Employee getEmployeeProfile(String id) {
     Employee emp = employeeDao.getEmployeeById(id);
-    UserAccount acc = accountDao.getAccountById(id);
+    UserAccount acc = accountDao.getUserAccountById(id);
     if (emp != null && acc != null) {
             emp.setDepartment(acc.getDepartment());
         }

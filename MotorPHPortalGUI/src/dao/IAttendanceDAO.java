@@ -10,10 +10,12 @@ package dao;
  */
 
 import java.util.List;
-import models.Attendance;
+import models.AttendanceRecord;
 
 public interface IAttendanceDAO {
-    // Contract: We need to see history and add new logs
-    List<Attendance> getRecordsByEmployee(String employeeId);
-    void saveRecord(Attendance record); 
+    List<AttendanceRecord> getRecordsByEmployee(String id);
+    List<AttendanceRecord> getAllRecords();
+    void saveRecord(AttendanceRecord record);
+    void saveRecord(String id, String date, String timeIn, String timeOut); //Overload
+    void updateTimeOut(String empId, String date, String timeOut);
 }

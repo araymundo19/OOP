@@ -12,7 +12,8 @@ package dao;
 import java.util.List;
 import models.UserAccount;
 
-public class IUserAccountsDAO {
-    List<UserAccount> getAllAccounts();
+public interface IUserAccountsDAO {
     UserAccount authenticate(String id, String password);
+    UserAccount getUserAccountById(String id);
+    List<UserAccount> getAllAccounts();
 }

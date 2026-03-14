@@ -6,60 +6,74 @@ package dao;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import models.UserAccount;
-import models.Departments;
+import models.*;
 
 /**
  *
  * @author Winter Melon
  */
 
-public class UserAccountDAO implements IUserAccountDAO {
+public class UserAccountsDAO implements IUserAccountsDAO {
     private final String FILE_PATH = "src/resources/MotorPH-Employee-Data-Accounts.csv";
 
+// ADMIN METHOD - GET ALL ACCOUNTS
     @Override
     public List<UserAccount> getAllAccounts() {
         List<UserAccount> accounts = new ArrayList<>();
-        
         try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line = br.readLine(); // Skip header
-            
+            br.readLine(); // Skip header
+            String line;
             while ((line = br.readLine()) != null) {
-                String[] data = line.split(",");
-                if (data.length >= 4) {
-                    String id = data[0].trim();
-                    String pass = data[1].trim();
-                    String role = data[2].trim(); //Not used but stored
-                    Departments department = Departments.valueOf(data[3].trim());
-                    
-                    accounts.add(new UserAccount(id, pass, role, department));
-                }
+                UserAccount acc = parseUserAccount(line);
+                if (acc != null) accounts.add(acc);
             }
         } catch (Exception e) {
-            System.err.println("Error reading accounts: " + e.getMessage());
+            System.err.println("Error reading all accounts: " + e.getMessage());
         }
         return accounts;
     }
 
-    // Get Account by Employee ID
-    public UserAccount getAccountById(String id) {
-        for (UserAccount acc : getAllAccounts()) {
-            if (acc.getEmployeeId().equals(id)) {
-                return acc;
+    // FOR LOGIN AND PROFILE
+    public UserAccount getUserAccountById(String id) {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
+            br.readLine(); // Skip header
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                if (data[0].trim().equals(id)) {
+                    return parseUserAccount(line);
+                }
             }
+        } catch (Exception e) {
+            System.err.println("Error finding specific account: " + e.getMessage());
         }
         return null;
     }
 
+    // ATHENTICATE
     @Override
     public UserAccount authenticate(String id, String password) {
-        for (UserAccount acc : getAllAccounts()) {
-            if (acc.getEmployeeId().equals(id) && acc.getPassword().equals(password)) {
-                return acc;
-            }
+        UserAccount acc = getUserAccountById(id);
+        if (acc != null && acc.getPassword().equals(password)) {
+            return acc;
         }
         return null;
+    }
+
+    private UserAccount parseUserAccount(String csvLine) {
+        try {
+            String[] data = csvLine.split(",");
+            return new EmployeeSalary(
+                data[0].trim(), 
+                data[1].trim(), 
+                data[2].trim(), 
+                Departments.valueOf(data[3].trim().toUpperCase())
+            );
+        } catch (Exception e) {
+            return null; // Skip malformed rows
+        }
     }
 }
